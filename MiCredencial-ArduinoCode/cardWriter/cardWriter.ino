@@ -1,310 +1,166 @@
-/*
- * ╔═══════════════════════════════════════════════════════════╗
- * ║                    ESP32 RFID WRITER                      ║
- * ║         Lectura y Escritura de Tarjetas RFID             ║
- * ║                  con Módulo RC522                         ║
- * ╚═══════════════════════════════════════════════════════════╝
- * 
- * Descripción:
- * Sistema completo para leer UIDs y escribir/leer datos
- * en tarjetas RFID MIFARE Classic usando ESP32.
- * 
- * Hardware:
- * - ESP32 Dev Module
- * - Módulo RFID RC522 (MFRC522)
- * - Tarjetas RFID MIFARE Classic 1K
- * 
- * Pines SPI:
- * - SCK:  GPIO 18
- * - MOSI: GPIO 14
- * - MISO: GPIO 19
- * - CS:   GPIO 5
- * - RST:  GPIO 25
- * 
- * Funcionalidades:
- * [1] Leer UID de tarjeta
- * [2] Escribir datos en bloque 4
- * [3] Leer datos del bloque 4
- * 
- * Versión: 1.0
- * Última actualización: 15/02/2026
- */
-
 #include <SPI.h>
 #include <MFRC522.h>
 
-// ===== CONFIGURACIÓN DE PINES ESP32 =====
-#define SS_PIN    5      // GPIO 5  - Chip Select (SDA)
-#define RST_PIN   25     // GPIO 25 - Reset
-#define SCK_PIN   18     // GPIO 18 - Clock (SCK)
-#define MOSI_PIN  14     // GPIO 14 - Entrada de datos (MOSI)
-#define MISO_PIN  19     // GPIO 19 - Salida de datos (MISO)
+#define SS_PIN 5  // SDA ✅
+#define RST_PIN 25  // ← VUELVE A 25 (funcionaba)
 
-// ===== INSTANCIA DEL LECTOR RFID =====
-MFRC522 rfid(SS_PIN, RST_PIN);
-MFRC522::MIFARE_Key key;
+MFRC522 mfrc522(SS_PIN, RST_PIN);
+String inputData = "";
 
 void setup() {
   Serial.begin(115200);
-  delay(2000);
+  while (!Serial);
+  Serial.println("Inicializando RC522...");
   
-  Serial.println("\n\n╔═══════════════════════════════════════╗");
-  Serial.println("║        ESP32 RFID WRITER v1.0         ║");
-  Serial.println("║  Lectura y Escritura de Datos RFID    ║");
-  Serial.println("╚═══════════════════════════════════════╝\n");
+  // ← VUELVE A MOSI=14
+  SPI.begin(18, 19, 14, SS_PIN);  // SCK=18, MISO=19, MOSI=14, SS=5 ✅
   
-  // Inicializar SPI
-  SPI.begin(SCK_PIN, MISO_PIN, MOSI_PIN, SS_PIN);
-  
-  // Inicializar MFRC522
-  rfid.PCD_Init();
-  
-  // Configurar la clave (por defecto todas las tarjetas nuevas tienen FFFFFF)
-  for (byte i = 0; i < 6; i++) {
-    key.keyByte[i] = 0xFF;
-  }
-  
-  Serial.println("📌 Opciones disponibles:");
-  Serial.println("  [1] Leer UID de la tarjeta");
-  Serial.println("  [2] Escribir datos en la tarjeta");
-  Serial.println("  [3] Leer datos de la tarjeta\n");
-  Serial.println("Selecciona una opción y presiona Enter...\n");
+  mfrc522.PCD_Init();
+  Serial.println("RFID RC522 listo");
 }
+
 
 void loop() {
-  // Verificar si hay entrada del usuario
-  if (Serial.available()) {
-    char opcion = Serial.read();
-    
-    // Limpiar el buffer de entrada
-    while (Serial.available()) {
-      Serial.read();
-    }
-    
-    delay(500);
-    
-    switch (opcion) {
-      case '1':
-        leerUID();
-        break;
-      case '2':
-        escribirDatos();
-        break;
-      case '3':
-        leerDatos();
-        break;
-      default:
-        Serial.println("❌ Opción no válida. Intenta de nuevo.\n");
-    }
-  }
+// Muestra el menú principal
+Serial.println("\nMENU:");
+Serial.println("1. Escribir en tarjeta");
+Serial.println("2. Leer tarjeta");
+Serial.print("Seleccione opcion: ");
+
+// Espera hasta que el usuario ingrese una opción
+while (Serial.available() == 0) {
+// Esperando la entrada del usuario
 }
 
-// ===== FUNCIÓN 1: LEER UID =====
-void leerUID() {
-  Serial.println("\n[1️⃣ ] Acerca una tarjeta RFID...\n");
-  
-  // Esperar a que haya una tarjeta
-  while (!rfid.PICC_IsNewCardPresent()) {
-    delay(100);
-  }
-  
-  // Leer UID
-  if (!rfid.PICC_ReadCardSerial()) {
-    Serial.println("❌ Error al leer la tarjeta");
-    return;
-  }
-  
-  Serial.println("╔════════════════════════════════════════╗");
-  Serial.println("║         TARJETA DETECTADA             ║");
-  Serial.println("╚════════════════════════════════════════╝\n");
-  
-  Serial.print("🆔 UID: ");
-  for (byte i = 0; i < rfid.uid.size; i++) {
-    if (rfid.uid.uidByte[i] < 0x10) {
-      Serial.print("0");
-    }
-    Serial.print(rfid.uid.uidByte[i], HEX);
-    
-    if (i < rfid.uid.size - 1) {
-      Serial.print(" ");
-    }
-  }
-  Serial.println("\n");
-  
-  // Detener comunicación
-  rfid.PICC_HaltA();
-  rfid.PCD_StopCrypto1();
-  
-  Serial.println("✅ Lectura completada\n");
-  mostrarMenu();
+char opcion = Serial.read();
+// Limpia el buffer serial (si hay caracteres residuales)
+while (Serial.available()) { Serial.read(); }
+
+if (opcion == '1') {
+escribirDatos();
+}
+else if (opcion == '2') {
+leerDatos();
+}
+else {
+Serial.println("Opcion invalida, intente de nuevo.");
+delay(2000);
+}
 }
 
-// ===== FUNCIÓN 2: ESCRIBIR DATOS =====
+// Función para escribir datos en la tarjeta
 void escribirDatos() {
-  Serial.println("\n[2️⃣ ] Acerca una tarjeta RFID para escribir datos...\n");
-  
-  // Esperar a que haya una tarjeta
-  while (!rfid.PICC_IsNewCardPresent()) {
-    delay(100);
-  }
-  
-  if (!rfid.PICC_ReadCardSerial()) {
-    Serial.println("❌ Error al leer la tarjeta");
-    return;
-  }
-  
-  // Pedir datos al usuario
-  Serial.println("Escribe los datos a guardar (máximo 15 caracteres):");
-  String datosAEscribir = "";
-  
-  while (datosAEscribir.length() == 0) {
-    if (Serial.available()) {
-      char c = Serial.read();
-      if (c == '\n') {
-        break;
-      }
-      datosAEscribir += c;
-      Serial.write(c);
-    }
-  }
-  
-  Serial.println("\n");
-  
-  // Validar longitud
-  if (datosAEscribir.length() > 15) {
-    Serial.println("❌ Datos muy largos (máximo 15 caracteres)");
-    rfid.PICC_HaltA();
-    rfid.PCD_StopCrypto1();
-    mostrarMenu();
-    return;
-  }
-  
-  // Preparar buffer (16 bytes)
-  byte buffer[16];
-  
-  // Copiar datos al buffer
-  for (int i = 0; i < 16; i++) {
-    if (i < datosAEscribir.length()) {
-      buffer[i] = (byte)datosAEscribir[i];
-    } else {
-      buffer[i] = 0x20;  // Llenar con espacios (0x20)
-    }
-  }
-  
-  // Bloque a escribir (bloque 4)
-  byte bloque = 4;
-  
-  // Autenticar
-  MFRC522::StatusCode status = rfid.PCD_Authenticate(
-    MFRC522::PICC_CMD_MF_AUTH_KEY_A, 
-    bloque, 
-    &key, 
-    &(rfid.uid)
-  );
-  
-  if (status != MFRC522::STATUS_OK) {
-    Serial.print("❌ Autenticación fallida: ");
-    Serial.println(status);
-    rfid.PICC_HaltA();
-    rfid.PCD_StopCrypto1();
-    mostrarMenu();
-    return;
-  }
-  
-  // Escribir bloque
-  status = rfid.MIFARE_Write(bloque, buffer, 16);
-  
-  if (status != MFRC522::STATUS_OK) {
-    Serial.print("❌ Escritura fallida: ");
-    Serial.println(status);
-  } else {
-    Serial.println("╔════════════════════════════════════════╗");
-    Serial.println("║     ✅ DATOS ESCRITOS EXITOSAMENTE     ║");
-    Serial.println("╚════════════════════════════════════════╝\n");
-    Serial.print("📝 Datos guardados: ");
-    Serial.println(datosAEscribir);
-    Serial.println();
-  }
-  
-  // Detener comunicación
-  rfid.PICC_HaltA();
-  rfid.PCD_StopCrypto1();
-  
-  mostrarMenu();
+Serial.println("\nIngrese informacion (max 15 caracteres, finalice con '#' ):");
+inputData = "";
+bool finalizado = false;
+
+// Lee caracteres del Monitor Serial hasta encontrar '#' o alcanzar 15 caracteres
+while (!finalizado) {
+if (Serial.available()) {
+char c = Serial.read();
+if (c == '#') {
+finalizado = true;
+} else {
+if (inputData.length() < 15) {//""-Jorge#-J
+inputData += c;//J-o
+}
+}
+}
 }
 
-// ===== FUNCIÓN 3: LEER DATOS =====
+Serial.print("Datos a escribir: ");
+Serial.println(inputData);
+Serial.println("Acerca la tarjeta al lector para escribir...");
+
+// Espera a que se acerque una tarjeta
+while (!mfrc522.PICC_IsNewCardPresent() || !mfrc522.PICC_ReadCardSerial()) {
+// Espera a la deteccion de la tarjeta
+}
+
+byte block = 1; // Se usará el bloque 1 (primer sector, bloque 0 queda intacto)
+byte buffer[16];
+memset(buffer, 0, 16);
+
+// Copia la cadena a escribir en el buffer (rellena hasta 16 bytes)
+for (int i = 0; i < inputData.length(); i++) {
+buffer[i] = inputData.charAt(i);//J-o-r-g-e
+}
+
+// Se define la clave por defecto: 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF
+MFRC522::MIFARE_Key key;
+for (byte i = 0; i < 6; i++) {
+key.keyByte[i] = 0xFF;
+}
+
+// Autentica para el bloque seleccionado usando la clave por defecto
+MFRC522::StatusCode status;
+status = mfrc522.PCD_Authenticate(MFRC522::PICC_CMD_MF_AUTH_KEY_A, block, &key, &(mfrc522.uid));
+if (status != MFRC522::STATUS_OK) {
+Serial.print("Error en autenticacion: ");
+Serial.println(mfrc522.GetStatusCodeName(status));
+mfrc522.PICC_HaltA();
+return;
+}
+
+// Escribe los datos en el bloque 1
+status = mfrc522.MIFARE_Write(block, buffer, 16);
+if (status != MFRC522::STATUS_OK) {
+Serial.print("Error escribiendo: ");
+Serial.println(mfrc522.GetStatusCodeName(status));
+} else {
+Serial.println("Datos escritos con exito!");
+}
+
+mfrc522.PICC_HaltA();
+mfrc522.PCD_StopCrypto1();
+
+// Espera 5 segundos antes de volver al menú
+delay(5000);
+}
+
+// Función para leer datos de la tarjeta
 void leerDatos() {
-  Serial.println("\n[3️⃣ ] Acerca una tarjeta RFID para leer datos...\n");
-  
-  // Esperar a que haya una tarjeta
-  while (!rfid.PICC_IsNewCardPresent()) {
-    delay(100);
-  }
-  
-  if (!rfid.PICC_ReadCardSerial()) {
-    Serial.println("❌ Error al leer la tarjeta");
-    return;
-  }
-  
-  // Bloque a leer (bloque 4)
-  byte bloque = 4;
-  byte buffer[18];
-  byte bufferSize = sizeof(buffer);
-  
-  // Autenticar
-  MFRC522::StatusCode status = rfid.PCD_Authenticate(
-    MFRC522::PICC_CMD_MF_AUTH_KEY_A, 
-    bloque, 
-    &key, 
-    &(rfid.uid)
-  );
-  
-  if (status != MFRC522::STATUS_OK) {
-    Serial.print("❌ Autenticación fallida: ");
-    Serial.println(status);
-    rfid.PICC_HaltA();
-    rfid.PCD_StopCrypto1();
-    mostrarMenu();
-    return;
-  }
-  
-  // Leer bloque
-  status = rfid.MIFARE_Read(bloque, buffer, &bufferSize);
-  
-  if (status != MFRC522::STATUS_OK) {
-    Serial.print("❌ Lectura fallida: ");
-    Serial.println(status);
-  } else {
-    Serial.println("╔════════════════════════════════════════╗");
-    Serial.println("║      ✅ DATOS LEÍDOS EXITOSAMENTE      ║");
-    Serial.println("╚════════════════════════════════════════╝\n");
-    Serial.print("📖 Datos almacenados: ");
-    
-    // Convertir buffer a string
-    String datosLeidos = "";
-    for (int i = 0; i < 16; i++) {
-      if (buffer[i] != 0x20 && buffer[i] != 0x00) {
-        datosLeidos += (char)buffer[i];
-      }
-    }
-    
-    Serial.println(datosLeidos);
-    Serial.println();
-  }
-  
-  // Detener comunicación
-  rfid.PICC_HaltA();
-  rfid.PCD_StopCrypto1();
-  
-  mostrarMenu();
+Serial.println("\nAcerca la tarjeta al lector para leer...");
+
+// Espera a que se acerque una tarjeta
+while (!mfrc522.PICC_IsNewCardPresent() || !mfrc522.PICC_ReadCardSerial()) {
+// Espera a la deteccion de la tarjeta
 }
 
-// ===== FUNCIÓN AUXILIAR: MOSTRAR MENÚ =====
-void mostrarMenu() {
-  Serial.println("📌 Opciones disponibles:");
-  Serial.println("  [1] Leer UID de la tarjeta");
-  Serial.println("  [2] Escribir datos en la tarjeta");
-  Serial.println("  [3] Leer datos de la tarjeta\n");
-  Serial.println("Selecciona una opción y presiona Enter...\n");
+byte block = 1; // Se leerá el bloque 1
+byte buffer[18]; // Buffer para leer (16 bytes de datos + 2 bytes de control)
+byte size = sizeof(buffer);
+
+// Se define la clave por defecto: 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF
+MFRC522::MIFARE_Key key;
+for (byte i = 0; i < 6; i++) {
+key.keyByte[i] = 0xFF;
+}
+
+MFRC522::StatusCode status;
+status = mfrc522.PCD_Authenticate(MFRC522::PICC_CMD_MF_AUTH_KEY_A, block, &key, &(mfrc522.uid));
+if (status != MFRC522::STATUS_OK) {
+Serial.print("Error en autenticacion: ");
+Serial.println(mfrc522.GetStatusCodeName(status));
+mfrc522.PICC_HaltA();
+return;
+}
+
+status = mfrc522.MIFARE_Read(block, buffer, &size);
+if (status != MFRC522::STATUS_OK) {
+Serial.print("Error leyendo: ");
+Serial.println(mfrc522.GetStatusCodeName(status));
+} else {
+Serial.print("Datos leidos: ");
+for (byte i = 0; i < 16; i++) {
+Serial.print((char)buffer[i]);
+}
+Serial.println();
+}
+
+mfrc522.PICC_HaltA();
+mfrc522.PCD_StopCrypto1();
+
+// Espera 10 segundos antes de volver al menú
+delay(10000);
 }

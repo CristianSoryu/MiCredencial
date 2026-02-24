@@ -1,12 +1,91 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>mi proyecto</title>
-</head>
+    <title>Carnet Unilibrista</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(to right, #800000, #b22222);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
 
+        .carnet {
+            background: white;
+            width: 350px;
+            height: 220px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            padding: 20px;
+            position: relative;
+        }
+
+        .header {
+            text-align: center;
+        }
+
+        .header img {
+            width: 60px;
+        }
+
+        .header h2 {
+            margin: 5px 0;
+            color: #800000;
+        }
+
+        .info {
+            margin-top: 15px;
+        }
+
+        .info p {
+            margin: 4px 0;
+            font-size: 14px;
+        }
+
+        .foto {
+            position: absolute;
+            right: 20px;
+            bottom: 20px;
+            width: 70px;
+            height: 90px;
+            background: #ddd;
+            border-radius: 5px;
+        }
+
+        .codigo {
+            position: absolute;
+            bottom: 10px;
+            left: 20px;
+            font-size: 12px;
+            color: gray;
+        }
+    </style>
+</head>
 <body>
-    
+
+<div class="carnet">
+    <div class="header">
+        <img src="IMG/Escudo_de_la_Universidad_Libre_de_Colombia.svg.png" alt="Logo Unilibre">
+        <h2>Universidad Libre</h2>
+        <small>Carnet Digital</small>
+    </div>
+
+    <div class="info">
+        <p><strong>Nombre:</strong> Alejandro Peña</p>
+        <p><strong>Programa:</strong> Ingeniería en Tic</p>
+        <p><strong>Código:</strong> 2025123456</p>
+    </div>
+
+    <div class="foto"></div>
+
+    <div class="codigo">
+        Válido 2026
+    </div>
+</div>
+
 </body>
 </html>

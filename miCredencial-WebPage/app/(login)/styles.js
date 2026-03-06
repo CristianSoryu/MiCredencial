@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { linear } from "react-native-reanimated";
 
 export const styles = StyleSheet.create({
   background: {
@@ -8,12 +9,12 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  imageBackground: {
+  imageCircle: {
     borderRadius: 100,
-    width: 200,
-    height: 200,
-    marginTop: "40%",
-    marginBottom: 20,
+    width: 150,
+    height: 150,
+    marginTop: "30%",
+    padding: 20,
     elevation: 5, // Added for Android shadow support
     blurRadius: 10, // Added for iOS shadow support
   },
@@ -44,6 +45,7 @@ export const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: "bold",
     fontFamily: "Inter",
+    padding: 30,
   },
   parragraph: {
     color: "black",
@@ -52,11 +54,13 @@ export const styles = StyleSheet.create({
     padding: 10,
   },
   button: {
-    backgroundColor: "red",
+    backgroundColor: "#C00000",
     borderRadius: 40,
     width: "80%",
-    height: "9%",
+    height: 40,
     margin: 20,
+    justifyContent: "center",
+    elevation: 5, // Added for Android shadow support
   },
   input: {
     backgroundColor: "#cccccc50", // Fix invalid color code
@@ -72,6 +76,12 @@ export const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: "center",
     fontWeight: "bold",
+  },
+  line: {
+    width: "80%",
+    height: 1,
+    backgroundColor: "#C00000",
+    marginVertical: 20,
   },
 });
 

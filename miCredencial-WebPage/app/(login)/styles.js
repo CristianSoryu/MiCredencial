@@ -1,5 +1,4 @@
 import { StyleSheet } from "react-native";
-import { linear } from "react-native-reanimated";
 
 export const styles = StyleSheet.create({
   background: {
@@ -13,45 +12,39 @@ export const styles = StyleSheet.create({
     borderRadius: 100,
     width: 150,
     height: 150,
-    marginTop: "30%",
     padding: 20,
-    elevation: 5, // Added for Android shadow support
-    blurRadius: 10, // Added for iOS shadow support
+    elevation: 5,
   },
   container: {
     borderRadius: 20,
     width: "90%",
     height: "70%",
-    backgroundColor: "white",
+    backgroundColor: "#e60909c9",
     alignItems: "center",
     justifyContent: "center",
-    borderColor: "white",
-    borderWidth: 2,
     verticalAlign: "center",
-    elevation: 7, // Added for Android shadow support
-    blurRadius: 10,
-    
+    elevation: 7,
   },
   tittle: {
-    color: "black",
-    fontSize: 50,
+    color: "white",
+    fontSize: 40,
     alignItems: "center",
     padding: 10,
-    fontWeight: "bold",
-    fontFamily: "Inter",
+    fontFamily: "PoppinsSemiBold",
   },
   subTittle: {
     color: "black",
     fontSize: 30,
     fontWeight: "bold",
-    fontFamily: "Inter",
+    fontFamily: "PoppinsSemiBold",
     padding: 30,
   },
   parragraph: {
-    color: "black",
+    color: "white",
     fontSize: 15,
     textAlign: "center",
     padding: 10,
+    fontFamily: "PoppinsSemiBold",
   },
   button: {
     backgroundColor: "#C00000",

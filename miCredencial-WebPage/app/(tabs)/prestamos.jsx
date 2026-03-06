@@ -5,7 +5,7 @@ export default function Index() {
   return (
     <View style={styles.container}
     >
-      <Text style={styles.text}>index screen.</Text>
+      <Text style={styles.text}>prestamos screen.</Text>
       <Link href="/about">Go to About</Link>
     </View>
   );

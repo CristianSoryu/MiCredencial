@@ -1,0 +1,71 @@
+/* Shared styles for registration and request forms */
+
+body{
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #c4001a 0%, #a00015 100%);
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* escudo de la u arriba de los textos */
+.escudo {
+    width: 80px;
+    height: auto;
+    display:block;
+    margin:20px auto;
+}
+
+.form-container, .contenedor{
+    width: 350px;
+    margin: auto;
+    margin-top: 80px;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+h2{
+    color:#c4001a;
+}
+
+input, select{
+    width:100%;
+    padding:10px;
+    margin:10px 0;
+    border-radius:8px;
+    border:1px solid #ccc;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    background:#c4001a;
+    color:white;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#a00015;
+}
+
+a{
+    display:block;
+    margin-top:15px;
+    color:#c4001a;
+    text-decoration:none;
+}
+
+/* responsive fix for very small screens */
+@media (max-width: 400px) {
+    .form-container, .contenedor {
+        width: 90%;
+        padding: 20px;
+    }
+}

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Solicitud de Carnet</title>
+
+<style>
+
+body{
+font-family: Arial;
+background: linear-gradient(135deg, #c4001a 0%, #a00015 100%);
+min-height: 100vh;
+margin: 0;
+}
+
+.escudo {
+width: 80px;
+height: 80px;
+margin-bottom: 15px;
+}
+
+.contenedor{
+width:350px;
+margin:auto;
+margin-top:80px;
+background:white;
+padding:30px;
+border-radius:10px;
+box-shadow:0px 4px 10px rgba(0,0,0,0.2);
+text-align:center;
+}
+
+h2{
+color:#c4001a;
+}
+
+input, select{
+width:100%;
+padding:10px;
+margin:10px 0;
+border-radius:8px;
+border:1px solid #ccc;
+}
+
+button{
+width:100%;
+padding:12px;
+background:#c4001a;
+color:white;
+border:none;
+border-radius:8px;
+cursor:pointer;
+}
+
+button:hover{
+background:#a00015;
+}
+
+a{
+display:block;
+margin-top:15px;
+color:#c4001a;
+text-decoration:none;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="contenedor">
+
+<img src="IMG/escudo.png" class="escudo">
+
+<h2>Solicitud de Carnet</h2>
+
+<form>
+
+<input type="text" placeholder="Nombre completo" required>
+
+<input type="text" placeholder="Número de identificación" required>
+
+<input type="email" placeholder="Correo electrónico" required>
+
+<select required>
+
+<option value="">¿Cuál es el propósito de tu visita?</option>
+<option>Consultar información académica</option>
+<option>Asesoramiento sobre programas</option>
+<option>Visita a instalaciones</option>
+<option>Solicitud de admisión</option>
+<option>Pagos y trámites administrativos</option>
+<option>Orientación vocacional</option>
+<option>Visita guiada</option>
+<option>Consulta sobre becas y financiamiento</option>
+<option>Otros</option>
+
+</select>
+
+<button type="submit">Enviar Solicitud</button>
+
+</form>
+
+<a href="visitantes.html">Volver</a>
+
+</div>
+
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <h4>Contacto</h4>
+            <p>PBX: (607) 582 9810</p>
+            <p>Línea Gratuita Nacional: 01 8000 180560</p>
+            <p>Email: info@unilibre.edu.co</p>
+            <p>Dirección: Avenida 4ta n.º 12n-81 - Urbanización El Bosque</p>
+        </div>
+        <div class="footer-section">
+            <h4>Enlaces Rápidos</h4>
+            <a href="index.html">Inicio</a>
+            <a href="https://www.unilibre.edu.co/biblioteca" target="_blank">Biblioteca Portal</a>
+            <a href="https://www.unilibre.edu.co/cucuta/" target="_blank">Seccional Cúcuta</a>
+            <a href="https://www.kawak.com.co/unilibre/pqrs/pqrs_index.php" target="_blank">PQRS - Soporte Técnico</a>
+        </div>
+        <div class="footer-section">
+            <h4>Información</h4>
+            <p>&copy; 2026 Universidad Libre - Sistema de Carnet Digital</p>
+            <p><strong>Desarrollado por:</strong></p>
+            <p>Juan Ruiz | Cristian Torres | Alejandro Urbina</p>
+        </div>
+    </div>
+</footer>
+
+<link rel="stylesheet" href="css/footer.css">
+
+</body>
+</html>

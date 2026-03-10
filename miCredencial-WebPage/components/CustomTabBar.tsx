@@ -7,7 +7,8 @@ import Animated, {
   useSharedValue,
   withSpring,
 } from "react-native-reanimated";
-import CustomTabBarButton from "./tabBarButton";
+import CustomTabBarButton from "./CustomTabBarButton";
+
 export function CustomTabBar({
   state,
   descriptors,

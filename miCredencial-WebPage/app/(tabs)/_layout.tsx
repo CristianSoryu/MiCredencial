@@ -1,11 +1,10 @@
-import { Tabs } from "expo-router";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { CustomTabBar } from "../../components/tabBar";
+import { Tabs } from "expo-router";
+import { CustomTabBar } from "../../components/CustomTabBar";
 export default function TabLayout() {
   return (
     <Tabs
-
-    tabBar={(props) => <CustomTabBar {...props} />}
+      tabBar={(props) => <CustomTabBar {...props} />}
       screenOptions={{
         tabBarActiveTintColor: "#ffd33d",
         tabBarInactiveTintColor: "white",
@@ -32,7 +31,6 @@ export default function TabLayout() {
             />
           ),
         }}
-        
       />
       <Tabs.Screen
         name="prestamos"

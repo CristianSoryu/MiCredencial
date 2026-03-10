@@ -96,6 +96,15 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  animationEscene: {
+    backgroundColor: "white",
+    position: "absolute",
+    justifyContent: "center",
+    alignItems: "center",
+    height: 10000,
+    width: 10000,
+    borderRadius: 99999,
+  },
 });
 
 export default styles;

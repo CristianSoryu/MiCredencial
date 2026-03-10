@@ -1,4 +1,4 @@
-import FallingButton from "@/components/fallingButton";
+import FallingButton from "@/components/CustomFallingButton";
 import { View } from "react-native";
 import { styles } from "../styles";
 export default function Index() {

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Carnet Electrónico</title>
+<link rel="stylesheet" href="css/carnet.css">
+</head>
+
+<body>
+
+<h2>Carnet Universitario</h2>
+
+<div class="carnet">
+
+<img src="IMG/foto.jpeg" width="100">
+
+<p><b>Nombre:</b> <span id="carnet-nombre">Juan Ruiz</span></p>
+<p><b>ID:</b> <span id="carnet-id">123456</span></p>
+<p><b>Programa:</b> <span id="carnet-programa">Ingeniería en TIC</span></p>
+<p><b>Vence:</b> <span id="carnet-vencimiento">2026</span></p>
+
+<div id="qrcode"></div>
+
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/carnet.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+    // Load user data on page load
+    window.addEventListener('DOMContentLoaded', () => {
+        const userData = localStorage.getItem('carnet');
+        if (userData) {
+            const user = JSON.parse(userData);
+            mostrarCarnet(user);
+        }
+    });
+</script>
+
+<!-- inicio del footer -->
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <h4>Contacto</h4>
+            <p>PBX: (607) 582 9810</p>
+            <p>Línea Gratuita Nacional: 01 8000 180560</p>
+            <p>Email: info@unilibre.edu.co</p>
+            <p>Dirección: Avenida 4ta n.º 12n-81 - Urbanización El Bosque</p>
+        </div>
+        <div class="footer-section">
+            <h4>Enlaces Rápidos</h4>
+            <a href="index.html">Inicio</a>
+            <a href="https://www.unilibre.edu.co/biblioteca" target="_blank">Biblioteca Portal</a>
+            <a href="https://www.unilibre.edu.co/cucuta/" target="_blank">Seccional Cúcuta</a>
+            <a href="https://www.kawak.com.co/unilibre/pqrs/pqrs_index.php" target="_blank">PQRS - Soporte Técnico</a>
+        </div>
+        <div class="footer-section">
+            <h4>Información</h4>
+            <p>&copy; 2026 Universidad Libre - Sistema de Carnet Digital</p>
+            <p><strong>Desarrollado por:</strong></p>
+            <p>Juan Ruiz | Cristian Torres | Alejandro Urbina</p>
+        </div>
+    </div>
+</footer>
+
+<link rel="stylesheet" href="css/footer.css">
+
+</body>
+</html>

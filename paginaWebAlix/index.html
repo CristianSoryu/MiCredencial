@@ -1,33 +1,106 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Carnet Unilibrista</title>
-    <link rel="stylesheet" href="styles.css">
+<title>Login - Carnet Digital</title>
+<link rel="stylesheet" href="css/styles.css">
 </head>
+
 <body>
 
-<div class="carnet">
-    <div class="header">
-        <img src="IMG/Escudo_de_la_Universidad_Libre_de_Colombia.svg.png" alt="Logo Unilibre">
-        <h2>Universidad Libre</h2>
-        <small>Carnet Digital</small>
+<div class="contenedor">
+<!-- sección cabecera/logo -->    <div class="header">
+        <img src="IMG/escudo.png" class="escudo">
+        <h1>Universidad Libre</h1>
+        <p>Sistema de Carnet Digital</p>
     </div>
 
-    <div class="info">
-        <p><strong>Nombre:</strong> <span id="nombre"></span></p>
-        <p><strong>Programa:</strong> <span id="programa"></span></p>
-        <p><strong>Código:</strong> <span id="codigoEstudiante"></span></p>
+    <div class="login">
+
+        <form id="login-form">
+            <label>Correo institucional o identificación</label>
+            <input type="text" id="login-id" placeholder="correo@unilibre.edu.co o No. ID">
+
+            <label>Contraseña</label>
+            <input type="password" id="login-password" placeholder="Ingrese su contraseña">
+
+            <button type="submit">Iniciar Sesión</button>
+        </form>
+
+        <a href="#">¿Olvidaste tu contraseña?</a>
+
+        <hr>
+
+        <h3>Accesos rápidos</h3>
+
+        <div class="accesos">
+
+            <div class="card">
+                <a href="visitantes/visitantes.html" style="text-decoration: none; color: inherit;">
+                    <h4>Visitantes</h4>
+                    <p>Ver información del sistema</p>
+                </a>
+            </div>
+
+            <div class="card">
+                <a href="egresados.html" style="text-decoration: none; color: inherit;">
+                    <h4>Egresados</h4>
+                    <p>Renovación / Solicitud</p>
+                </a>
+            </div>
+
+            <div class="card">
+                <a href="carnet.html" style="text-decoration: none; color: inherit;">
+                    <h4>Ver Carnet</h4>
+                    <p>Acceder a tu carnet digital</p>
+                </a>
+            </div>
+
+        </div>
+
+        <br>
+
+        <a href="preregistro.html">¿Sin cuenta? Realiza tu pre-registro</a>
+
+        <br><br>
+
+        <a href="admin/admin.html">Panel de Administración</a>
+
     </div>
 
-    <!-- Espacio reservado para QR -->
-    <div class="foto" id="qr"></div>
-
-    <div class="codigo">
-        Válido 2026
-    </div>
 </div>
 
-<script src="app.js"></script>
+<script src="js/config.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/navigation.js"></script>
+
+
+<!-- aqui inicia el footer -->
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <h4>Contacto</h4>
+            <p>PBX: (607) 582 9810</p>
+            <p>Línea Gratuita Nacional: 01 8000 180560</p>
+            <p>Email: info@unilibre.edu.co</p>
+            <p>Dirección: Avenida 4ta n.º 12n-81 - Urbanización El Bosque</p>
+        </div>
+        <div class="footer-section">
+            <h4>Enlaces Rápidos</h4>
+            <a href="index.html">Inicio</a>
+            <a href="https://www.unilibre.edu.co/biblioteca" target="_blank">Biblioteca Portal</a>
+            <a href="https://www.unilibre.edu.co/cucuta/" target="_blank">Seccional Cúcuta</a>
+            <a href="https://www.kawak.com.co/unilibre/pqrs/pqrs_index.php" target="_blank">PQRS - Soporte Técnico</a>
+        </div>
+        <div class="footer-section">
+            <h4>Información</h4>
+            <p>&copy; 2026 Universidad Libre - Sistema de Carnet Digital</p>
+            <p><strong>Desarrollado por:</strong></p>
+            <p>Juan Ruiz | Cristian Torres | Alejandro Urbina</p>
+        </div>
+    </div>
+</footer>
+
+<link rel="stylesheet" href="css/footer.css">
+
 </body>
 </html>

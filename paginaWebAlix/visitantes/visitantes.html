@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Visitantes - Universidad Libre</title>
+
+<style>
+
+/* tamaño uniforme de escudo */
+.escudo{
+  width:80px;
+  height:auto;
+  display:block;
+  margin:20px auto;
+}
+
+body{
+font-family: Arial;
+background:#f2f2f2;
+text-align:center;
+margin:0;
+}
+
+header{
+background:#000;
+color:white;
+padding:20px;
+}
+
+header p{
+color:#e60023;
+}
+
+.boton{
+margin-top:25px;
+}
+
+.boton a{
+background:#c4001a;
+color:white;
+padding:12px 20px;
+text-decoration:none;
+border-radius:8px;
+font-weight:bold;
+}
+
+.boton a:hover{
+background:#a00015;
+}
+
+.carreras{
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 20px;
+padding: 30px;
+justify-items: center;
+max-width: 1000px;
+margin: 0 auto;
+}
+
+.card{
+background:white;
+width:100%;
+max-width: 250px;
+padding:20px;
+border-radius:10px;
+box-shadow:0px 3px 10px rgba(0,0,0,0.2);
+transition: transform 0.3s ease;
+}
+
+.card:hover{
+transform:scale(1.05);
+}
+
+h3{
+color:#c4001a;
+}
+
+@media (max-width: 768px) {
+    .carreras {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .carreras {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        padding: 15px;
+    }
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- encabezado de la página -->
+<header>
+<img src="../IMG/escudo.png" class="escudo">
+<h1>Universidad Libre</h1>
+<p>Carreras - Seccional Cúcuta</p>
+</header>
+
+<h2>Solicita tu Carnet Universitario</h2>
+
+<div class="boton">
+<a href="solicitar_carnet.html">Solicitar Carnet</a>
+</div>
+
+<h2>Carreras Disponibles</h2>
+
+<div class="carreras">
+
+<div class="card">
+<a href="https://www.unilibre.edu.co/pregrados/derecho-cucuta/" target="_blank" style="text-decoration: none; color: inherit; display: block;">
+<h3>Derecho</h3>
+<p>Formación jurídica y legal.</p>
+</a>
+</div>
+
+<div class="card">
+<a href="https://www.unilibre.edu.co/pregrados/contaduria-publica-cucuta/" target="_blank" style="text-decoration: none; color: inherit; display: block;">
+<h3>Contaduría Pública</h3>
+<p>Contabilidad, auditoría y finanzas.</p>
+</a>
+</div>
+
+<div class="card">
+<h3>Administración de Empresas</h3>
+<p>Gestión empresarial.</p>
+</div>
+
+<div class="card">
+<a href="https://www.unilibre.edu.co/pregrados/ingenieria-en-tecnologias-de-la-informacion-y-las-comunicaciones-cucuta/" target="_blank" style="text-decoration: none; color: inherit; display: block;">
+<h3>Ingeniería TIC</h3>
+<p>Tecnologías de la información.</p>
+</a>
+</div>
+
+<div class="card">
+<a href="https://www.unilibre.edu.co/pregrados/ingenieria-civil-cucuta/" target="_blank" style="text-decoration: none; color: inherit; display: block;">
+<h3>Ingeniería Civil</h3>
+<p>Infraestructura y construcción.</p>
+</a>
+</div>
+
+<div class="card">
+<a href="https://www.unilibre.edu.co/pregrados/ingenieria-industrial-cucuta/" target="_blank" style="text-decoration: none; color: inherit; display: block;">
+<h3>Ingeniería Industrial</h3>
+<p>Optimización de procesos y producción.</p>
+</a>
+</div>
+
+</div>
+
+<!-- inicio del footer -->
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <h4>Contacto</h4>
+            <p>PBX: (607) 582 9810</p>
+            <p>Línea Gratuita Nacional: 01 8000 180560</p>
+            <p>Email: info@unilibre.edu.co</p>
+            <p>Dirección: Avenida 4ta n.º 12n-81 - Urbanización El Bosque</p>
+        </div>
+        <div class="footer-section">
+            <h4>Enlaces Rápidos</h4>
+            <a href="../index.html">Inicio</a>
+            <a href="https://www.unilibre.edu.co/biblioteca" target="_blank">Biblioteca Portal</a>
+            <a href="https://www.unilibre.edu.co/cucuta/" target="_blank">Seccional Cúcuta</a>
+            <a href="https://www.kawak.com.co/unilibre/pqrs/pqrs_index.php" target="_blank">PQRS - Soporte Técnico</a>
+        </div>
+        <div class="footer-section">
+            <h4>Información</h4>
+            <p>&copy; 2026 Universidad Libre - Sistema de Carnet Digital</p>
+            <p><strong>Desarrollado por:</strong></p>
+            <p>Juan Ruiz | Cristian Torres | Alejandro Urbina</p>
+        </div>
+    </div>
+</footer>
+
+<link rel="stylesheet" href="../css/footer.css">
+
+</body>
+</html>

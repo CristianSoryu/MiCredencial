@@ -1,19 +1,23 @@
 import { Tabs } from "expo-router";
 import Ionicons from "@expo/vector-icons/Ionicons";
-
+import { CustomTabBar } from "../../components/tabBar";
 export default function TabLayout() {
   return (
     <Tabs
+
+    tabBar={(props) => <CustomTabBar {...props} />}
       screenOptions={{
         tabBarActiveTintColor: "#ffd33d",
+        tabBarInactiveTintColor: "white",
+        tabBarLabelStyle: {
+          fontSize: 12,
+          fontFamily: "Poppins_400Regular",
+        },
         headerStyle: {
-          backgroundColor: "#25292e",
+          backgroundColor: "#ef310b",
         },
         headerShadowVisible: false,
         headerTintColor: "white",
-        tabBarStyle: {
-          backgroundColor: "#25292e",
-        },
       }}
     >
       <Tabs.Screen
@@ -28,6 +32,7 @@ export default function TabLayout() {
             />
           ),
         }}
+        
       />
       <Tabs.Screen
         name="prestamos"

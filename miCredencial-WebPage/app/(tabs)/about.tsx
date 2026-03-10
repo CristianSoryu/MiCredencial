@@ -3,7 +3,7 @@ import { styles } from "../styles";
 
 export default function About() {
     return (
-        <View style = {styles.container}>
+        <View style = {[styles.container, {backgroundColor: "#d04141"}]}>
             <Text style={styles.text}>About</Text>
         </View>
     );

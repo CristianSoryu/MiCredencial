@@ -12,15 +12,17 @@ export default function signUp() {
         style={styles.container}
       >
         <Text style={styles.tittle}>Hello!</Text>
-        <Text style={styles.parragraph}>Complete your registration to miCredencial</Text>
+        <Text style={styles.parragraph}>
+          Complete your registration to miCredencial
+        </Text>
 
         <TextInput placeholder="E-mail" style={styles.input} />
-         <TextInput placeholder="Usuario" style={styles.input} />
-          <TextInput
-            placeholder="Contraseña"
-            style={styles.input}
-            secureTextEntry={true}
-          />
+        <TextInput placeholder="Usuario" style={styles.input} />
+        <TextInput
+          placeholder="Contraseña"
+          style={styles.input}
+          secureTextEntry={true}
+        />
 
         <TouchableOpacity
           style={styles.button}

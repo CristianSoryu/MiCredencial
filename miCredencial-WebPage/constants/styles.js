@@ -39,12 +39,8 @@ export const styles = StyleSheet.create({
     fontFamily: "PoppinsSemiBold",
     padding: 30,
   },
-  parragraph: {
-    color: "white",
-    fontSize: 15,
-    textAlign: "center",
-    padding: 10,
-    fontFamily: "PoppinsSemiBold",
+  paragraph: {
+    fontFamily: "PoppinsSemiBold",    
   },
   button: {
     backgroundColor: "#C00000",
@@ -75,6 +71,24 @@ export const styles = StyleSheet.create({
     height: 1,
     backgroundColor: "#C00000",
     marginVertical: 20,
+  },
+
+  tabBarContainer: {
+    position: "absolute",
+    bottom: "5%",
+    borderRadius: 35,
+    flexDirection: "row",
+    elevation: 7,
+    backgroundColor: "transparent",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginHorizontal: 80,
+    paddingVertical: 10,
+  },
+  tabBarItem: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 

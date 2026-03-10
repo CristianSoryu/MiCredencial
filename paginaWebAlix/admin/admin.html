@@ -1,54 +1,194 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-<title>Administrador</title>
-<link rel="stylesheet" href="../css/admin.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración - Universidad Libre</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <style>
+        /* --- ESTILOS DEL PANEL --- */
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(#8b0000, #b3001b);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            align-items: center;
+        }
+
+        .contenedor {
+            width: 95%;
+            max-width: 650px;
+            background: white;
+            margin: 40px auto; /* Margen para que no pegue al footer */
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0px 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .header {
+            background: #000;
+            color: white;
+            text-align: center;
+            padding: 25px;
+        }
+
+        .escudo { width: 70px; margin-bottom: 10px; }
+
+        .login { padding: 40px; text-align: center; }
+
+        .accesos {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .card {
+            text-decoration: none;
+            background: #fdfdfd;
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid #eee;
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .card i { font-size: 35px; color: #c4001a; margin-bottom: 10px; }
+        .card h3 { margin: 10px 0; color: #333; font-size: 18px; }
+        .card p { font-size: 13px; color: #666; margin: 0; }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: #c4001a;
+            box-shadow: 0px 5px 15px rgba(0,0,0,0.1);
+        }
+
+        /* --- ESTILOS DEL FOOTER --- */
+        .footer {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            padding: 40px 0 20px;
+            width: 100%;
+            margin-top: auto; /* Empuja el footer al final */
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .footer-section h4 {
+            color: #c4001a;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #c4001a;
+            display: inline-block;
+        }
+
+        .footer-section p, .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .footer-section a:hover { color: #fff; }
+
+        .social-icons a {
+            display: inline-block;
+            margin-right: 15px;
+            font-size: 20px;
+            color: #fff;
+        }
+
+        .map-container iframe { border-radius: 8px; }
+
+        @media (max-width: 600px) {
+            .accesos { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
 
 <body>
 
-<div class="contenedor">
-
-    <div class="header">
-        <img src="../IMG/escudo.png" class="escudo">
-        <h1>Panel de Administración</h1>
-        <p>Universidad Libre</p>
-    </div>
-
-    <h2>Panel de Administrador</h2>
-
-    <a href="usuarios.html">Gestionar usuarios</a><br>
-    <a href="solicitudes.html">Ver solicitudes</a>
-
-</div>
-
-<!-- inicio del footer -->
-<footer class="footer">
-    <div class="footer-content">
-        <div class="footer-section">
-            <h4>Contacto</h4>
-            <p>PBX: (607) 582 9810</p>
-            <p>Línea Gratuita Nacional: 01 8000 180560</p>
-            <p>Email: info@unilibre.edu.co</p>
-            <p>Dirección: Avenida 4ta n.º 12n-81 - Urbanización El Bosque</p>
+    <div class="contenedor">
+        <div class="header">
+            <img src="IMG/escudo.png" class="escudo" alt="Logo">
+            <h1>Panel de Control</h1>
+            <p>Universidad Libre - Seccional Cúcuta</p>
         </div>
-        <div class="footer-section">
-            <h4>Enlaces Rápidos</h4>
-            <a href="../index.html">Inicio</a>
-            <a href="https://www.unilibre.edu.co/biblioteca" target="_blank">Biblioteca Portal</a>
-            <a href="https://www.unilibre.edu.co/cucuta/" target="_blank">Seccional Cúcuta</a>
-            <a href="https://www.kawak.com.co/unilibre/pqrs/pqrs_index.php" target="_blank">PQRS - Soporte Técnico</a>
-        </div>
-        <div class="footer-section">
-            <h4>Información</h4>
-            <p>&copy; 2026 Universidad Libre - Sistema de Carnet Digital</p>
-            <p><strong>Desarrollado por:</strong></p>
-            <p>Juan Ruiz | Cristian Torres | Alejandro Urbina</p>
+
+        <div class="login">
+            <h2 style="color: #333; margin-bottom: 25px;">Opciones de Gestión</h2>
+
+            <div class="accesos">
+                <a href="usuarios.html" class="card">
+                    <i class="fas fa-users"></i>
+                    <h3>Gestionar Usuarios</h3>
+                    <p>Cuentas de acceso.</p>
+                </a>
+
+                <a href="solicitudes.html" class="card">
+                    <i class="fas fa-file-signature"></i>
+                    <h3>Ver Solicitudes</h3>
+                    <p>Carnets pendientes.</p>
+                </a>
+            </div>
+
+            <div style="margin-top: 30px;">
+                <a href="index.html" style="text-decoration: none; color: #666; font-size: 14px; font-weight: bold;">
+                    <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+                </a>
+            </div>
         </div>
     </div>
-</footer>
 
-<link rel="stylesheet" href="../css/footer.css">
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Contacto</h4>
+                <p><i class="fas fa-phone"></i> PBX: (607) 582 9810</p>
+                <p><i class="fas fa-envelope"></i> info.cucuta@unilibre.edu.co</p>
+                <p><i class="fas fa-map-marker-alt"></i> Av. 4ta n.º 12n-81 - El Bosque</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>Enlaces Rápidos</h4>
+                <a href="index.html">Inicio</a>
+                <a href="https://www.unilibre.edu.co/cucuta/" target="_blank">Seccional Cúcuta</a>
+                <a href="https://www.unilibre.edu.co/biblioteca" target="_blank">Biblioteca</a>
+                 <a href="https://www.kawak.com.co/unilibre/pqrs/pqrs_index.php" target="_blank">PQRS - Soporte Técnico</a>
+
+            </div>
+
+            <div class="footer-section">
+                <h4>Síguenos</h4>
+                <div class="social-icons">
+                    <a href="https://facebook.com/UnilibreCucuta" target="_blank"><i class="fab fa-facebook"></i></a>
+                    <a href="https://instagram.com/unilibrecucuta" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://x.com/unilibrecucuta1" target="_blank"><i class="fab fa-x-twitter"></i></a>
+                </div>
+                <p>© 2026 Universidad Libre.</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>Ubicación</h4>
+                <div class="map-container">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3257.1771286957737!2d-72.5013971260146!3d7.91221970547162!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e664540a6ea196f%3A0xb1d0e71aebd40351!2sUniversidad%20Libre%20Seccional%20C%C3%BAcuta!5e1!3m2!1ses-419!2sco!4v1773159309972!5m2!1ses-419!2sco" width="100%" height="120" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+    </footer>
 
 </body>
 </html>

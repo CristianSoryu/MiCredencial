@@ -1,80 +1,203 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-<title>Solicitud de Carnet</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitud de Carnet - Universidad Libre</title>
 
-<link rel="stylesheet" href="../css/forms.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/footer.css">
 
+    <style>
+        /* --- DISEÑO DEL CUERPO Y FORMULARIO --- */
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #c4001a 0%, #a00015 100%);
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .contenedor {
+            width: 90%;
+            max-width: 400px;
+            margin: 60px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 10px 25px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+
+        .escudo {
+            width: 80px;
+            height: auto;
+            margin-bottom: 15px;
+        }
+
+        h2 {
+            color: #c4001a;
+            margin-bottom: 20px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #c4001a;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #000;
+        }
+
+        .volver {
+            display: block;
+            margin-top: 15px;
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .volver:hover { color: #c4001a; }
+
+        /* --- ARREGLO DEL FOOTER --- */
+        .footer {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            padding: 40px 0 20px;
+            width: 100%;
+            margin-top: auto; /* Empuja el footer al fondo */
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .footer-section h4 {
+            color: #c4001a;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #c4001a;
+            display: inline-block;
+        }
+
+        .footer-section p, .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .footer-section a:hover { color: #fff; }
+
+        .social-icons a {
+            display: inline-block;
+            margin-right: 15px;
+            font-size: 20px;
+            color: #fff;
+            transition: 0.3s;
+        }
+
+        .social-icons a:hover { color: #c4001a; }
+
+        .map-container iframe {
+            border-radius: 10px;
+            filter: grayscale(100%) invert(90%); /* Opcional: hace el mapa oscuro para combinar */
+        }
+    </style>
 </head>
 
 <body>
 
-<!-- contenedor del formulario -->
-<div class="contenedor">
+    <div class="contenedor">
+        <img src="../IMG/escudo.png" class="escudo" alt="Escudo Unilibre">
+        
+        <h2>Solicitud de Carnet</h2>
 
-    <!-- logo dentro -->
-    <img src="../IMG/escudo.png" class="escudo">
+        <form action="#">
+            <input type="text" placeholder="Nombre completo" required>
+            <input type="text" placeholder="Número de identificación" required>
+            <input type="email" placeholder="Correo electrónico" required>
 
-    <h2>Solicitud de Carnet</h2>
+            <select required>
+                <option value="">¿Cuál es el propósito de tu visita?</option>
+                <option>Consultar información académica</option>
+                <option>Asesoramiento sobre programas</option>
+                <option>Visita a instalaciones</option>
+                <option>Solicitud de admisión</option>
+                <option>Pagos y trámites administrativos</option>
+                <option>Orientación vocacional</option>
+                <option>Otros</option>
+            </select>
 
-<form>
+            <button type="submit">Enviar Solicitud</button>
+        </form>
 
-<input type="text" placeholder="Nombre completo" required>
-
-<input type="text" placeholder="Número de identificación" required>
-
-<input type="email" placeholder="Correo electrónico" required>
-
-<select required>
-
-<option value="">¿Cuál es el propósito de tu visita?</option>
-<option>Consultar información académica</option>
-<option>Asesoramiento sobre programas</option>
-<option>Visita a instalaciones</option>
-<option>Solicitud de admisión</option>
-<option>Pagos y trámites administrativos</option>
-<option>Orientación vocacional</option>
-<option>Visita guiada</option>
-<option>Consulta sobre becas y financiamiento</option>
-<option>Otros</option>
-
-</select>
-
-<button type="submit">Enviar Solicitud</button>
-
-</form>
-
-<a href="visitantes.html">Volver</a>
-
-</div>
-
-<!-- inicio del footer -->
-<footer class="footer">
-    <div class="footer-content">
-        <div class="footer-section">
-            <h4>Contacto</h4>
-            <p>PBX: (607) 582 9810</p>
-            <p>Línea Gratuita Nacional: 01 8000 180560</p>
-            <p>Email: info@unilibre.edu.co</p>
-            <p>Dirección: Avenida 4ta n.º 12n-81 - Urbanización El Bosque</p>
-        </div>
-        <div class="footer-section">
-            <h4>Enlaces Rápidos</h4>
-            <a href="../index.html">Inicio</a>
-            <a href="https://www.unilibre.edu.co/biblioteca" target="_blank">Biblioteca Portal</a>
-            <a href="https://www.unilibre.edu.co/cucuta/" target="_blank">Seccional Cúcuta</a>
-            <a href="https://www.kawak.com.co/unilibre/pqrs/pqrs_index.php" target="_blank">PQRS - Soporte Técnico</a>
-        </div>
-        <div class="footer-section">
-            <h4>Información</h4>
-            <p>&copy; 2026 Universidad Libre - Sistema de Carnet Digital</p>
-            <p><strong>Desarrollado por:</strong></p>
-            <p>Juan Ruiz | Cristian Torres | Alejandro Urbina</p>
-        </div>
+        <a href="visitantes.html" class="volver">← Volver</a>
     </div>
-</footer>
 
-<link rel="stylesheet" href="../css/footer.css">
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Contacto</h4>
+                <p><i class="fas fa-phone"></i> PBX: (607) 582 9810</p>
+                <p><i class="fas fa-envelope"></i> info.cucuta@unilibre.edu.co</p>
+                <p><i class="fas fa-map-marker-alt"></i> Av. 4ta n.º 12n-81 - El Bosque</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>Enlaces Rápidos</h4>
+                <a href="../index.html">Inicio</a>
+                <a href="https://www.unilibre.edu.co/biblioteca" target="_blank">Biblioteca</a>
+                <a href="https://www.unilibre.edu.co/cucuta/" target="_blank">Seccional Cúcuta</a>
+                            <a href="https://www.kawak.com.co/unilibre/pqrs/pqrs_index.php" target="_blank">PQRS - Soporte Técnico</a>
+
+            </div>
+
+            <div class="footer-section">
+                <h4>Síguenos</h4>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/UnilibreCucuta" target="_blank"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/unilibrecucuta" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://x.com/unilibrecucuta1" target="_blank"><i class="fab fa-x-twitter"></i></a>
+                </div>
+                <p>© 2026 Universidad Libre. Todos los derechos reservados.</p>
+                <p style="font-size: 12px; color: #666;">Juan Ruiz | Cristian Torres | Alejandro Urbina</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>Ubicación</h4>
+                <div class="map-container">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3257.1771286957737!2d-72.5013971260146!3d7.91221970547162!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e664540a6ea196f%3A0xb1d0e71aebd40351!2sUniversidad%20Libre%20Seccional%20C%C3%BAcuta!5e1!3m2!1ses-419!2sco!4v1773159309972!5m2!1ses-419!2sco" 
+                        width="100%" height="150" style="border:0;" allowfullscreen="" loading="lazy">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </footer>
 
 </body>
 </html>

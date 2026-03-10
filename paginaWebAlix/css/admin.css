@@ -1,99 +1,96 @@
-body{
-font-family: Arial, sans-serif;
-background: linear-gradient(#8b0000,#b3001b);
-margin:0;
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
-color: white;
+/* admin.css */
+
+/* 1. Base y Centrado (Copia fiel de lo que te funcionó en las otras páginas) */
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(#8b0000, #b3001b);
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    align-items: center;
 }
 
-.contenedor{
-width:600px;
-background:white;
-border-radius:15px;
-overflow:hidden;
-box-shadow:0px 5px 15px rgba(0,0,0,0.3);
-padding: 20px;
+.contenedor {
+    width: 90%;
+    max-width: 650px;
+    background: white;
+    margin: auto;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0px 10px 30px rgba(0,0,0,0.5);
 }
 
-.header{
-background:black;
-color:white;
-text-align:center;
-padding:20px;
-margin: -20px -20px 20px -20px;
+.header {
+    background: #000;
+    color: white;
+    text-align: center;
+    padding: 25px;
 }
 
-.header h1{
-margin:10px 0 5px 0;
-}
-
-.header p{
-color:#ff4d4d;
-}
-
-h2{
-color: #c4001a;
-text-align: center;
-margin-bottom: 20px;
-}
-
-table{
-margin: auto;
-background: white;
-border-collapse: collapse;
-width: 100%;
-box-shadow: 0px 2px 10px rgba(0,0,0,0.1);
-border-radius: 8px;
-overflow: hidden;
-}
-
-th, td{
-padding: 12px;
-text-align: left;
-border-bottom: 1px solid #ddd;
-}
-
-th{
-background: #c4001a;
-color: white;
-}
-
-tr:hover{
-background: #f5f5f5;
-}
-
-button{
-padding: 8px 16px;
-background: #c4001a;
-color: white;
-border: none;
-border-radius: 4px;
-cursor: pointer;
-}
-
-button:hover{
-background: #a00015;
-}
-
-/* tamaño uniforme para escudo dentro del panel administrativo */
 .escudo {
-  width: 80px;
-  height: auto;
-  display:block;
-  margin:20px auto;
+    width: 70px;
+    height: auto;
+    margin-bottom: 10px;
 }
 
-a{
-color: #c4001a;
-text-decoration: none;
-display: block;
-text-align: center;
-margin: 10px 0;
+/* 2. El área de contenido con Padding (Para que no se pegue al borde) */
+.login {
+    padding: 35px;
+    text-align: center;
 }
 
-a:hover{
-text-decoration: underline;
+/* 3. Sistema de Rejilla (Esto crea las dos columnas para las opciones) */
+.accesos {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Crea 2 columnas iguales */
+    gap: 20px; /* Espacio entre las tarjetas */
+    margin-top: 15px;
+}
+
+/* 4. Estilo de las Tarjetas (Convierte los enlaces en botones elegantes) */
+.card {
+    text-decoration: none; /* Quita el subrayado azul */
+    background: #fdfdfd;
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid #eee;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card i {
+    font-size: 35px;
+    color: #c4001a; /* Rojo institucional para los iconos */
+    margin-bottom: 15px;
+}
+
+.card h3 {
+    margin: 5px 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.card p {
+    font-size: 13px;
+    color: #777;
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* Efecto al pasar el mouse (Hover) */
+.card:hover {
+    transform: translateY(-5px);
+    border-color: #c4001a;
+    box-shadow: 0px 8px 15px rgba(0,0,0,0.1);
+    background: #fff;
+}
+
+/* 5. Responsive (Para que en celular se vea una tarjeta sobre otra) */
+@media (max-width: 500px) {
+    .accesos {
+        grid-template-columns: 1fr;
+    }
 }

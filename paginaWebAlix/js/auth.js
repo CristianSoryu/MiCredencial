@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const contrasena = document.getElementById('login-password').value;
 
     // para la demostración, cualquier identificador y contraseña serán aceptados. En producción, aquí se haría una llamada a la API para validar las credenciales.
-    // que wapa esta la ia 
+     
     
     if (identificador && contrasena) {
         const dummyUser = {

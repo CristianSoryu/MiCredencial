@@ -1,33 +1,65 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
-
-import { HapticTab } from '@/components/haptic-tab';
-import { IconSymbol } from '@/components/ui/icon-symbol';
-import { Colors } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/use-color-scheme';
-
+import { Tabs } from "expo-router";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import { CustomTabBar } from "../../components/tabBar";
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
   return (
     <Tabs
+
+    tabBar={(props) => <CustomTabBar {...props} />}
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-        tabBarButton: HapticTab,
-      }}>
+        tabBarActiveTintColor: "#ffd33d",
+        tabBarInactiveTintColor: "white",
+        tabBarLabelStyle: {
+          fontSize: 12,
+          fontFamily: "Poppins_400Regular",
+        },
+        headerStyle: {
+          backgroundColor: "#ef310b",
+        },
+        headerShadowVisible: false,
+        headerTintColor: "white",
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          title: "Home",
+          tabBarIcon: ({ color, focused, size }) => (
+            <Ionicons
+              name={focused ? "home" : "home-outline"}
+              color={color}
+              size={size}
+            />
+          ),
+        }}
+        
+      />
+      <Tabs.Screen
+        name="prestamos"
+        options={{
+          title: "Prestamos",
+          tabBarIcon: ({ color, focused, size }) => (
+            <Ionicons
+              name={focused ? "book" : "book-outline"}
+              color={color}
+              size={size}
+            />
+          ),
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="about"
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          title: "About",
+          tabBarIcon: ({ color, focused, size }) => (
+            <Ionicons
+              name={
+                focused ? "information-circle" : "information-circle-outline"
+              }
+              color={color}
+              size={size}
+            />
+          ),
         }}
       />
     </Tabs>

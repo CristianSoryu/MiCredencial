@@ -100,10 +100,14 @@ export default function FallingButton({
   };
 
   useEffect(() => {
-    defaultStyle();
-  }, []);
+    if (!isPressed) {
+      defaultStyle();
+      setShowScene(false);
+    }
+  }, [isPressed]);
 
   useFocusEffect(defaultStyle);
+
   return (
     <>
       <TouchableOpacity onPress={onPress} style={styles.buttonContainer}>
@@ -120,14 +124,14 @@ export default function FallingButton({
             {titulo}
           </Animated.Text>
         </Animated.View>
-        {showScene && (
-          <AnimationScene
-            route={index}
-            yInitialPos={yFinalPosition}
-            setIsPressed={setIsPressed}
-          />
-        )}
       </TouchableOpacity>
+      {showScene && (
+        <AnimationScene
+          route={index}
+          yInitialPos={yFinalPosition}
+          setIsPressed={setIsPressed}
+        />
+      )}
     </>
   );
 }

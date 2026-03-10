@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-
+const buttonHeight = 60; // Define button height as a constant
 export const styles = StyleSheet.create({
   background: {
     flex: 1,
@@ -40,16 +40,22 @@ export const styles = StyleSheet.create({
     padding: 30,
   },
   paragraph: {
-    fontFamily: "PoppinsSemiBold",    
+    fontFamily: "PoppinsSemiBold",
   },
   button: {
     backgroundColor: "#C00000",
-    borderRadius: 40,
-    width: "80%",
-    height: 60,
+    borderRadius: 9999,
+    width: 260,
+    height: buttonHeight,
     margin: 20,
     justifyContent: "center",
     elevation: 5, // Added for Android shadow support
+  },
+  buttonContainer: {
+    width: "100%",
+    alignItems: "center",
+    marginVertical: 10,
+    height: buttonHeight, // Use the defined button height
   },
   input: {
     backgroundColor: "#cccccc50", // Fix invalid color code
@@ -82,7 +88,7 @@ export const styles = StyleSheet.create({
     backgroundColor: "transparent",
     justifyContent: "space-between",
     alignItems: "center",
-    marginHorizontal: 80,
+    marginHorizontal: 60,
     paddingVertical: 10,
   },
   tabBarItem: {

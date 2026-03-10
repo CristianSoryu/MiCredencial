@@ -1,8 +1,9 @@
-import { TouchableOpacity } from "react-native";
-import React, { useEffect } from "react";
-import { useTheme } from "@react-navigation/native";
 import { icon } from "@/constants/icons";
 import { styles } from "@/constants/styles";
+import { useTheme } from "@react-navigation/native";
+import React, { useEffect } from "react";
+import { TouchableOpacity } from "react-native";
+
 import Animated, {
   interpolate,
   useAnimatedStyle,
@@ -36,6 +37,10 @@ export default function CustomTabBarButton({
   const animatedTextStyle = useAnimatedStyle(() => {
     const scaleValue = interpolate(scale.value, [0, 1], [1, 0]);
 
+    onPress = () => {
+      scale.value = withSpring(1, { duration: 350 });
+      onPress();
+    };
     return {
       transform: [
         {
@@ -47,7 +52,7 @@ export default function CustomTabBarButton({
 
   const animatedIconStyle = useAnimatedStyle(() => {
     const scaleValue = interpolate(scale.value, [0, 1], [1, 1.2]);
-    const top = interpolate(scale.value, [0, 1], [0, 9]);
+    const top = interpolate(scale.value, [0, 1], [0, 12]);
 
     return {
       transform: [

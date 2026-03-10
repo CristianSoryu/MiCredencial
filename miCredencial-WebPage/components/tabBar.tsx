@@ -1,15 +1,19 @@
-import { LayoutChangeEvent, View } from "react-native";
-import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import { styles } from "@/constants/styles";
-import CustomTabBarButton from "./tabBarButton";
+import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import { useState } from "react";
-import Animated, { useAnimatedStyle, useSharedValue, withSpring } from "react-native-reanimated";
+import { LayoutChangeEvent, View } from "react-native";
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withSpring,
+} from "react-native-reanimated";
+import CustomTabBarButton from "./tabBarButton";
 export function CustomTabBar({
   state,
   descriptors,
   navigation,
 }: BottomTabBarProps) {
-  const [dimensions, setDimensions] = useState({height : 20, width: 100})
+  const [dimensions, setDimensions] = useState({ height: 20, width: 100 });
   const buttonWidth = dimensions.width / state.routes.length;
   const onTabBarLayout = (event: LayoutChangeEvent) => {
     setDimensions({
@@ -27,15 +31,19 @@ export function CustomTabBar({
   });
   return (
     <View style={styles.tabBarContainer} onLayout={onTabBarLayout}>
-      <Animated.View style={[
-        animateTabPosition,{ 
-        position: "absolute", 
-        borderRadius: 30,
-        marginHorizontal: 10,
-        height: dimensions.height - 15,
-        width: buttonWidth - 20,
-        backgroundColor: "#E0E0E0",
-        }]} />
+      <Animated.View
+        style={[
+          animateTabPosition,
+          {
+            position: "absolute",
+            borderRadius: 30,
+            marginHorizontal: 10,
+            height: dimensions.height - 15,
+            width: buttonWidth - 20,
+            backgroundColor: "#E0E0E0",
+          },
+        ]}
+      />
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];
         const label =
@@ -48,12 +56,13 @@ export function CustomTabBar({
         const isFocused = state.index === index;
 
         const onPress = () => {
-          tabPositionX.value = withSpring(buttonWidth * index, {duration: 1500});
+          tabPositionX.value = withSpring(buttonWidth * index, {
+            duration: 1500,
+          });
           const event = navigation.emit({
             type: "tabPress",
             target: route.key,
             canPreventDefault: true,
-
           });
 
           if (!isFocused && !event.defaultPrevented) {

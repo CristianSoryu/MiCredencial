@@ -1,11 +1,10 @@
-import { Text, Image, View } from "react-native";
-import { styles } from "./styles";
-import { SafeAreaView } from "react-native-safe-area-context";
+import FallingButton from "@/components/fallingButton";
 import { LinearGradient } from "expo-linear-gradient";
-import CustomButton from "../../components/CustomButton"
+import { Image, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import CustomButton from "../../components/CustomButton";
+import { styles } from "./styles";
 export default function Index() {
-
-
   return (
     <LinearGradient
       style={styles.background}
@@ -18,13 +17,13 @@ export default function Index() {
         />
 
         <Text style={styles.tittle}>miCredencial</Text>
-        <View style={[styles.container, {height: "35%"}]}>
+        <View style={[styles.container, { height: "50%" }]}>
           <Text style={styles.parragraph}>
             Accede a tu credencial digital de la universidad y disfruta de sus
             beneficios.
           </Text>
 
-          <CustomButton route="/login" text="Login" />
+          <FallingButton titulo="sign in"></FallingButton>
           <CustomButton route="/signUp" text="Sign Up" />
         </View>
       </SafeAreaView>

@@ -1,7 +1,7 @@
-import { Text, TouchableOpacity } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { styles } from "../app/(login)/styles";
 import { useRouter } from "expo-router";
+import { Text, TouchableOpacity } from "react-native";
+import { styles } from "../constants/styles";
 
 type CustomFormProps = {
   route: string;

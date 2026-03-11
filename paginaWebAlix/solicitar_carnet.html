@@ -3,63 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carnet Electrónico - Universidad Libre</title>
+    <title>Solicitud de Carnet - Universidad Libre</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <link rel="stylesheet" href="css/styles.css"> 
-    <link rel="stylesheet" href="css/carnet.css"> 
-    <link rel="stylesheet" href="css/footer.css"> 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="css/footer.css">
 </head>
 
 <body>
 
-    <header class="header">
-        <img src="IMG/escudo.png" alt="Escudo Unilibre" class="escudo" style="width: 70px;">
-        <h1 style="color: white; margin: 0;">Universidad Libre</h1>
-        <p style="color: #ff4d4d; margin: 5px 0 0; font-weight: bold;">Seccional Cúcuta</p>
-    </header>
-
-    <h2 style="color: white; margin-top: 20px;">Carnet Universitario</h2>
-
-    <div class="carnet">
-        <img src="IMG/foto.jpeg" alt="Foto de Perfil" id="foto-perfil">
-        <p><b>Nombre:</b> <span id="carnet-nombre">Cargando...</span></p>
-        <p><b>ID:</b> <span id="carnet-id">---</span></p>
-        <p><b>Programa:</b> <span id="carnet-programa">---</span></p>
-        <p><b>Vence:</b> <span id="carnet-vencimiento">2026-2</span></p>
+    <div class="contenedor">
+        <img src="IMG/escudo.png" class="escudo" alt="Escudo Unilibre">
         
-        <div id="qrcode"></div>
-        
-        <button onclick="logout()" style="background: #333; margin-top: 20px; padding: 10px; font-size: 12px;">
-            <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
-        </button>
+        <h2>Solicitud de Carnet</h2>
+
+        <form action="#">
+            <input type="text" placeholder="Nombre completo" required>
+            <input type="text" placeholder="Número de identificación" required>
+            <input type="email" placeholder="Correo electrónico" required>
+
+            <select required>
+                <option value="">¿Cuál es el propósito de tu visita?</option>
+                <option>Consultar información académica</option>
+                <option>Asesoramiento sobre programas</option>
+                <option>Visita a instalaciones</option>
+                <option>Solicitud de admisión</option>
+                <option>Pagos y trámites administrativos</option>
+                <option>Otros</option>
+            </select>
+
+            <button type="submit">Enviar Solicitud</button>
+        </form>
+
+        <a href="visitantes.html" class="volver">← Volver</a>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    <script src="js/config.js"></script>
-    <script src="js/carnet.js"></script>
-    
-    
-<script>
-        window.addEventListener('DOMContentLoaded', () => {
-            // Intentamos obtener los datos
-            const userData = localStorage.getItem('carnet');
-            
-            if (userData) {
-                const user = JSON.parse(userData);
-                mostrarCarnet(user);
-            } else {
-                // COMENTA la línea de abajo para que no te mande al login
-                // window.location.href = 'index.html'; 
-                
-                // OPCIONAL: Datos de prueba para ver cómo se ve
-                console.log("Modo visualización: No hay datos reales.");
-                document.getElementById('carnet-nombre').innerText = "Usuario de Prueba";
-                document.getElementById('carnet-id').innerText = "123456";
-                document.getElementById('carnet-programa').innerText = "Ingeniería";
-            }
-        });
-    </script>
     <footer class="footer">
     <div class="footer-content">
         <div class="footer-section">
@@ -99,5 +78,6 @@
         </div>
     </div>
 </footer>
+
 </body>
 </html>

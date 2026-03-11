@@ -1,101 +1,62 @@
-/* 1. Configuración General del Cuerpo */
+/* --- 1. CONFIGURACIÓN BASE --- */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(#8b0000, #b3001b);
+    /* Degradado institucional Unilibre */
+    background: linear-gradient(135deg, #8b0000 0%, #b3001b 100%);
     margin: 0;
     padding: 0;
     display: flex;
     flex-direction: column;
-    /* Esto es vital para que el fondo rojo ocupe toda la pantalla */
-    min-height: 100vh; 
-    align-items: center;
+    min-height: 100vh;
 }
 
-/* 2. El Contenedor Blanco (La Tarjeta) */
+/* --- 2. HEADER GLOBAL --- */
+.header {
+    background: #000;
+    color: #fff;
+    padding: 20px;
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.header h1 { margin: 0; font-size: 24px; }
+.header p { 
+    color: #c4001a; 
+    font-weight: bold; 
+    margin: 5px 0 0 0; 
+}
+
+/* --- 3. CONTENEDOR TIPO TARJETA --- */
 .contenedor {
     width: 90%;
     max-width: 400px;
     background: white;
-    /* El margin: auto centra la caja verticalmente aprovechando el flex del body */
-    margin: auto; 
+    margin: 40px auto; /* Margen superior e inferior para despegarlo */
     border-radius: 15px;
-    overflow: hidden;
     box-shadow: 0px 10px 25px rgba(0,0,0,0.4);
-    padding-bottom: 10px;
-}
-
-/* 3. Encabezado de la tarjeta (Usado en Login) */
-.header {
-    background: black;
-    color: white;
-    text-align: center;
     padding: 20px;
+    text-align: center;
 }
 
-.header h1 { 
-    margin: 10px 0 5px 0; 
-    font-size: 22px; 
-}
-
-.header p { 
-    color: #ff4d4d; 
-    margin: 0; 
-    font-size: 14px;
-}
-
-/* 4. Logo / Escudo */
-.escudo {
-    width: 80px;
-    height: auto;
-    display: block;
-    margin: 20px auto;
-}
-
-/* 5. Cuerpo del Formulario */
-.login {
-    padding: 25px;
-    text-align: center; /* Centra el título H2 y el párrafo */
-}
-
-.login h2 {
-    margin-top: 0;
-    color: #333;
-    font-size: 20px;
-}
-
-.login p {
-    color: #666;
-    margin-bottom: 20px;
-}
-
-/* 6. Etiquetas y Cajas de Texto */
-label {
-    display: block; 
-    font-weight: bold;
-    text-align: left; /* Títulos alineados a la izquierda */
-    margin-top: 15px;
-    margin-bottom: 5px;
-    color: #444;
-    font-size: 14px;
-}
-
-input {
+/* --- 4. FORMULARIOS Y COMPONENTES --- */
+input, select {
     width: 100%; 
     padding: 12px;
+    margin: 10px 0;
     border-radius: 8px;
     border: 1px solid #ccc;
-    /* box-sizing evita que el input se salga del cuadro blanco */
     box-sizing: border-box; 
-    font-size: 16px;
-    transition: border 0.3s;
+    font-size: 14px;
+    transition: 0.3s;
 }
 
-input:focus {
+input:focus, select:focus {
     outline: none;
-    border: 1px solid #c4001a; /* Borde rojo al escribir */
+    border-color: #c4001a;
+    box-shadow: 0 0 5px rgba(196, 0, 26, 0.2);
 }
 
-/* 7. Botones */
 button {
     width: 100%;
     padding: 14px;
@@ -103,51 +64,35 @@ button {
     color: white;
     border: none;
     border-radius: 8px;
-    font-size: 16px;
     font-weight: bold;
+    font-size: 16px;
     cursor: pointer;
-    margin-top: 20px;
-    transition: background 0.3s, transform 0.2s;
+    margin-top: 15px;
+    transition: 0.3s;
 }
 
 button:hover {
-    background: #a00015;
-    transform: translateY(-1px);
+    background: #000; /* Cambio a negro en hover para contraste */
 }
 
-/* 8. Enlaces y Accesos Rápidos */
-a {
-    display: block;
-    text-align: center;
-    margin-top: 15px;
-    color: #c4001a;
+/* --- 5. ENLACES Y NAVEGACIÓN --- */
+.volver {
+    display: inline-block;
+    margin-top: 20px;
+    color: #666;
     text-decoration: none;
     font-size: 14px;
+    transition: 0.3s;
 }
 
-.accesos {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-top: 20px;
+.volver:hover {
+    color: #c4001a;
 }
 
-.card {
-    border: 1px solid #eee;
-    border-radius: 10px;
-    padding: 12px;
-    text-align: center;
-    background: #fdfdfd;
-    transition: 0.2s;
-}
-
-.card:hover {
-    background: #f0f0f0;
-    transform: scale(1.02);
-}
-
-/* 9. Footer (Asegura que se quede abajo) */
-.footer {
-    width: 100%;
-    margin-top: 20px; /* Espacio mínimo si la pantalla es pequeña */
+/* --- 6. UTILIDADES --- */
+.escudo {
+    width: 80px;
+    height: auto;
+    margin: 0 auto 15px;
+    display: block;
 }

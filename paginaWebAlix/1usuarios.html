@@ -3,63 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carnet Electrónico - Universidad Libre</title>
-    
+    <title>Gestión de Usuarios - Universidad Libre</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="css/styles.css"> 
-    <link rel="stylesheet" href="css/carnet.css"> 
-    <link rel="stylesheet" href="css/footer.css"> 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-</head>
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/admin.css"> </head>
 
 <body>
 
     <header class="header">
-        <img src="IMG/escudo.png" alt="Escudo Unilibre" class="escudo" style="width: 70px;">
-        <h1 style="color: white; margin: 0;">Universidad Libre</h1>
-        <p style="color: #ff4d4d; margin: 5px 0 0; font-weight: bold;">Seccional Cúcuta</p>
+        <img src="IMG/escudo.png" class="escudo" alt="Escudo Unilibre">
+        <h1>Panel Administrativo</h1>
+        <p>Gestión de Usuarios - Seccional Cúcuta</p>
     </header>
 
-    <h2 style="color: white; margin-top: 20px;">Carnet Universitario</h2>
+    <main style="flex: 1;">
+        <div class="contenedor">
+            <div class="login"> <h2>Lista de Usuarios Registrados</h2>
 
-    <div class="carnet">
-        <img src="IMG/foto.jpeg" alt="Foto de Perfil" id="foto-perfil">
-        <p><b>Nombre:</b> <span id="carnet-nombre">Cargando...</span></p>
-        <p><b>ID:</b> <span id="carnet-id">---</span></p>
-        <p><b>Programa:</b> <span id="carnet-programa">---</span></p>
-        <p><b>Vence:</b> <span id="carnet-vencimiento">2026-2</span></p>
-        
-        <div id="qrcode"></div>
-        
-        <button onclick="logout()" style="background: #333; margin-top: 20px; padding: 10px; font-size: 12px;">
-            <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
-        </button>
-    </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>ID / Cédula</th>
+                            <th>Programa / Área</th>
+                            <th>Acciones</th> </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Juan Pérez</td>
+                            <td>123456</td>
+                            <td>Ingeniería de Sistemas</td>
+                            <td>
+                                <button class="btn-aprobar">Aprobar</button>
+                                <button class="btn-rechazar">Rechazar</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Ana Gómez</td>
+                            <td>654321</td>
+                            <td>Derecho</td>
+                            <td>
+                                <button class="btn-aprobar">Aprobar</button>
+                                <button class="btn-rechazar">Rechazar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    <script src="js/config.js"></script>
-    <script src="js/carnet.js"></script>
-    
-    
-<script>
-        window.addEventListener('DOMContentLoaded', () => {
-            // Intentamos obtener los datos
-            const userData = localStorage.getItem('carnet');
-            
-            if (userData) {
-                const user = JSON.parse(userData);
-                mostrarCarnet(user);
-            } else {
-                // COMENTA la línea de abajo para que no te mande al login
-                // window.location.href = 'index.html'; 
-                
-                // OPCIONAL: Datos de prueba para ver cómo se ve
-                console.log("Modo visualización: No hay datos reales.");
-                document.getElementById('carnet-nombre').innerText = "Usuario de Prueba";
-                document.getElementById('carnet-id').innerText = "123456";
-                document.getElementById('carnet-programa').innerText = "Ingeniería";
-            }
-        });
-    </script>
+                <a href="index.html" class="btn-regresar">
+                    <i class="fas fa-arrow-left"></i> Volver al Menú
+                </a>
+            </div>
+        </div>
+    </main>
+
     <footer class="footer">
     <div class="footer-content">
         <div class="footer-section">
@@ -99,5 +98,6 @@
         </div>
     </div>
 </footer>
+
 </body>
 </html>

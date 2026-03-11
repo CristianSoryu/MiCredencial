@@ -1,10 +1,10 @@
 import { LinearGradient } from "expo-linear-gradient";
-import { useRouter } from "expo-router";
+import { Href, useRouter } from "expo-router";
 import { Text, TouchableOpacity } from "react-native";
 import { styles } from "../constants/styles";
 
 type CustomFormProps = {
-  route: string;
+  route: Href;
   text: string;
 };
 export default function CustomButton({ route, text }: CustomFormProps) {

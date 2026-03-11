@@ -101,9 +101,10 @@ export const styles = StyleSheet.create({
     position: "absolute",
     justifyContent: "center",
     alignItems: "center",
-    height: 10000,
-    width: 10000,
+    height: 1000,
+    width: 1000,
     borderRadius: 99999,
+    zIndex: 9999,
   },
 });
 

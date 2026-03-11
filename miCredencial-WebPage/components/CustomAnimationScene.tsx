@@ -17,12 +17,10 @@ export default function AnimationScene({
   route: Href;
   setIsPressed: (isPressed: boolean) => void;
 }) {
-  const yPosition = useSharedValue(yInitialPos);
   const scale = useSharedValue(0);
 
   const onEnd = () => {
     scale.value = withTiming(0, { duration: 0 });
-    //setIsPressed(true);
   };
   const navigate = () => {
     router.push(route);
@@ -30,10 +28,9 @@ export default function AnimationScene({
   };
 
   const onInit = () => {
-    scale.value = withTiming(1, { duration: 1000 }, (finish) => {
+    scale.value = withTiming(1, { duration: 200 }, (finish) => {
       if (finish) {
         runOnJS(navigate)();
-        //setIsPressed(false);
       }
     });
   };

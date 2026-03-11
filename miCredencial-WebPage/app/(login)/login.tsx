@@ -23,7 +23,7 @@ export default function Login() {
           style={styles.input}
           secureTextEntry={true}
         />
-        <CustomButton route="/" text="Login" />
+        <CustomButton route="/(login)/login" text="Login" />
       </LinearGradient>
     </SafeAreaView>
   );

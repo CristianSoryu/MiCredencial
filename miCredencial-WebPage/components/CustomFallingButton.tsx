@@ -1,5 +1,5 @@
 import { Href, useFocusEffect } from "expo-router";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { TouchableOpacity } from "react-native";
 import Animated, {
   runOnJS,
@@ -14,22 +14,18 @@ import AnimationScene from "./CustomAnimationScene";
 export default function FallingButton({
   titulo,
   index,
-  isPressed,
-  setIsPressed,
 }: {
   titulo: string;
   index: Href;
-  isPressed: boolean;
-  setIsPressed: (isPressed: boolean) => void;
 }) {
-  const yFinalPosition = 10;
+  const yFinalPosition = 30;
   const yPosition = useSharedValue(0);
   const scaleX = useSharedValue(1);
   const scaleY = useSharedValue(1);
   const width = useSharedValue(styles.button.width);
   const borderRadius = useSharedValue(styles.button.borderRadius);
   const textScaleValue = useSharedValue(1);
-
+  const [isPressed, setIsPressed] = useState(false);
   const [showScene, setShowScene] = useState(false);
 
   const animatedButton = useAnimatedStyle(() => {
@@ -54,7 +50,7 @@ export default function FallingButton({
     };
   });
 
-  const onPress = () => {
+  const OnPress = () => {
     textScaleValue.value = withSpring(0, { duration: 100 });
     borderRadius.value = withSpring(999, { duration: 100 });
 
@@ -65,7 +61,7 @@ export default function FallingButton({
         if (finished) {
           yPosition.value = withSpring(
             yPosition.value - 50,
-            { duration: 500 },
+            { duration: 100 },
             (finished) => {
               if (finished) {
                 yPosition.value = withSpring(
@@ -85,19 +81,20 @@ export default function FallingButton({
     );
   };
 
-  const defaultStyle = () => {
-    textScaleValue.value = withSpring(1, { duration: 500 });
-    width.value = withSpring(styles.button.width, { duration: 500 });
+  const defaultStyle = useCallback (() => {
+    textScaleValue.value = withSpring(1, { duration: 20 });
+    width.value = withSpring(styles.button.width, { duration: 110 });
     borderRadius.value = withSpring(styles.button.borderRadius, {
-      duration: 200,
+      duration: 100,
     });
-    scaleX.value = withSpring(1, { duration: 500 });
-    scaleY.value = withSpring(1, { duration: 500 }, (finished) => {
+    scaleX.value = withSpring(1, { duration: 20 });
+    scaleY.value = withSpring(1, { duration: 20 }, (finished) => {
       if (finished) {
-        yPosition.value = withSpring(0, { duration: 500 });
+        yPosition.value = withSpring(0, { duration: 10 });
       }
     });
-  };
+    runOnJS(setShowScene)(false);
+  }, []);
 
   useEffect(() => {
     if (!isPressed) {
@@ -110,14 +107,11 @@ export default function FallingButton({
 
   return (
     <>
-      <TouchableOpacity onPress={onPress} style={styles.buttonContainer}>
+      <TouchableOpacity onPress={OnPress} style={styles.buttonContainer}>
         <Animated.View
           style={[
             styles.button,
             animatedButton,
-            {
-              position: "absolute",
-            },
           ]}
         >
           <Animated.Text style={[styles.buttonText, animatedTextStyle]}>

@@ -37,3 +37,44 @@
     margin: 40px 0;
     text-align: center;
 }
+/* Estilos que sacamos del HTML */
+
+.main-visitantes {
+    flex: 1; /* Esto empuja el footer al fondo */
+}
+
+.titulo-pagina {
+    color: white;
+    text-align: center;
+    margin-top: 40px;
+}
+
+.divisor {
+    width: 80%;
+    border: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    margin: 40px auto;
+}
+
+/* El botón que antes definimos */
+.boton-rojo {
+    background-color: #c4001a;
+    color: white;
+    padding: 15px 30px;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    display: inline-block;
+    transition: 0.3s;
+}
+
+.boton-rojo:hover {
+    background-color: #a00015;
+    transform: translateY(-2px);
+}
+/* Agrega esto para centrar el botón */
+.contenedor-boton {
+    text-align: center; /* Centra el contenido (el botón) */
+    margin: 40px 0;    /* Da espacio arriba y abajo */
+    width: 100%;       /* Asegura que ocupe todo el ancho para poder centrar */
+}

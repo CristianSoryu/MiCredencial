@@ -1,0 +1,112 @@
+/* footer.css: Estilos institucionales para Universidad Libre */
+
+.footer {
+    background-color: #000;
+    color: white;
+    padding: 40px 20px 20px;
+    text-align: center;
+    border-top: 4px solid #c4001a;
+    width: 100%;
+    margin-top: auto; /* Empuja el footer al fondo en layouts flex */
+    box-sizing: border-box;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 30px;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 250px;
+    margin-bottom: 20px;
+    text-align: center; /* Centrado para coherencia */
+}
+
+.footer-section h4 {
+    color: #fff;
+    margin-bottom: 15px;
+    font-size: 18px;
+    border-bottom: 2px solid #c4001a;
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+.footer-section p {
+    margin: 8px 0;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #ccc;
+}
+
+.footer-section a {
+    display: block;
+    color: #ccc;
+    text-decoration: none;
+    margin: 8px 0;
+    font-size: 14px;
+    transition: 0.3s ease;
+}
+
+.footer-section a:hover {
+    color: #c4001a;
+    transform: translateX(5px); /* Pequeño efecto de desplazamiento */
+}
+
+/* --- REDES SOCIALES --- */
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 15px 0;
+}
+
+.social-icons a {
+    font-size: 28px;
+    color: white;
+    transition: transform 0.3s, color 0.3s;
+    display: inline-block !important;
+}
+
+/* Colores específicos por marca */
+.icon-fb:hover { color: #1877F2; transform: translateY(-5px); }
+.icon-ig:hover { color: #E4405F; transform: translateY(-5px); }
+.icon-x:hover { color: #1DA1F2; transform: translateY(-5px); }
+
+/* --- CONTENEDOR DEL MAPA --- */
+.map-container {
+    width: 100%;
+    max-width: 300px;
+    margin: 10px auto;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 2px solid #333;
+    line-height: 0;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+
+.map-container iframe {
+    width: 100%;
+    filter: grayscale(20%) contrast(1.1); /* Toque estético */
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .footer-section {
+        width: 100%;
+        min-width: unset;
+    }
+
+    .footer-section a:hover {
+        transform: none; /* Evitamos saltos laterales en móvil */
+    }
+}

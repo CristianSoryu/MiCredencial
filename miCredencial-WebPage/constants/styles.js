@@ -3,8 +3,6 @@ const buttonHeight = 60; // Define button height as a constant
 export const styles = StyleSheet.create({
   background: {
     flex: 1,
-    width: "100%",
-    height: "100%",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -17,22 +15,25 @@ export const styles = StyleSheet.create({
   },
   container: {
     borderRadius: 20,
-    width: "90%",
-    height: "70%",
+    width: "100%",
+    padding: 20,
+    top: 20,
+    bottom: 20,
     backgroundColor: "#e60909c9",
     alignItems: "center",
     justifyContent: "center",
     verticalAlign: "center",
     elevation: 7,
+    alignSelf: "center",
   },
-  tittle: {
+  title: {
     color: "white",
     fontSize: 40,
     alignItems: "center",
     padding: 10,
     fontFamily: "PoppinsSemiBold",
   },
-  subTittle: {
+  subTitle: {
     color: "black",
     fontSize: 30,
     fontWeight: "bold",
@@ -105,6 +106,20 @@ export const styles = StyleSheet.create({
     width: 1000,
     borderRadius: 99999,
     zIndex: 9999,
+  },
+  header: {
+    height: 80,
+    width: "100%",
+    backgroundColor: "#ef310b",
+  },
+  headerContainer: {
+    top: 10,
+    gap: 100,
+    flex: 1,
+    justifyContent: "space-around",
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 10,
   },
 });
 

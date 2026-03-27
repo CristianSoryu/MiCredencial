@@ -1,18 +1,13 @@
-import { Text, View } from "react-native";
-import { styles } from "../styles";
+import { ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { ScrollView } from "react-native-reanimated/lib/typescript/Animated";
+import { styles } from "../styles";
 export default function Index() {
   return (
-   <SafeAreaView>
+    <SafeAreaView>
       <ScrollView>
-
-
         <View style={[styles.container, { backgroundColor: "#d04141" }]}>
           <Text style={styles.text}>About</Text>
         </View>
-
-
       </ScrollView>
     </SafeAreaView>
   );

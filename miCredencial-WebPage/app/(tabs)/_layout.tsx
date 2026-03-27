@@ -1,3 +1,4 @@
+import CustomHeader from "@/components/CustomHeader";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Tabs } from "expo-router";
 import { CustomTabBar } from "../../components/CustomTabBar";
@@ -6,17 +7,8 @@ export default function TabLayout() {
     <Tabs
       tabBar={(props) => <CustomTabBar {...props} />}
       screenOptions={{
-        tabBarActiveTintColor: "#ffd33d",
-        tabBarInactiveTintColor: "white",
-        tabBarLabelStyle: {
-          fontSize: 12,
-          fontFamily: "Poppins_400Regular",
-        },
-        headerStyle: {
-          backgroundColor: "#ef310b",
-        },
+        header: () => <CustomHeader />,
         headerShadowVisible: false,
-        headerTintColor: "white",
       }}
     >
       <Tabs.Screen

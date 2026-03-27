@@ -1,0 +1,146 @@
+/* admin.css */
+
+/* 1. Base y Centrado (Copia fiel de lo que te funcionó en las otras páginas) */
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(#8b0000, #b3001b);
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    align-items: center;
+}
+
+.contenedor {
+    width: 90%;
+    max-width: 650px;
+    background: white;
+    margin: auto;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0px 10px 30px rgba(0,0,0,0.5);
+}
+
+.header {
+    background: #000;
+    color: white;
+    text-align: center;
+    padding: 25px;
+}
+
+.escudo {
+    width: 70px;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+/* 2. El área de contenido con Padding (Para que no se pegue al borde) */
+.login {
+    padding: 35px;
+    text-align: center;
+}
+
+/* 3. Sistema de Rejilla (Esto crea las dos columnas para las opciones) */
+.accesos {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Crea 2 columnas iguales */
+    gap: 20px; /* Espacio entre las tarjetas */
+    margin-top: 15px;
+}
+
+/* 4. Estilo de las Tarjetas (Convierte los enlaces en botones elegantes) */
+.card {
+    text-decoration: none; /* Quita el subrayado azul */
+    background: #fdfdfd;
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid #eee;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card i {
+    font-size: 35px;
+    color: #c4001a; /* Rojo institucional para los iconos */
+    margin-bottom: 15px;
+}
+
+.card h3 {
+    margin: 5px 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.card p {
+    font-size: 13px;
+    color: #777;
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* Efecto al pasar el mouse (Hover) */
+.card:hover {
+    transform: translateY(-5px);
+    border-color: #c4001a;
+    box-shadow: 0px 8px 15px rgba(0,0,0,0.1);
+    background: #fff;
+}
+
+/* 5. Responsive (Para que en celular se vea una tarjeta sobre otra) */
+@media (max-width: 500px) {
+    .accesos {
+        grid-template-columns: 1fr;
+    }
+}
+/* --- ESTILOS DE TABLAS (Añadir a admin.css) --- */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 14px;
+}
+
+table th {
+    background-color: #f2f2f2;
+    color: #333;
+    padding: 12px;
+    text-align: left;
+    border-bottom: 2px solid #c4001a;
+}
+
+table td {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+    vertical-align: middle;
+}
+
+table tr:hover {
+    background-color: #f9f9f9;
+}
+
+/* Estilos para los botones dentro de la tabla */
+.btn-aprobar {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.btn-rechazar {
+    background-color: #c4001a;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    margin-left: 5px;
+}
+
+.btn-aprobar:hover { background-color: #218838; }
+.btn-rechazar:hover { background-color: #a00015; }

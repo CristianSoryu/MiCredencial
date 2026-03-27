@@ -1,0 +1,98 @@
+/* --- 1. CONFIGURACIÓN BASE --- */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* Degradado institucional Unilibre */
+    background: linear-gradient(135deg, #8b0000 0%, #b3001b 100%);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* --- 2. HEADER GLOBAL --- */
+.header {
+    background: #000;
+    color: #fff;
+    padding: 20px;
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.header h1 { margin: 0; font-size: 24px; }
+.header p { 
+    color: #c4001a; 
+    font-weight: bold; 
+    margin: 5px 0 0 0; 
+}
+
+/* --- 3. CONTENEDOR TIPO TARJETA --- */
+.contenedor {
+    width: 90%;
+    max-width: 400px;
+    background: white;
+    margin: 40px auto; /* Margen superior e inferior para despegarlo */
+    border-radius: 15px;
+    box-shadow: 0px 10px 25px rgba(0,0,0,0.4);
+    padding: 20px;
+    text-align: center;
+}
+
+/* --- 4. FORMULARIOS Y COMPONENTES --- */
+input, select {
+    width: 100%; 
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    box-sizing: border-box; 
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: #c4001a;
+    box-shadow: 0 0 5px rgba(196, 0, 26, 0.2);
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    background: #c4001a;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #000; /* Cambio a negro en hover para contraste */
+}
+
+/* --- 5. ENLACES Y NAVEGACIÓN --- */
+.volver {
+    display: inline-block;
+    margin-top: 20px;
+    color: #666;
+    text-decoration: none;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.volver:hover {
+    color: #c4001a;
+}
+
+/* --- 6. UTILIDADES --- */
+.escudo {
+    width: 80px;
+    height: auto;
+    margin: 0 auto 15px;
+    display: block;
+}

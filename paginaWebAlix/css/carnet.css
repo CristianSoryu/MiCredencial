@@ -11,3 +11,14 @@ margin:auto;
 padding:20px;
 border-radius:10px;
 }
+
+.carnet p {
+margin: 10px 0;
+font-size: 14px;
+}
+
+.carnet #carnet-vencimiento {
+color: #a00015;
+font-weight: bold;
+font-size: 16px;
+}

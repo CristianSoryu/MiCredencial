@@ -11,10 +11,16 @@ document.addEventListener('DOMContentLoaded', () => {
      
     
     if (identificador && contrasena) {
+        // Calcular fecha de vencimiento (1 año desde hoy)
+        const fechaActual = new Date();
+        const fechaVencimiento = new Date(fechaActual.getFullYear() + 1, fechaActual.getMonth(), fechaActual.getDate());
+        const vencimientoFormato = fechaVencimiento.toLocaleDateString('es-CO', { year: 'numeric', month: 'long', day: 'numeric' });
+
         const dummyUser = {
         nombre: "Juan Ruiz",
         identificacion: "123456",
         programa: "Ing en TIC",
+        vencimiento: vencimientoFormato,
         };
 
         currentUser = dummyUser;

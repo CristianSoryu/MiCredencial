@@ -3,55 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solicitudes - Universidad Libre</title>
-
-    <link rel="stylesheet" href="css/styles.css"> 
-    <link rel="stylesheet" href="css/admin.css">
-    <link rel="stylesheet" href="css/footer.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>Panel de Administración - Universidad Libre</title>
+    
+    <link rel="stylesheet" href="../css/styles.css">  
+     <link rel="stylesheet" href="../css/admin.css">    
+     <link rel="stylesheet" href="../css/footer.css">   
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 
 <body>
 
     <header class="header">
-        <img src="IMG/escudo.png" class="escudo" alt="Logo">
-        <h1>Gestión de Solicitudes</h1>
+        <img src="../IMG/escudo.png" class="escudo" alt="Logo Unilibre">
+        <h1>Panel de Control</h1>
         <p>Universidad Libre - Seccional Cúcuta</p>
     </header>
 
-    <div class="contenedor" style="max-width: 800px; padding: 20px;">
-        <h2 style="text-align: center; color: #333;">Solicitudes de Pre-registro</h2>
+    <div class="contenedor">
+        <div class="login"> <h2 style="color: #333; margin-bottom: 25px;">Opciones de Gestión</h2>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>Nombre del Aspirante</th>
-                    <th>Programa Académico</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Carlos López</td>
-                    <td>Medicina</td>
-                    <td>
-                        <button class="btn-aprobar"><i class="fas fa-check"></i> Aprobar</button>
-                        <button class="btn-rechazar"><i class="fas fa-times"></i> Rechazar</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Ana Martínez</td>
-                    <td>Derecho</td>
-                    <td>
-                        <button class="btn-aprobar"><i class="fas fa-check"></i> Aprobar</button>
-                        <button class="btn-rechazar"><i class="fas fa-times"></i> Rechazar</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+            <div class="accesos">
+                <a href="usuarios.html" class="card">
+                    <i class="fas fa-users"></i>
+                    <h3>Gestionar Usuarios</h3>
+                    <p>Cuentas de acceso.</p>
+                </a>
 
-        <div style="text-align: center; margin-top: 20px;">
-            <a href="1admin.html" class="btn-volver"><i class="fas fa-arrow-left"></i> Volver al Panel</a>
+                <a href="solicitudesADM.html" class="card">
+                    <i class="fas fa-file-signature"></i>
+                    <h3>Ver Solicitudes</h3>
+                    <p>Carnets pendientes.</p>
+                </a>
+            </div>
+
+            <div style="margin-top: 30px;">
+                <a href="../index.html" style="font-weight: bold;">
+                    <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+                </a>
+            </div>
         </div>
     </div>
 
@@ -66,7 +55,7 @@
 
         <div class="footer-section">
             <h4>Enlaces Rápidos</h4>
-            <a href="index.html">Inicio</a>
+            <a href="../index.html">Inicio</a>
             <a href="https://www.unilibre.edu.co/biblioteca" target="_blank">Biblioteca</a>
             <a href="https://www.unilibre.edu.co/cucuta/" target="_blank">Seccional Cúcuta</a>
             <a href="https://www.kawak.com.co/unilibre/pqrs/pqrs_index.php" target="_blank">PQRS - Soporte Técnico</a>
@@ -95,5 +84,6 @@
     </div>
 </footer>
 
+<script src="../js/quickAccess.js"></script>
 </body>
 </html>

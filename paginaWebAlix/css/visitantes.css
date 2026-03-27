@@ -16,6 +16,7 @@
     transition: 0.3s ease;
     border-top: 4px solid transparent;
     overflow: hidden;
+    position: relative;
 }
 
 .card a {
@@ -23,6 +24,15 @@
     padding: 25px;
     text-decoration: none;
     color: inherit;
+}
+
+.card i {
+    font-size: 32px;
+    color: #c4001a;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: block;
 }
 
 .card:hover {

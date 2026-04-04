@@ -3,48 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Egresados - Universidad Libre</title>
-    
-    <link rel="stylesheet" href="css/styles.css">
+    <title>Recuperar Contrasena - Carnet Digital</title>
+
     <link rel="stylesheet" href="css/forms.css">
     <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/ui.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
 <body>
-
-    <header class="header">
-        <img src="IMG/escudo.png" alt="Escudo Unilibre" class="escudo">
-        <h1>Universidad Libre</h1>
-        <p>Seccional Cucuta</p>
-    </header>
-
     <div class="contenedor">
-        <div class="login">
-            <h2 style="color: #c4001a; margin-top: 0;">Egresados</h2>
-            <p style="color: #666; font-size: 14px; margin-bottom: 20px;">Solicitud de renovacion o carnet digital</p>
+        <img src="IMG/escudo.png" class="escudo" alt="Escudo Unilibre">
 
-            <form action="#" method="POST">
-                <input type="text" placeholder="Nombre completo" required>
-                <input type="text" placeholder="Numero de identificacion" required>
-                <input type="email" placeholder="Correo electronico institucional / personal" required>
-                
-                <select required>
-                    <option value="" disabled selected>Seleccione su programa academico</option>
-                    <option value="derecho">Derecho</option>
-                    <option value="ingenieria-tic">Ingenieria en TIC</option>
-                    <option value="ingenieria-civil">Ingenieria Civil</option>
-                    <option value="ingenieria-industrial">Ingenieria Industrial</option>
-                    <option value="comunicacion-corporativa">Comunicacion Corporativa</option>
-                    <option value="administracion">Administracion de Empresas</option>
-                    <option value="contaduria">Contaduria Publica</option>
-                </select>
-                
-                <button type="submit">Enviar solicitud</button>
+        <div class="login">
+            <h2>Olvidaste tu contrasena?</h2>
+            <p style="color: #666; font-size: 14px; line-height: 1.5;">
+                Ingresa tu correo electronico y te enviaremos una contrasena temporal para recuperar el acceso.
+            </p>
+
+            <form id="recovery-form">
+                <label for="recovery-email">Correo electronico</label>
+                <input
+                    type="email"
+                    id="recovery-email"
+                    placeholder="ejemplo@unilibre.edu.co"
+                    required
+                >
+
+                <button type="submit">Enviar contrasena temporal</button>
             </form>
-            
-            <a href="index.html" style="margin-top: 20px; display: block; font-weight: bold;">
-                <i class="fas fa-arrow-left"></i> Volver al inicio
+
+            <p id="recovery-message" style="display: none; margin-top: 15px; font-size: 14px; line-height: 1.5;"></p>
+
+            <a href="cambiar-contrasena.html" style="font-weight: bold;">
+                <i class="fas fa-key"></i> Ir a cambiar contrasena
+            </a>
+
+            <a href="index.html" style="font-weight: bold;">
+                <i class="fas fa-arrow-left"></i> Volver al inicio de sesion
             </a>
         </div>
     </div>
@@ -89,5 +85,7 @@
         </div>
     </footer>
 
+    <script src="js/ui.js"></script>
+    <script src="js/recuperacion.js"></script>
 </body>
 </html>

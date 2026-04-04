@@ -20,6 +20,18 @@
     margin-bottom: 15px;
 }
 
+.boton-cambiar-foto {
+    width: auto;
+    padding: 10px 14px;
+    margin: 0 auto 18px;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    max-width: 170px;
+}
+
 .carnet p {
     
     margin: 12px 0;

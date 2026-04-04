@@ -1,35 +1,64 @@
-//Lógica de inicio de sesión y logout.
+// Logica de inicio de sesion.
 document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('login-form').addEventListener('submit', (e)=>{
+    const loginForm = document.getElementById('login-form');
 
-    e.preventDefault();
+    if (!loginForm) {
+        return;
+    }
 
-    const identificador = document.getElementById('login-id').value;
-    const contrasena = document.getElementById('login-password').value;
+    loginForm.addEventListener('submit', (event) => {
+        event.preventDefault();
 
-    // para la demostración, cualquier identificador y contraseña serán aceptados. En producción, aquí se haría una llamada a la API para validar las credenciales.
-     
-    
-    if (identificador && contrasena) {
-        // Calcular fecha de vencimiento (1 año desde hoy)
+        const identificador = document.getElementById('login-id').value.trim();
+        const contrasena = document.getElementById('login-password').value;
+        let passwordGuardada = getStoredPassword();
+        const identificacionValida = /^\d{10}$/.test(identificador);
+
+        if (!identificador || !contrasena) {
+            showToast('Ingresa tu identificacion y la contrasena.', 'error', 'Datos incompletos');
+            return;
+        }
+
+        if (!identificacionValida) {
+            showToast('El ID debe tener exactamente 10 numeros.', 'error', 'Identificacion invalida');
+            return;
+        }
+
+        if (!passwordGuardada) {
+            setStoredPassword(contrasena);
+            passwordGuardada = contrasena;
+        }
+
+        if (contrasena !== passwordGuardada) {
+            showToast('La contrasena no coincide con la registrada.', 'error', 'Acceso denegado');
+            return;
+        }
+
         const fechaActual = new Date();
-        const fechaVencimiento = new Date(fechaActual.getFullYear() + 1, fechaActual.getMonth(), fechaActual.getDate());
-        const vencimientoFormato = fechaVencimiento.toLocaleDateString('es-CO', { year: 'numeric', month: 'long', day: 'numeric' });
+        const fechaVencimiento = new Date(
+            fechaActual.getFullYear() + 1,
+            fechaActual.getMonth(),
+            fechaActual.getDate()
+        );
+        const vencimientoFormato = fechaVencimiento.toLocaleDateString('es-CO', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+        });
 
         const dummyUser = {
-        nombre: "Juan Ruiz",
-        identificacion: "123456",
-        programa: "Ing en TIC",
-        vencimiento: vencimientoFormato,
+            nombre: 'Juan Ruiz',
+            identificacion: identificador,
+            programa: 'Ing en TIC',
+            vencimiento: vencimientoFormato,
         };
 
         currentUser = dummyUser;
-        localStorage.setItem('carnet', JSON.stringify(currentUser));
-        alert('Login exitoso! Redirigiendo al carnet...');
-        window.location.href = 'carnet.html';
-    } else {
-        alert('Por favor ingrese credenciales válidas.');
-    }
+        saveCurrentCarnet(currentUser);
+        showToast('Ingreso exitoso. Redirigiendo a tu carnet.', 'success', 'Sesion iniciada');
 
+        setTimeout(() => {
+            window.location.href = 'carnet.html';
+        }, 900);
     });
 });

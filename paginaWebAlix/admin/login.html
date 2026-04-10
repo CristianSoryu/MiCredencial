@@ -3,51 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Administracion - Universidad Libre</title>
-    
-    <link rel="stylesheet" href="../css/styles.css">
-    <link rel="stylesheet" href="../css/admin.css">
+    <title>Acceso Admin - Universidad Libre</title>
+
+    <link rel="stylesheet" href="../css/forms.css">
     <link rel="stylesheet" href="../css/footer.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="../css/ui.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
 <body>
-
-    <header class="header">
-        <img src="../IMG/escudo.png" class="escudo" alt="Logo Unilibre">
-        <h1>Panel de Control</h1>
-        <p>Universidad Libre - Seccional Cucuta</p>
-    </header>
-
     <div class="contenedor">
+        <img src="../IMG/escudo.png" class="escudo" alt="Escudo Unilibre">
+
         <div class="login">
-            <h2 style="color: #333; margin-bottom: 25px;">Opciones de Gestion</h2>
+            <h2>Acceso administrativo</h2>
+            <p style="color: #666; font-size: 14px; line-height: 1.5;">
+                Ingresa tu usuario y contrasena para acceder al panel de administracion.
+            </p>
 
-            <div class="accesos">
-                <a href="usuarios.html" class="card">
-                    <i class="fas fa-users"></i>
-                    <h3>Gestionar Usuarios</h3>
-                    <p>Cuentas de acceso.</p>
-                </a>
+            <form id="admin-login-form">
+                <label for="admin-username">Usuario</label>
+                <input type="text" id="admin-username" placeholder="Ingresa tu usuario" required>
 
-                <a href="solicitudesADM.html" class="card">
-                    <i class="fas fa-file-signature"></i>
-                    <h3>Ver Solicitudes</h3>
-                    <p>Carnets pendientes.</p>
-                </a>
-            </div>
+                <label for="admin-password">Contrasena</label>
+                <input type="password" id="admin-password" placeholder="Ingresa tu contrasena" required>
 
-            <div style="margin-top: 20px;">
-                <a href="../index.html" style="font-weight: bold;">
-                    <i class="fas fa-arrow-left"></i> Volver al inicio
-                </a>
-            </div>
+                <button type="submit">Ingresar al panel</button>
+            </form>
 
-            <div style="margin-top: 30px;">
-                <a href="#" onclick="adminLogout(); return false;" style="font-weight: bold;">
-                    <i class="fas fa-sign-out-alt"></i> Cerrar Sesion
-                </a>
-            </div>
+            <a href="../index.html" style="font-weight: bold;">
+                <i class="fas fa-arrow-left"></i> Volver al inicio
+            </a>
         </div>
     </div>
 
@@ -91,11 +77,7 @@
         </div>
     </footer>
 
-<script src="../js/ui.js"></script>
-<script src="../js/admin-auth.js"></script>
-<script>
-    requireAdminAuth();
-</script>
-<script src="../js/quickAccess.js"></script>
+    <script src="../js/ui.js"></script>
+    <script src="../js/admin-auth.js"></script>
 </body>
 </html>

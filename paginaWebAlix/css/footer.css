@@ -1,13 +1,13 @@
 /* footer.css: Estilos institucionales para Universidad Libre */
 
 .footer {
-    background-color: #000;
+    background: linear-gradient(180deg, #111 0%, #000 100%);
     color: white;
     padding: 40px 20px 20px;
     text-align: center;
-    border-top: 4px solid #c4001a;
+    border-top: 4px solid #d4af37;
     width: 100%;
-    margin-top: auto; /* Empuja el footer al fondo en layouts flex */
+    margin-top: auto;
     box-sizing: border-box;
 }
 
@@ -24,14 +24,14 @@
     flex: 1;
     min-width: 250px;
     margin-bottom: 20px;
-    text-align: center; /* Centrado para coherencia */
+    text-align: center;
 }
 
 .footer-section h4 {
-    color: #fff;
+    color: #f4d77a;
     margin-bottom: 15px;
     font-size: 18px;
-    border-bottom: 2px solid #c4001a;
+    border-bottom: 2px solid #d4af37;
     display: inline-block;
     padding-bottom: 5px;
 }
@@ -53,11 +53,10 @@
 }
 
 .footer-section a:hover {
-    color: #c4001a;
-    transform: translateX(5px); /* Pequeño efecto de desplazamiento */
+    color: #f4d77a;
+    transform: translateX(5px);
 }
 
-/* --- REDES SOCIALES --- */
 .social-icons {
     display: flex;
     justify-content: center;
@@ -72,29 +71,26 @@
     display: inline-block !important;
 }
 
-/* Colores específicos por marca */
 .icon-fb:hover { color: #1877F2; transform: translateY(-5px); }
 .icon-ig:hover { color: #E4405F; transform: translateY(-5px); }
 .icon-x:hover { color: #1DA1F2; transform: translateY(-5px); }
 
-/* --- CONTENEDOR DEL MAPA --- */
 .map-container {
     width: 100%;
     max-width: 300px;
     margin: 10px auto;
     border-radius: 12px;
     overflow: hidden;
-    border: 2px solid #333;
+    border: 2px solid rgba(212, 175, 55, 0.45);
     line-height: 0;
     box-shadow: 0 4px 10px rgba(0,0,0,0.5);
 }
 
 .map-container iframe {
     width: 100%;
-    filter: grayscale(20%) contrast(1.1); /* Toque estético */
+    filter: grayscale(20%) contrast(1.1);
 }
 
-/* --- RESPONSIVE --- */
 @media (max-width: 768px) {
     .footer-content {
         flex-direction: column;
@@ -107,6 +103,6 @@
     }
 
     .footer-section a:hover {
-        transform: none; /* Evitamos saltos laterales en móvil */
+        transform: none;
     }
 }

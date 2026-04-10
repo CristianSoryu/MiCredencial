@@ -2,7 +2,9 @@
 
 body{
     font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #c4001a 0%, #a00015 100%);
+    background:
+        radial-gradient(circle at top, rgba(212, 175, 55, 0.2) 0%, rgba(212, 175, 55, 0) 25%),
+        linear-gradient(135deg, #c4001a 0%, #a00015 100%);
     min-height: 100vh;
     margin: 0;
     display: flex;
@@ -11,7 +13,6 @@ body{
     align-items: stretch;
 }
 
-/* escudo de la u arriba de los textos */
 .escudo {
     width: 80px;
     height: auto;
@@ -28,12 +29,13 @@ body{
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+    border: 1px solid rgba(212, 175, 55, 0.35);
     text-align: center;
     box-sizing: border-box;
 }
 
 h2{
-    color:#c4001a;
+    color:#b8860b;
 }
 
 input, select{
@@ -45,10 +47,16 @@ input, select{
     box-sizing: border-box;
 }
 
+input:focus, select:focus {
+    outline: none;
+    border-color: #d4af37;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.18);
+}
+
 button{
     width:100%;
     padding:12px;
-    background:#c4001a;
+    background: linear-gradient(135deg, #c4001a 0%, #a00015 100%);
     color:white;
     border:none;
     border-radius:8px;
@@ -56,17 +64,16 @@ button{
 }
 
 button:hover{
-    background:#a00015;
+    background: linear-gradient(135deg, #1b1b1b 0%, #000 100%);
 }
 
 a{
     display:block;
     margin-top:15px;
-    color:#c4001a;
+    color:#b8860b;
     text-decoration:none;
 }
 
-/* responsive fix for very small screens */
 @media (max-width: 400px) {
     .form-container, .contenedor {
         width: 90%;

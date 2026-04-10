@@ -1,5 +1,9 @@
 /* css/visitantes.css */
 
+body {
+    background: #ffffff;
+}
+
 .carrusel-carreras {
     max-width: 1180px;
     margin: 0 auto 60px;
@@ -30,6 +34,7 @@
     box-shadow: 0px 5px 15px rgba(0,0,0,0.1);
     transition: 0.3s ease;
     border-top: 4px solid transparent;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.28);
     overflow: hidden;
     position: relative;
     min-height: 190px;
@@ -46,7 +51,7 @@
 
 .card i {
     font-size: 32px;
-    color: #c4001a;
+    color: #b8860b;
     position: absolute;
     top: 10px;
     right: 10px;
@@ -55,19 +60,20 @@
 
 .card:hover {
     transform: translateY(-10px);
-    border-top: 4px solid #c4001a;
+    border-top: 4px solid #d4af37;
+    box-shadow: 0px 10px 24px rgba(212, 175, 55, 0.2);
 }
 
-.card h3 { color: #c4001a; margin-bottom: 10px; }
+.card h3 { color: #b8860b; margin-bottom: 10px; }
 .card p { color: #666; font-size: 14px; }
 
 .carrusel-boton {
     width: 46px;
     height: 46px;
     border-radius: 50%;
-    border: none;
+    border: 1px solid rgba(212, 175, 55, 0.4);
     background: #ffffff;
-    color: #c4001a;
+    color: #b8860b;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -78,8 +84,8 @@
 
 .carrusel-boton:hover {
     transform: translateY(-2px);
-    background: #c4001a;
-    color: #fff;
+    background: #d4af37;
+    color: #1b1b1b;
 }
 
 .carrusel-boton:disabled {
@@ -98,7 +104,7 @@
 }
 
 .titulo-pagina {
-    color: white;
+    color: #c4001a;
     text-align: center;
     margin-top: 40px;
 }
@@ -106,12 +112,12 @@
 .divisor {
     width: 80%;
     border: 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    border-top: 1px solid rgba(212, 175, 55, 0.35);
     margin: 40px auto;
 }
 
 .boton-rojo {
-    background-color: #c4001a;
+    background: linear-gradient(135deg, #c4001a 0%, #a00015 100%);
     color: white;
     padding: 15px 30px;
     text-decoration: none;
@@ -122,14 +128,24 @@
 }
 
 .boton-rojo:hover {
-    background-color: #a00015;
+    background: linear-gradient(135deg, #1b1b1b 0%, #000 100%);
     transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(212, 175, 55, 0.22);
 }
 
 .contenedor-boton {
     text-align: center;
     margin: 40px 0;
     width: 100%;
+}
+
+.volver-visitantes {
+    color: #c4001a;
+    font-weight: bold;
+}
+
+.volver-visitantes:hover {
+    color: #8b0000;
 }
 
 @media (max-width: 900px) {

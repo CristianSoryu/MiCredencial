@@ -1,8 +1,9 @@
-/* --- 1. CONFIGURACIÓN BASE --- */
+/* --- 1. CONFIGURACION BASE --- */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    /* Degradado institucional Unilibre */
-    background: linear-gradient(135deg, #8b0000 0%, #b3001b 100%);
+    background:
+        radial-gradient(circle at top, rgba(212, 175, 55, 0.22) 0%, rgba(212, 175, 55, 0) 28%),
+        linear-gradient(135deg, #8b0000 0%, #b3001b 100%);
     margin: 0;
     padding: 0;
     display: flex;
@@ -12,19 +13,21 @@ body {
 
 /* --- 2. HEADER GLOBAL --- */
 .header {
-    background: #000;
+    background: linear-gradient(180deg, #080808 0%, #141414 100%);
     color: #fff;
     padding: 20px;
     width: 100%;
     text-align: center;
     box-sizing: border-box;
+    border-bottom: 2px solid #d4af37;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.3);
 }
 
 .header h1 { margin: 0; font-size: 24px; }
-.header p { 
-    color: #c4001a; 
-    font-weight: bold; 
-    margin: 5px 0 0 0; 
+.header p {
+    color: #d4af37;
+    font-weight: bold;
+    margin: 5px 0 0 0;
 }
 
 /* --- 3. CONTENEDOR TIPO TARJETA --- */
@@ -32,9 +35,10 @@ body {
     width: 90%;
     max-width: 400px;
     background: white;
-    margin: 40px auto; /* Margen superior e inferior para despegarlo */
+    margin: 40px auto;
     border-radius: 15px;
     box-shadow: 0px 10px 25px rgba(0,0,0,0.4);
+    border: 1px solid rgba(212, 175, 55, 0.35);
     padding: 20px;
     text-align: center;
 }
@@ -56,6 +60,7 @@ body {
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease, border-top-color 0.3s ease;
     border-top: 4px solid transparent;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.28);
     overflow: hidden;
     position: relative;
 }
@@ -68,7 +73,7 @@ body {
 }
 
 .accesos .card h4 {
-    color: #c4001a;
+    color: #b8860b;
     margin: 0 0 10px;
 }
 
@@ -80,31 +85,32 @@ body {
 
 .accesos .card:hover {
     transform: translateY(-10px);
-    border-top-color: #c4001a;
+    border-top-color: #d4af37;
+    box-shadow: 0px 10px 24px rgba(184, 134, 11, 0.18);
 }
 
 /* --- 4. FORMULARIOS Y COMPONENTES --- */
 input, select {
-    width: 100%; 
+    width: 100%;
     padding: 12px;
     margin: 10px 0;
     border-radius: 8px;
     border: 1px solid #ccc;
-    box-sizing: border-box; 
+    box-sizing: border-box;
     font-size: 14px;
     transition: 0.3s;
 }
 
 input:focus, select:focus {
     outline: none;
-    border-color: #c4001a;
-    box-shadow: 0 0 5px rgba(196, 0, 26, 0.2);
+    border-color: #d4af37;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.18);
 }
 
 button {
     width: 100%;
     padding: 14px;
-    background: #c4001a;
+    background: linear-gradient(135deg, #c4001a 0%, #a00015 100%);
     color: white;
     border: none;
     border-radius: 8px;
@@ -116,10 +122,11 @@ button {
 }
 
 button:hover {
-    background: #000; /* Cambio a negro en hover para contraste */
+    background: linear-gradient(135deg, #1b1b1b 0%, #000 100%);
+    box-shadow: 0 8px 18px rgba(212, 175, 55, 0.2);
 }
 
-/* --- 5. ENLACES Y NAVEGACIÓN --- */
+/* --- 5. ENLACES Y NAVEGACION --- */
 .volver {
     display: inline-block;
     margin-top: 20px;
@@ -130,7 +137,7 @@ button:hover {
 }
 
 .volver:hover {
-    color: #c4001a;
+    color: #d4af37;
 }
 
 /* --- 6. UTILIDADES --- */

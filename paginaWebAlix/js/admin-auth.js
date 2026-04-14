@@ -34,12 +34,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const password = document.getElementById('admin-password').value;
 
         if (!username || !password) {
-            showToast('Ingresa usuario y contrasena.', 'error', 'Datos incompletos');
+            showToast('Ingresa usuario y contraseña.', 'error', 'Datos incompletos');
             return;
         }
 
         if (username !== ADMIN_USERNAME || password !== ADMIN_PASSWORD) {
-            showToast('Usuario o contrasena incorrectos.', 'error', 'Acceso denegado');
+            showToast('Usuario o contraseña incorrectos.', 'error', 'Acceso denegado');
             return;
         }
 

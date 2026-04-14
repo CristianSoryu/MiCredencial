@@ -26,8 +26,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         message.style.display = 'block';
         message.style.color = '#1f6f43';
-        message.innerHTML = `Se envio una contrasena temporal al correo <strong>${email}</strong>.<br>Contrasena temporal de prueba: <strong>${temporalPassword}</strong>`;
-        showToast('Se genero una contrasena temporal para tu acceso.', 'success', 'Recuperacion lista');
+        message.innerHTML = `Se envio una contraseña temporal al correo <strong>${email}</strong>.<br>Contraseña temporal de prueba: <strong>${temporalPassword}</strong>`;
+        showToast('Se genero una contraseña temporal para tu acceso.', 'success', 'Recuperacion lista');
 
         form.reset();
     });

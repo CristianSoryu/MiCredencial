@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const identificacionValida = /^\d{10}$/.test(identificador);
 
         if (!identificador || !contrasena) {
-            showToast('Ingresa tu identificacion y la contrasena.', 'error', 'Datos incompletos');
+            showToast('Ingresa tu identificacion y la contraseña.', 'error', 'Datos incompletos');
             return;
         }
 
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (contrasena !== passwordGuardada) {
-            showToast('La contrasena no coincide con la registrada.', 'error', 'Acceso denegado');
+            showToast('La contraseña no coincide con la registrada.', 'error', 'Acceso denegado');
             return;
         }
 

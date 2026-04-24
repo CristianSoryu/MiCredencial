@@ -51,6 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
             identificacion: identificador,
             programa: 'Ing en TIC',
             vencimiento: vencimientoFormato,
+            rol: 'estudiante' // Agregar rol
         };
 
         currentUser = dummyUser;
@@ -58,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
         showToast('Ingreso exitoso. Redirigiendo a tu carnet.', 'success', 'Sesion iniciada');
 
         setTimeout(() => {
-            window.location.href = 'carnet.html';
+            window.location.href = 'pages/carnet.html';
         }, 900);
     });
 });

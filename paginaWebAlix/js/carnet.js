@@ -18,7 +18,7 @@ function mostrarCarnet(user) {
     const qrContainer = document.getElementById('qrcode');
     qrContainer.innerHTML = '';
 
-    const qrData = `ID: ${user.identificacion} | Estudiante: ${user.nombre}`;
+    const qrData = `ID: ${user.identificacion} | Estudiante: ${user.nombre} | Rol: ${user.rol || 'estudiante'}`;
 
     new QRCode(qrContainer, {
         text: qrData,
@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
     showToast('No hay un carnet activo en esta sesion. Inicia sesion primero.', 'error', 'Sesion no encontrada');
 
     setTimeout(() => {
-        window.location.href = 'index.html';
+        window.location.href = '../index.html';
     }, 1200);
 });
 
@@ -108,6 +108,6 @@ function logout() {
     showToast('Tu sesion se cerro correctamente.', 'info', 'Sesion finalizada');
 
     setTimeout(() => {
-        window.location.href = 'index.html';
+        window.location.href = '../index.html';
     }, 700);
 }

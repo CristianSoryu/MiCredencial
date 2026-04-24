@@ -35,6 +35,12 @@
                     <h3>Ver Solicitudes</h3>
                     <p>Carnets pendientes.</p>
                 </a>
+
+                <a href="#" onclick="showQRScreen(); return false;" class="card">
+                    <i class="fas fa-qrcode"></i>
+                    <h3>Escaneo QR</h3>
+                    <p>Registrar accesos con QR.</p>
+                </a>
             </div>
 
             <div style="margin-top: 20px;">
@@ -47,6 +53,26 @@
                 <a href="#" onclick="adminLogout(); return false;" style="font-weight: bold;">
                     <i class="fas fa-sign-out-alt"></i> Cerrar Sesion
                 </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Escaneo QR -->
+    <div id="qr-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeQRScreen()">&times;</span>
+            <h2>Escaneo de Código QR</h2>
+            <div id="qr-reader" style="width: 100%; max-width: 400px; margin: 0 auto;"></div>
+            <div id="qr-result" style="margin-top: 20px;">
+                <h3>Información del Usuario</h3>
+                <p id="user-info">Escanea un código QR para ver la información.</p>
+                <p id="user-status">Estado: Pendiente</p>
+                <button id="register-entry" style="display: none;" onclick="registerAccess('entrada')">Registrar Entrada</button>
+                <button id="register-exit" style="display: none;" onclick="registerAccess('salida')">Registrar Salida</button>
+            </div>
+            <div id="access-history" style="margin-top: 20px;">
+                <h3>Historial de Accesos</h3>
+                <ul id="history-list"></ul>
             </div>
         </div>
     </div>
@@ -93,6 +119,9 @@
 
 <script src="../js/ui.js"></script>
 <script src="../js/admin-auth.js"></script>
+<script src="https://unpkg.com/html5-qrcode/html5-qrcode.min.js"></script>
+<script src="../js/admin-qr.js"></script>
+<script src="../js/admin-api.js"></script>
 <script>
     requireAdminAuth();
 </script>

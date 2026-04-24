@@ -45,6 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         sessionStorage.setItem('adminSessionActive', 'true');
         sessionStorage.setItem('adminUsername', username);
+        sessionStorage.setItem('adminRole', 'seguridad'); // Agregar rol, cambiar según necesidad
         showToast('Acceso autorizado. Entrando al panel.', 'success', 'Sesion admin');
 
         setTimeout(() => {

@@ -1,3 +1,0 @@
-[submodule "lib/ESP32CompositeVideo"]
-	path = lib/ESP32CompositeVideo
-	url = https://github.com/bitluni/ESP32CompositeVideo

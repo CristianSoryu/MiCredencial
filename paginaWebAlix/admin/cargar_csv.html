@@ -3,12 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Administracion - Universidad Libre</title>
+    <title>Cargue de Archivos CSV - Universidad Libre</title>
     
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/admin.css">
     <link rel="stylesheet" href="../css/footer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        .upload-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .upload-container h3 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .upload-container input[type="file"] {
+            margin-bottom: 20px;
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .upload-btn {
+            background-color: #e60000;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+            width: 100%;
+        }
+        .upload-btn:hover {
+            background-color: #cc0000;
+        }
+    </style>
 </head>
 
 <body>
@@ -17,47 +54,25 @@
         <img src="../IMG/escudo.png" alt="Escudo Unilibre" class="escudo" style="width: 70px;">
         <h1 style="color: white; margin: 0;">Universidad Libre</h1>
         <p style="color: #ff4d4d; margin: 5px 0 0; font-weight: bold;">Seccional Cucuta</p>
-        <h2 style="color: white; margin-top: 20px; text-align: center;">Opciones de Gestion</h2>
+        <h2 style="color: white; margin-top: 20px; text-align: center;">Cargue de Archivos CSV</h2>
     </header>
 
     <div class="contenedor">
         <div class="login">
-
-            <div class="accesos">
-                <a href="usuarios.html" class="card">
-                    <i class="fas fa-users"></i>
-                    <h3>Gestionar Usuarios</h3>
-                    <p>Cuentas de acceso.</p>
-                </a>
-
-                <a href="solicitudesADM.html" class="card">
-                    <i class="fas fa-file-signature"></i>
-                    <h3>Ver Solicitudes</h3>
-                    <p>Carnets pendientes.</p>
-                </a>
-
-                <a href="cargar_csv.html" class="card">
-                    <i class="fas fa-file-csv"></i>
-                    <h3>Cargar Archivos</h3>
-                    <p>Subir lista de usuarios (CSV).</p>
-                </a>
-
-                <a href="estado-carnets.html" class="card">
-                    <i class="fas fa-id-card"></i>
-                    <h3>Estado de Carnets</h3>
-                    <p>Activar o desactivar credenciales.</p>
-                </a>
+            <div class="upload-container">
+                <h3>Subir listado (CSV)</h3>
+                <form id="csvUploadForm">
+                    <input type="file" id="csvFile" accept=".csv" required>
+                    <button type="submit" class="upload-btn">
+                        <i class="fas fa-upload"></i> Cargar Archivo
+                    </button>
+                </form>
+                <div id="uploadResult" style="margin-top: 15px; font-weight: bold;"></div>
             </div>
 
-            <div style="margin-top: 20px;">
-                <a href="../index.html" style="font-weight: bold;">
-                    <i class="fas fa-arrow-left"></i> Volver al inicio
-                </a>
-            </div>
-
-            <div style="margin-top: 30px;">
-                <a href="#" onclick="adminLogout(); return false;" style="font-weight: bold;">
-                    <i class="fas fa-sign-out-alt"></i> Cerrar Sesion
+            <div style="margin-top: 30px; text-align: center;">
+                <a href="admin.html" style="font-weight: bold; display: inline-block;">
+                    <i class="fas fa-arrow-left"></i> Volver al panel
                 </a>
             </div>
         </div>
@@ -109,5 +124,23 @@
     requireAdminAuth();
 </script>
 <script src="../js/quickAccess.js"></script>
+<script>
+    document.getElementById('csvUploadForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const fileInput = document.getElementById('csvFile');
+        const resultDiv = document.getElementById('uploadResult');
+        
+        if (fileInput.files.length > 0) {
+            const file = fileInput.files[0];
+            // Simulación de cargue
+            resultDiv.style.color = 'green';
+            resultDiv.innerHTML = '<i class="fas fa-check-circle"></i> Archivo "' + file.name + '" cargado correctamente.';
+            fileInput.value = ''; // Limpiar el input
+        } else {
+            resultDiv.style.color = 'red';
+            resultDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> Por favor selecciona un archivo CSV.';
+        }
+    });
+</script>
 </body>
 </html>

@@ -1,3 +1,46 @@
+<?php
+session_start();
+require_once 'conexion.php';
+
+// Si ya hay sesión iniciada, lo mandamos al carnet
+if (isset($_SESSION['usuario_id'])) {
+    header("Location: carnet.php");
+    exit();
+}
+
+$error = "";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // 1. Atrapamos el documento en lugar del email
+    $documento = $_POST['documento']; 
+    $password = $_POST['password'];
+
+    try {
+        // 2. Buscamos al usuario por su número de documento
+        $sql = "SELECT id_usuario, contrasena, nombres, documento FROM usuarios WHERE documento = :documento";
+        $stmt = $conexion->prepare($sql);
+        $stmt->bindParam(':documento', $documento);
+        $stmt->execute();
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // 3. Verificamos si existe y si la contraseña coincide
+        if ($user && ($password == $user['contrasena'] || empty($user['contrasena']))) {
+            
+            // ¡Guardamos los datos! (Esto es oro para el QR)
+            $_SESSION['usuario_id'] = $user['id_usuario'];
+            $_SESSION['usuario_nombre'] = $user['nombres'];
+            $_SESSION['usuario_documento'] = $user['documento']; 
+            
+            header("Location: carnet.php");
+            exit();
+        } else {
+            $error = "Identificación o contraseña incorrectos.";
+        }
+    } catch(PDOException $e) {
+        $error = "Error en el sistema: " . $e->getMessage();
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -31,14 +74,23 @@
         <h2 style="color: white; margin-top: 20px; text-align: center;">Login</h2>
     </header>
 
-<div class="contenedor">
+<<div class="contenedor">
     <div class="login">
-        <form id="login-form">
+        <!-- Agregamos method="POST" para enviar los datos de forma oculta y segura -->
+        <form id="login-form" method="POST" action="">
+
+            <!-- Aquí aparecerá el error si se equivocan de clave -->
+            <?php if(!empty($error)): ?>
+                <p style="color: red; text-align: center; font-weight: bold; margin-bottom: 15px;"><?php echo $error; ?></p>
+            <?php endif; ?>
+
             <label>Identificacion</label>
-            <input type="text" id="login-id" placeholder="Ingrese su ID de 10 numeros" inputmode="numeric" maxlength="10" pattern="[0-9]{10}">
+            <!-- Agregamos name="documento" (y required para que no lo manden vacío) -->
+            <input type="text" id="login-id" name="documento" placeholder="Ingrese su ID de 10 numeros" inputmode="numeric" maxlength="10" pattern="[0-9]{10}" required>
 
             <label>Contraseña</label>
-            <input type="password" id="login-password" placeholder="Ingrese su contraseña">
+            <!-- Agregamos name="password" -->
+            <input type="password" id="login-password" name="password" placeholder="Ingrese su contraseña" required>
 
             <button type="submit">Iniciar Sesion</button>
         </form>
@@ -121,11 +173,11 @@
     </div>
 </footer>
 
-<script src="js/config.js"></script>
+<!--<script src="js/config.js"></script>
 <script src="js/ui.js"></script>
 <script src="js/auth.js"></script>
 <script src="js/navigation.js"></script>
-<script src="js/quickAccess.js"></script>
+<script src="js/quickAccess.js"></script>-->
 
 </body>
 </html>

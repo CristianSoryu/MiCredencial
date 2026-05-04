@@ -1,19 +1,30 @@
 <?php
-// 1. Traemos la conexión
+session_start();
 require_once 'conexion.php';
 
-// 2. Simulamos que acabamos de escanear el QR de Cristian
-$id_usuario_escaneado = 1092520000; 
+// Si no hay sesión iniciada, lo expulsamos al login
+if (!isset($_SESSION['usuario_id'])) {
+    header("Location: index.php");
+    exit();
+}
+
+// Usamos el ID del usuario que guardamos en la sesión al hacer login
+$id_usuario_logueado = $_SESSION['usuario_id']; 
 
 try {
-    // 3. Preparamos la búsqueda segura (evitando inyecciones SQL)
-    $sql = "SELECT nombres, apellidos, tipo_documento FROM usuarios WHERE id_usuario = :id";
+    // Buscamos los datos del usuario logueado
+    $sql = "SELECT nombres, apellidos, tipo_documento, documento FROM usuarios WHERE id_usuario = :id";
     $consulta = $conexion->prepare($sql);
-    $consulta->bindParam(':id', $id_usuario_escaneado);
+    $consulta->bindParam(':id', $id_usuario_logueado);
     $consulta->execute();
-    
-    // 4. Guardamos los datos encontrados en una variable llamada $usuario
     $usuario = $consulta->fetch(PDO::FETCH_ASSOC);
+
+    // Si por alguna razón el usuario no existe en la BD, cerramos sesión
+    if (!$usuario) {
+        session_destroy();
+        header("Location: index.php");
+        exit();
+    }
     
 } catch(PDOException $error) {
     echo "Error al cargar el carnet: " . $error->getMessage();
@@ -49,8 +60,8 @@ try {
         </button>
         
         <!-- AQUÍ ESTÁ LA MAGIA DE PHP -->
-        <p><b>Nombre:</b> <span id="carnet-nombre"><?php echo strtoupper($usuario['nombres'] . ' ' . $usuario['apellidos']); ?></span></p>
-        <p><b>ID:</b> <span id="carnet-id"><?php echo $usuario['tipo_documento'] . ' ' . $id_usuario_escaneado; ?></span></p>
+       <p><b>Nombre:</b> <span id="carnet-nombre"><?php echo strtoupper($usuario['nombres'] . ' ' . $usuario['apellidos']); ?></span></p>
+<p><b>ID:</b> <span id="carnet-id"><?php echo $usuario['tipo_documento'] . ' ' . $usuario['documento']; ?></span></p>
         <!-- ------------------------- -->
 
         <p><b>Programa:</b> <span id="carnet-programa">Ingeniería TIC</span></p> <!-- Puedes agregar este campo a tu tabla SQL después si lo necesitas -->
@@ -115,5 +126,36 @@ try {
             </div>
         </div>
     </footer>
+    <script>
+    const documentoEstudiante = "<?php echo $usuario['documento']; ?>";
+
+    function actualizarQR() {
+        // Limpiamos el contenedor del QR anterior
+        document.getElementById("qrcode").innerHTML = "";
+        
+        const fechaActual = new Date().toISOString().slice(0, 16); 
+        const contenidoQR = btoa(documentoEstudiante + "_" + fechaActual);
+
+        new QRCode(document.getElementById("qrcode"), {
+            text: contenidoQR,
+            width: 150,
+            height: 150,
+            colorDark : "#000000",
+            colorLight : "#ffffff",
+            correctLevel : QRCode.CorrectLevel.H
+        });
+        console.log("QR Actualizado: " + fechaActual);
+    }
+
+    // Ejecutamos al cargar
+    actualizarQR();
+
+    // Se actualiza solo cada 60 segundos (60000 ms) sin refrescar la página
+    setInterval(actualizarQR, 60000);
+
+    function logout() {
+        window.location.href = 'logout.php';
+    }
+</script>
 </body>
 </html>

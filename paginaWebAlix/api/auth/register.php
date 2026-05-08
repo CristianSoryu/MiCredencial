@@ -21,6 +21,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
+    // Validar dominio del correo
+    if (!str_ends_with($email, '@unilibre.edu.co')) {
+        echo json_encode(['success' => false, 'message' => 'El correo debe ser institucional (@unilibre.edu.co).']);
+        exit();
+    }
+
     try {
         // Verificar si el usuario ya existe
         $check_sql = "SELECT id_usuario FROM usuarios WHERE id_usuario = :id_usuario OR email = :email";

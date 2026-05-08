@@ -17,6 +17,12 @@ document.getElementById('register-form').addEventListener('submit', function(e) 
     const nombres = partes.slice(0, Math.ceil(partes.length / 2)).join(' ');
     const apellidos = partes.slice(Math.ceil(partes.length / 2)).join(' ') || '.'; // Por si pone una sola palabra
     
+    if (!email.endsWith('@unilibre.edu.co')) {
+        errorMsg.textContent = 'El correo debe ser institucional (@unilibre.edu.co).';
+        errorMsg.style.display = 'block';
+        return;
+    }
+    
     errorMsg.style.display = 'none';
     successMsg.style.display = 'none';
     submitBtn.disabled = true;

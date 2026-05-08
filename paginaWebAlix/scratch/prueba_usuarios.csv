@@ -1,4 +1,4 @@
-tipo_documento,documento,nombres,apellidos,programa_academico
-CC,1234567890,Juan,Perez,Ingeniería TIC
-TI,0987654321,Maria,Gomez,Derecho
-CC,1122334455,Carlos,Lopez,Contaduría Pública
+tipo_documento,documento,nombres,apellidos,correo,programa_academico
+CC,1224567890,Jose,Perez,jose.perez@unilibre.edu.co,Ingeniería TIC
+TI,1987654321,Martha,Gomez,martha.gomez@unilibre.edu.co,Derecho
+CC,1222334455,Carlos,Lopez,carlos.lopez@unilibre.edu.co,Contaduría Pública

@@ -35,12 +35,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['csvFile'])) {
         
         // Preparar la consulta SQL con ON DUPLICATE KEY UPDATE
         // Así si el documento ya existe, actualiza los datos.
-        $sql = "INSERT INTO preregistro_oficial (tipo_documento, documento, nombres, apellidos, programa_academico) 
-                VALUES (:tipo, :doc, :nombres, :apellidos, :programa)
+        $sql = "INSERT INTO preregistro_oficial (tipo_documento, documento, nombres, apellidos, correo, programa_academico) 
+                VALUES (:tipo, :doc, :nombres, :apellidos, :correo, :programa)
                 ON DUPLICATE KEY UPDATE 
                 tipo_documento = VALUES(tipo_documento),
                 nombres = VALUES(nombres),
                 apellidos = VALUES(apellidos),
+                correo = VALUES(correo),
                 programa_academico = VALUES(programa_academico)";
                 
         $stmt = $conexion->prepare($sql);
@@ -53,15 +54,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['csvFile'])) {
                 continue;
             }
             
-            // Validar que tenga las columnas mínimas (Ej: TipoDoc, Doc, Nombres, Apellidos, Programa)
-            if (count($datos) >= 5) {
+            // Validar que tenga las columnas mínimas (Ej: TipoDoc, Doc, Nombres, Apellidos, Correo, Programa)
+            if (count($datos) >= 6) {
+                $correo = trim($datos[4]);
+                
+                // Validar dominio del correo
+                if (!str_ends_with($correo, '@unilibre.edu.co')) {
+                    $errores++;
+                    continue; // Skip si el correo no es institucional
+                }
+
                 try {
                     $stmt->execute([
                         ':tipo' => trim($datos[0]),
                         ':doc' => trim($datos[1]),
                         ':nombres' => trim($datos[2]),
                         ':apellidos' => trim($datos[3]),
-                        ':programa' => trim($datos[4])
+                        ':correo' => $correo,
+                        ':programa' => trim($datos[5])
                     ]);
                     $cargados++;
                 } catch (PDOException $e) {

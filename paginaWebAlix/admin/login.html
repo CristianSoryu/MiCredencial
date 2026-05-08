@@ -1,37 +1,3 @@
-<?php
-session_start();
-require_once '../conexion.php';
-
-$error = "";
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // 1. Ahora atrapamos 'username' tal cual como lo envía el formulario HTML
-    $username = $_POST['username']; 
-    $password = $_POST['password'];
-
-    try {
-        // 2. Buscamos en la columna user_handle (o en email, por si acaso)
-        $sql = "SELECT id_usuario, contrasena, nombres FROM usuarios WHERE user_handle = :username OR email = :username";
-        $stmt = $conexion->prepare($sql);
-        $stmt->bindParam(':username', $username);
-        $stmt->execute();
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        // 3. Verificamos la contraseña
-        if ($user && ($password == $user['contrasena'] || empty($user['contrasena']))) {
-            $_SESSION['usuario_id'] = $user['id_usuario'];
-            $_SESSION['usuario_nombre'] = $user['nombres'];
-            
-            header("Location: admin.php"); // Lo enviamos al panel
-            exit();
-        } else {
-            $error = "Usuario o contraseña incorrectos.";
-        }
-    } catch(PDOException $e) {
-        $error = "Error en el sistema: " . $e->getMessage();
-    }
-}
-?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -61,24 +27,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 Ingresa tu usuario y contraseña para acceder al panel de administracion.
             </p>
 
-            <form id="admin-login-form" action="" method="POST">
-    <!-- Aquí aparecerá el error si la contraseña está mal -->
-    <?php if(!empty($error)): ?>
-        <p style="color: red; text-align: center; font-weight: bold;"><?php echo $error; ?></p>
-    <?php endif; ?>
+            <form id="admin-login-form">
+                <p id="error-msg" style="color: red; text-align: center; font-weight: bold; display: none;"></p>
 
-    <label for="admin-username">Usuario</label>
-    <!-- Agregamos name="username" -->
-    <input type="text" id="admin-username" name="username" placeholder="Ingresa tu usuario" required>
+                <label for="admin-username">Usuario</label>
+                <input type="text" id="admin-username" name="username" placeholder="Ingresa tu usuario" required>
 
-    <label for="admin-password">Contraseña</label>
-    <!-- Agregamos name="password" -->
-    <input type="password" id="admin-password" name="password" placeholder="Ingresa tu contraseña" required>
+                <label for="admin-password">Contraseña</label>
+                <input type="password" id="admin-password" name="password" placeholder="Ingresa tu contraseña" required>
 
-    <button type="submit">Ingresar al panel</button>
-</form>
+                <button type="submit" id="submit-btn">Ingresar al panel</button>
+            </form>
 
-            <a href="../index.php" style="font-weight: bold;">
+            <a href="../html/index.html" style="font-weight: bold;">
                 <i class="fas fa-arrow-left"></i> Volver al inicio
             </a>
         </div>
@@ -95,10 +56,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <div class="footer-section">
                 <h4>Enlaces Rapidos</h4>
-                <a href="../index.php">Inicio</a>
+                <a href="../html/index.html">Inicio</a>
                 <a href="https://www.unilibre.edu.co/biblioteca" target="_blank">Biblioteca</a>
                 <a href="https://www.unilibre.edu.co/cucuta/" target="_blank">Seccional Cucuta</a>
-                <a href="https://www.kawak.com.co/unilibre/pqrs/pqrs_index.php" target="_blank">PQRS - Soporte Tecnico</a>
+                <a href="https://www.kawak.com.co/unilibre/pqrs/pqrs_index.html" target="_blank">PQRS - Soporte Tecnico</a>
             </div>
 
             <div class="footer-section">
@@ -124,7 +85,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </footer>
 
-    <!--<script src="../js/ui.js"></script>
-    <script src="../js/admin-auth.js"></script>-->
+    <script src="../js/admin-login.js"></script>
 </body>
 </html>

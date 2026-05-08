@@ -76,3 +76,4 @@ function clearCurrentSession() {
     localStorage.removeItem('sesionActiva');
     localStorage.removeItem('carnet');
 }
+

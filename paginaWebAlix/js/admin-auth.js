@@ -6,12 +6,17 @@ function isAdminAuthenticated() {
 }
 
 function requireAdminAuth() {
-    if (isAdminAuthenticated()) {
-        return true;
-    }
-
-    window.location.href = 'login.html';
-    return false;
+    fetch('../api/admin/check_session.php')
+        .then(response => response.json())
+        .then(data => {
+            if (!data.success) {
+                window.location.href = 'login.html';
+            }
+        })
+        .catch(error => {
+            console.error("Error validando sesión:", error);
+            window.location.href = 'login.html';
+        });
 }
 
 function adminLogout() {
@@ -52,3 +57,4 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 700);
     });
 });
+

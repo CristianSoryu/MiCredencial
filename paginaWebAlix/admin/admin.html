@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administracion - Universidad Libre</title>
+    
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+
+<body style="display: none;" id="admin-body">
+
+    <header class="header">
+        <img src="../IMG/escudo.png" alt="Escudo Unilibre" class="escudo" style="width: 70px;">
+        <h1 style="color: white; margin: 0;">Universidad Libre</h1>
+        <p style="color: #ff4d4d; margin: 5px 0 0; font-weight: bold;">Seccional Cucuta</p>
+        <h2 style="color: white; margin-top: 20px; text-align: center;">Opciones de Gestion</h2>
+    </header>
+
+    <div class="contenedor">
+        <div class="login">
+
+            <div class="accesos">
+                <a href="usuarios.html" class="card">
+                    <i class="fas fa-users"></i>
+                    <h3>Gestionar Usuarios</h3>
+                    <p>Cuentas de acceso.</p>
+                </a>
+
+                <a href="solicitudesADM.html" class="card">
+                    <i class="fas fa-file-signature"></i>
+                    <h3>Ver Solicitudes</h3>
+                    <p>Carnets pendientes.</p>
+                </a>
+
+                <a href="cargar_csv.html" class="card">
+                    <i class="fas fa-file-csv"></i>
+                    <h3>Cargar Archivos</h3>
+                    <p>Subir lista de usuarios (CSV).</p>
+                </a>
+
+                <a href="estado-carnets.html" class="card">
+                    <i class="fas fa-id-card"></i>
+                    <h3>Estado de Carnets</h3>
+                    <p>Activar o desactivar credenciales.</p>
+                </a>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <a href="../html/index.html" style="font-weight: bold;">
+                    <i class="fas fa-arrow-left"></i> Volver al inicio
+                </a>
+            </div>
+
+            <div style="margin-top: 30px;">
+                <a href="#" onclick="logoutAdmin(event)" style="font-weight: bold;">
+                    <i class="fas fa-sign-out-alt"></i> Cerrar Sesion
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <!-- footer omitido por brevedad -->
+    </footer>
+
+<script src="../js/admin-panel.js"></script>
+</body>
+</html>

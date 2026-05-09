@@ -12,15 +12,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const identificador = document.getElementById('login-id').value.trim();
         const contrasena = document.getElementById('login-password').value;
         let passwordGuardada = getStoredPassword();
-        const identificacionValida = /^\d{10}$/.test(identificador);
+        const identificacionValida = /^\d+$/.test(identificador);
 
         if (!identificador || !contrasena) {
-            showToast('Ingresa tu identificacion y la contraseña.', 'error', 'Datos incompletos');
+            alert('Ingresa tu identificacion y la contraseña.');
             return;
         }
 
         if (!identificacionValida) {
-            showToast('El ID debe tener exactamente 10 numeros.', 'error', 'Identificacion invalida');
+            alert('El ID debe contener solo números.');
             return;
         }
 
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (contrasena !== passwordGuardada) {
-            showToast('La contraseña no coincide con la registrada.', 'error', 'Acceso denegado');
+            alert('La contraseña no coincide con la registrada.');
             return;
         }
 
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         currentUser = dummyUser;
         saveCurrentCarnet(currentUser);
-        showToast('Ingreso exitoso. Redirigiendo a tu carnet.', 'success', 'Sesion iniciada');
+        alert('Ingreso exitoso. Redirigiendo a tu carnet.');
 
         setTimeout(() => {
             window.location.href = 'carnet.html';

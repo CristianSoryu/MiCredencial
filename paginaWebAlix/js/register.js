@@ -9,6 +9,7 @@ document.getElementById('register-form').addEventListener('submit', function(e) 
     const nombreCompleto = document.getElementById('reg-nombre').value.trim();
     const email = document.getElementById('reg-email').value.trim();
     const tipoDoc = document.getElementById('reg-tipo-doc').value;
+    const programa = document.getElementById('reg-programa').value;
     const documento = document.getElementById('reg-id').value.trim();
     const password = document.getElementById('reg-password').value;
     
@@ -36,6 +37,7 @@ document.getElementById('register-form').addEventListener('submit', function(e) 
         body: JSON.stringify({ 
             id_usuario: documento,
             tipo_documento: tipoDoc,
+            programa: programa,
             nombres: nombres,
             apellidos: apellidos,
             email: email,

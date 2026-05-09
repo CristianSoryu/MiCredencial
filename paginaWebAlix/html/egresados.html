@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/forms.css">
     <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="../css/ui.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
@@ -24,12 +25,12 @@
         <div class="login">
             <p style="color: #666; font-size: 14px; margin-bottom: 20px;">Solicitud de renovacion o carnet digital</p>
 
-            <form action="#" method="POST">
-                <input type="text" placeholder="Nombre completo" required>
-                <input type="text" placeholder="Numero de identificacion" required>
-                <input type="email" placeholder="Correo electronico institucional / personal" required>
+            <form id="solicitud-form">
+                <input type="text" id="sol-nombre" placeholder="Nombre completo" required>
+                <input type="text" id="sol-id" placeholder="Numero de identificacion" required>
+                <input type="email" id="sol-email" placeholder="Correo electronico institucional / personal" required>
                 
-                <select required>
+                <select id="sol-programa" required>
                     <option value="" disabled selected>Seleccione su programa academico</option>
                     <option value="derecho">Derecho</option>
                     <option value="ingenieria-tic">Ingenieria en TIC</option>
@@ -40,7 +41,7 @@
                     <option value="contaduria">Contaduria Publica</option>
                 </select>
                 
-                <button type="submit">Enviar solicitud</button>
+                <button type="submit" id="submit-btn">Enviar solicitud</button>
             </form>
             
             <a href="index.html" style="margin-top: 20px; display: block; font-weight: bold;">
@@ -88,6 +89,7 @@
             </div>
         </div>
     </footer>
-
+    <script src="../js/ui.js"></script>
+    <script src="../js/solicitud.js"></script>
 </body>
 </html>

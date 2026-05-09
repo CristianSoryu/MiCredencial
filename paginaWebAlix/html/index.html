@@ -37,8 +37,6 @@
     <div class="contenedor">
         <div class="login">
             <form id="login-form">
-                <p id="error-msg"
-                    style="color: red; text-align: center; font-weight: bold; margin-bottom: 15px; display: none;"></p>
 
                 <label>Identificacion</label>
                 <input type="text" id="login-id" name="documento" placeholder="Ingrese su identificador"
@@ -77,10 +75,14 @@
                         <p>Acceder a tu carnet digital</p>
                     </a>
                 </div>
-            </div>
 
-            <br>
-            <a href="preregistro.html">Sin cuenta? Realiza tu pre-registro</a>
+                <div class="card">
+                    <a href="preregistro.html" style="text-decoration: none; color: inherit;">
+                        <h4>Pre-registro</h4>
+                        <p>Sin cuenta? Realiza tu pre-registro</p>
+                    </a>
+                </div>
+            </div>
             <br><br>
             <a href="cambiar-contrasena.html">Cambiar contraseña</a>
             <br><br>
@@ -132,6 +134,7 @@
         </div>
     </footer>
 
+    <script src="../js/ui.js"></script>
     <script src="../js/login.js"></script>
 
 </body>

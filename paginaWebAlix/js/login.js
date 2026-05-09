@@ -13,13 +13,11 @@ document.addEventListener("DOMContentLoaded", () => {
 document.getElementById('login-form').addEventListener('submit', function(e) {
     e.preventDefault();
     
-    const errorMsg = document.getElementById('error-msg');
     const submitBtn = document.getElementById('submit-btn');
     
     const documento = document.getElementById('login-id').value;
     const password = document.getElementById('login-password').value;
     
-    errorMsg.style.display = 'none';
     submitBtn.disabled = true;
     submitBtn.textContent = 'Iniciando...';
     
@@ -35,16 +33,14 @@ document.getElementById('login-form').addEventListener('submit', function(e) {
         if (data.success) {
             window.location.href = data.redirect;
         } else {
-            errorMsg.textContent = data.message;
-            errorMsg.style.display = 'block';
+            showToast(data.message, 'error');
             submitBtn.disabled = false;
             submitBtn.textContent = 'Iniciar Sesion';
         }
     })
     .catch(error => {
         console.error("Error en login:", error);
-        errorMsg.textContent = "Error de red al intentar iniciar sesión.";
-        errorMsg.style.display = 'block';
+        showToast("Error de red al intentar iniciar sesión.", 'error');
         submitBtn.disabled = false;
         submitBtn.textContent = 'Iniciar Sesion';
     });

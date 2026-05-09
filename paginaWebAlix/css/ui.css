@@ -17,6 +17,7 @@
     box-shadow: 0 12px 25px rgba(0, 0, 0, 0.18);
     opacity: 0;
     transform: translateY(-10px);
+    -webkit-transition: opacity 0.25s ease, -webkit-transform 0.25s ease;
     transition: opacity 0.25s ease, transform 0.25s ease;
     font-size: 14px;
     line-height: 1.4;
@@ -24,6 +25,7 @@
 
 .toast.show {
     opacity: 1;
+    -webkit-transform: translateY(0);
     transform: translateY(0);
 }
 

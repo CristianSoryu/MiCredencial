@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Seguridad - Escáner QR</title>
+
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="../css/ui.css">
+    <link rel="stylesheet" href="../css/escaner.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+    <header class="header">
+        <img src="../IMG/escudo.png" alt="Escudo Unilibre" class="escudo" style="width: 70px;">
+        <h1 style="color: white; margin: 0;">Universidad Libre</h1>
+        <p style="color: #ff4d4d; margin: 5px 0 0; font-weight: bold;">Seccional Cucuta</p>
+        <h2 style="color: white; margin-top: 20px; text-align: center;">Control de Acceso</h2>
+    </header>
+
+    <div class="contenedor escaner-container">
+        
+        <!-- Sección de Escaneo -->
+        <div id="scanner-section" class="scanner-section">
+            <p class="instruccion">Apunte la cámara al código QR del carnet</p>
+            <div id="reader" width="100%"></div>
+            <div id="scanner-status" class="status-msg">Cargando cámara...</div>
+        </div>
+
+        <!-- Panel de Usuario Escaneado (Oculto por defecto) -->
+        <div id="usuario-panel" class="usuario-panel" style="display: none;">
+            <div class="perfil-info">
+                <div class="foto-wrapper">
+                    <img src="../IMG/escudo.png" alt="Foto de Perfil" id="scan-foto" class="scan-foto">
+                </div>
+                <div class="datos-texto">
+                    <h3 id="scan-nombre">Nombre Estudiante</h3>
+                    <p><span class="label">ID:</span> <span id="scan-id">123456789</span></p>
+                    <p><span class="label">Rol:</span> <span id="scan-rol" class="rol-badge">Estudiante</span></p>
+                </div>
+            </div>
+
+            <div class="acciones-acceso">
+                <p class="acciones-titulo">Registrar Acción:</p>
+                <div class="grid-botones">
+                    <button class="btn-acceso entrada-peatonal" onclick="registrarAcceso('entrada', 'peatonal')">
+                        <i class="fas fa-walking"></i> <br>Entrada<br>Peatonal
+                    </button>
+                    <button class="btn-acceso salida-peatonal" onclick="registrarAcceso('salida', 'peatonal')">
+                        <i class="fas fa-walking"></i> <br>Salida<br>Peatonal
+                    </button>
+                    <button class="btn-acceso entrada-vehicular" onclick="registrarAcceso('entrada', 'vehicular')">
+                        <i class="fas fa-car"></i> <br>Entrada<br>Vehicular
+                    </button>
+                    <button class="btn-acceso salida-vehicular" onclick="registrarAcceso('salida', 'vehicular')">
+                        <i class="fas fa-car"></i> <br>Salida<br>Vehicular
+                    </button>
+                </div>
+                <button class="btn-cancelar" onclick="cancelarEscaneo()">
+                    <i class="fas fa-times"></i> Cancelar / Escanear de nuevo
+                </button>
+            </div>
+        </div>
+        
+        <div class="acciones-volver">
+            <a href="index.html" class="volver"><i class="fas fa-arrow-left"></i> Volver al inicio</a>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+    <script src="../js/ui.js"></script>
+    <script src="../js/escaner.js"></script>
+</body>
+</html>

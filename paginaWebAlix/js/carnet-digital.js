@@ -12,6 +12,20 @@ document.addEventListener("DOMContentLoaded", () => {
                 document.getElementById('carnet-nombre').textContent = data.usuario.nombre_completo;
                 document.getElementById('carnet-id').textContent = data.usuario.identificacion;
                 
+                const rol = data.usuario.rol ? data.usuario.rol.toLowerCase() : 'estudiante';
+                const badge = document.getElementById('badge-rol');
+                if (badge) {
+                    badge.textContent = rol.toUpperCase();
+                }
+
+                const carnetDiv = document.getElementById('datos-carnet');
+                carnetDiv.classList.remove('carnet-docente', 'carnet-administrativo', 'carnet-bienestar');
+                if (rol === 'docente') {
+                    carnetDiv.classList.add('carnet-docente');
+                } else if (rol === 'administrativo' || rol === 'bienestar') {
+                    carnetDiv.classList.add('carnet-administrativo');
+                }
+                
                 if (data.usuario.foto) {
                     document.getElementById('foto-perfil').src = data.usuario.foto;
                 } else {

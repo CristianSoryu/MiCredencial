@@ -32,9 +32,13 @@
                 <label>Correo institucional:</label>
                 <input type="email" id="reg-email" placeholder="ejemplo@unilibre.edu.co" required>
 
+                // aaqui van los programas academicos y el tipo de documento, que se pueden agregar despues, no es necesario para el preregistro, pero si para el registro final, entonces se pueden agregar como opcionales en el preregistro, y luego se validan en el registro final
+                
+
                 <label>Programa académico (Opcional):</label>
                 <select id="reg-programa" style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px;">
                     <option value="" selected>Seleccione su programa académico</option>
+                    <option value="Administrativo">Administrativo</option>
                     <option value="Administración de Empresas">Administración de Empresas</option>
                     <option value="Contaduría Pública">Contaduría Pública</option>
                     <option value="Derecho">Derecho</option>
@@ -50,8 +54,8 @@
                     <option value="cedula de extranjeria">Cédula de Extranjería</option>
                 </select>
 
-                <label>Identificación:</label>
-                <input type="text" id="reg-id" inputmode="numeric" placeholder="Número de documento" required>
+                <label>ID de usuario:</label>
+                <input type="text" id="reg-id" inputmode="numeric" placeholder="ID de usuario" required>
 
                 <label>Contraseña:</label>
                 <input type="password" id="reg-password" placeholder="Cree una contraseña" required>

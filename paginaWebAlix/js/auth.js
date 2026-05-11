@@ -15,12 +15,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const identificacionValida = /^\d+$/.test(identificador);
 
         if (!identificador || !contrasena) {
-            alert('Ingresa tu identificacion y la contraseña.');
+            showToast('Ingresa tu identificacion y la contraseña.', 'error');
             return;
         }
 
         if (!identificacionValida) {
-            alert('El ID debe contener solo números.');
+            showToast('El ID debe contener solo números.', 'error');
             return;
         }
 
@@ -30,32 +30,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (contrasena !== passwordGuardada) {
-            alert('La contraseña no coincide con la registrada.');
+            showToast('La contraseña no coincide con la registrada.', 'error');
             return;
         }
 
-        const fechaActual = new Date();
-        const fechaVencimiento = new Date(
-            fechaActual.getFullYear() + 1,
-            fechaActual.getMonth(),
-            fechaActual.getDate()
-        );
-        const vencimientoFormato = fechaVencimiento.toLocaleDateString('es-CO', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-        });
-
-        const dummyUser = {
-            nombre: 'Juan Ruiz',
-            identificacion: identificador,
-            programa: 'Ing en TIC',
-            vencimiento: vencimientoFormato,
-        };
-
-        currentUser = dummyUser;
-        saveCurrentCarnet(currentUser);
-        alert('Ingreso exitoso. Redirigiendo a tu carnet.');
+        showToast('Ingreso exitoso. Redirigiendo a tu carnet.', 'success');
 
         setTimeout(() => {
             window.location.href = 'carnet.html';

@@ -29,7 +29,7 @@ try {
         'success' => true,
         'usuario' => [
             'nombre_completo' => strtoupper($usuario['nombres'] . ' ' . $usuario['apellidos']),
-            'identificacion' => $usuario['tipo_documento'] . ' ' . $usuario['id_usuario'],
+            'identificacion' => $usuario['id_usuario'],
             'documento_puro' => $usuario['id_usuario'],
             'foto' => $usuario['foto']
         ]

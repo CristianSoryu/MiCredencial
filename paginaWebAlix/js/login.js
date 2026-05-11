@@ -31,7 +31,14 @@ document.getElementById('login-form').addEventListener('submit', function(e) {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            window.location.href = data.redirect;
+            showModal({
+                title: 'Bienvenido',
+                message: 'Ingreso exitoso. Presiona continuar para acceder a tu carnet.',
+                confirmText: 'Continuar',
+                onConfirm: () => {
+                    window.location.href = data.redirect;
+                }
+            });
         } else {
             showToast(data.message, 'error');
             submitBtn.disabled = false;

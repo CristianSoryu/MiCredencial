@@ -16,7 +16,17 @@ document.addEventListener("DOMContentLoaded", () => {
                     document.getElementById('foto-perfil').src = data.usuario.foto;
                 } else {
                     document.getElementById('foto-perfil').src = '../IMG/escudo.png'; // Fallback
-                    alert('¡Atención! Debes cargar una foto para tu carnet virtual.');
+                    showModal({
+                        title: 'Foto requerida',
+                        message: 'Debes cargar una foto para tu carnet virtual. Presiona el botón para seleccionar una imagen desde tu dispositivo.',
+                        confirmText: 'Cargar foto',
+                        onConfirm: () => {
+                            const fotoInputEl = document.getElementById('foto-input');
+                            if (fotoInputEl) {
+                                fotoInputEl.click();
+                            }
+                        }
+                    });
                 }
                 
                 documentoEstudiante = data.usuario.documento_puro;
@@ -44,8 +54,14 @@ document.addEventListener("DOMContentLoaded", () => {
             if (!archivo) return;
 
             if (!archivo.type.startsWith('image/')) {
-                alert('Selecciona un archivo de imagen válido.');
-                event.target.value = '';
+                showModal({
+                    title: 'Archivo inválido',
+                    message: 'Selecciona un archivo de imagen válido.',
+                    confirmText: 'Aceptar',
+                    onConfirm: () => {
+                        event.target.value = '';
+                    }
+                });
                 return;
             }
 
@@ -62,7 +78,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 .then(res => res.json())
                 .then(resData => {
                     if(!resData.success) {
-                        alert('Error al guardar la foto en el servidor: ' + resData.message);
+                        showModal({
+                            title: 'Error al subir foto',
+                            message: 'Error al guardar la foto en el servidor: ' + resData.message,
+                            confirmText: 'Aceptar'
+                        });
                     }
                 })
                 .catch(err => console.error('Error subiendo foto:', err));

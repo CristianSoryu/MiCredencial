@@ -1,8 +1,6 @@
 document.getElementById('register-form').addEventListener('submit', function(e) {
     e.preventDefault();
     
-    const errorMsg = document.getElementById('error-msg');
-    const successMsg = document.getElementById('success-msg');
     const submitBtn = document.getElementById('submit-btn');
     
     // Obtener los valores de los campos
@@ -18,14 +16,18 @@ document.getElementById('register-form').addEventListener('submit', function(e) 
     const nombres = partes.slice(0, Math.ceil(partes.length / 2)).join(' ');
     const apellidos = partes.slice(Math.ceil(partes.length / 2)).join(' ') || '.'; // Por si pone una sola palabra
     
+    // Validar correo institucional
     if (!email.endsWith('@unilibre.edu.co')) {
-        errorMsg.textContent = 'El correo debe ser institucional (@unilibre.edu.co).';
-        errorMsg.style.display = 'block';
+        showToast('El correo debe ser institucional (@unilibre.edu.co).', 'error');
         return;
     }
     
-    errorMsg.style.display = 'none';
-    successMsg.style.display = 'none';
+    // Validar contraseña (mínimo 6 caracteres)
+    if (password.length < 6) {
+        showToast('La contraseña debe tener al menos 6 caracteres.', 'error');
+        return;
+    }
+    
     submitBtn.disabled = true;
     submitBtn.textContent = 'Enviando...';
     
@@ -47,22 +49,19 @@ document.getElementById('register-form').addEventListener('submit', function(e) 
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            successMsg.textContent = "¡Registro exitoso! Redirigiendo al login...";
-            successMsg.style.display = 'block';
+            showToast("¡Registro exitoso! Redirigiendo al login...", 'success');
             setTimeout(() => {
                 window.location.href = 'index.html';
             }, 2000);
         } else {
-            errorMsg.textContent = data.message;
-            errorMsg.style.display = 'block';
+            showToast(data.message || "Error al registrarse.", 'error');
             submitBtn.disabled = false;
             submitBtn.textContent = 'Enviar solicitud';
         }
     })
     .catch(error => {
         console.error("Error en registro:", error);
-        errorMsg.textContent = "Error de red al intentar registrarse.";
-        errorMsg.style.display = 'block';
+        showToast("Error de red al intentar registrarse.", 'error');
         submitBtn.disabled = false;
         submitBtn.textContent = 'Enviar solicitud';
     });

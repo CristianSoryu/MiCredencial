@@ -7,7 +7,27 @@ if (!isset($_SESSION['usuario_id'])) {
     exit();
 }
 
-require_once '../../conexion.php';
+require_once '../conexion.php';
+
+// Verificar que el usuario que intenta registrar sea un ESCANEADOR
+try {
+    $sql_check = "SELECT 1 
+                  FROM usuario_rol ur 
+                  JOIN roles r ON ur.id_rol = r.id_rol 
+                  WHERE ur.id_usuario = :id AND r.tipo_usuario = 'escaneador'";
+    $stmt_check = $conexion->prepare($sql_check);
+    $stmt_check->bindParam(':id', $_SESSION['usuario_id']);
+    $stmt_check->execute();
+    $tiene_permiso = $stmt_check->fetch();
+
+    if (!$tiene_permiso) {
+        echo json_encode(['success' => false, 'message' => 'No tiene permisos para registrar accesos.']);
+        exit();
+    }
+} catch(PDOException $e) {
+    echo json_encode(['success' => false, 'message' => 'Error de seguridad: ' . $e->getMessage()]);
+    exit();
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $input = json_decode(file_get_contents('php://input'), true);
@@ -31,10 +51,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
+    $id_registrador = $_SESSION['usuario_id'];
+
     try {
-        $sql = "INSERT INTO registro (id_usuario, tipo, metodo) VALUES (:id_usuario, :tipo, :metodo)";
+        $sql = "INSERT INTO registro (id_usuario, id_registrador, tipo, metodo) 
+                VALUES (:id_usuario, :id_registrador, :tipo, :metodo)";
         $stmt = $conexion->prepare($sql);
         $stmt->bindParam(':id_usuario', $id_usuario);
+        $stmt->bindParam(':id_registrador', $id_registrador);
         $stmt->bindParam(':tipo', $tipo);
         $stmt->bindParam(':metodo', $metodo);
 

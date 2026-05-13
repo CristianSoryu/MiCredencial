@@ -19,11 +19,23 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
 
                 const carnetDiv = document.getElementById('datos-carnet');
-                carnetDiv.classList.remove('carnet-docente', 'carnet-administrativo', 'carnet-bienestar');
-                if (rol === 'docente') {
+                carnetDiv.classList.remove('carnet-docente', 'carnet-administrativo', 'carnet-administrador');
+                
+                if (rol === 'administrador') {
+                    carnetDiv.classList.add('carnet-administrador');
+                } else if (rol === 'docente') {
                     carnetDiv.classList.add('carnet-docente');
-                } else if (rol === 'administrativo' || rol === 'bienestar') {
+                } else if (['administrativo', 'bienestar', 'seguridad', 'egresado', 'egresado no graduado', 'externo'].includes(rol)) {
                     carnetDiv.classList.add('carnet-administrativo');
+                }
+
+                // Mostrar botón de escáner si el usuario tiene el rol de escaneador entre sus roles
+                const todosLosRoles = data.usuario.todos_los_roles || [];
+                if (todosLosRoles.includes('escaneador')) {
+                    const scannerBtn = document.getElementById('scanner-action-container');
+                    if (scannerBtn) {
+                        scannerBtn.style.display = 'block';
+                    }
                 }
                 
                 if (data.usuario.foto) {
@@ -37,7 +49,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 actualizarQR();
                 intervalId = setInterval(actualizarQR, 60000);
             } else {
-                window.location.href = data.redirect || 'index.html';
+                const is_admin_folder = window.location.pathname.includes('/admin/');
+                window.location.href = is_admin_folder ? '../html/index.html' : 'index.html';
             }
         })
         .catch(error => {

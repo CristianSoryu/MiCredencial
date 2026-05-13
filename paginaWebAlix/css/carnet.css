@@ -249,60 +249,88 @@
     border: 1px solid rgba(255, 255, 255, 0.4);
 }
 
-/* Variaciones de Rol - Docente */
+/* Variaciones de Rol - Docente (Rojo) */
 .carnet-docente .carnet-top-bar {
-    background-color: #8b0000;
+    background-color: #c8102e;
     border-bottom: 4px solid #d4af37;
 }
 .carnet-docente .carnet-nombre {
-    color: #8b0000;
+    color: #c8102e;
 }
 .carnet-docente .btn-edit-foto {
-    background: #8b0000;
+    background: #c8102e;
 }
 .carnet-docente .btn-edit-foto:hover {
-    background: #5a0000;
+    background: #9a0d24;
 }
 .carnet-docente .btn-logout {
-    background: #8b0000;
+    background: #c8102e;
 }
 .carnet-docente .btn-logout:hover {
-    background: #5a0000;
+    background: #9a0d24;
 }
 .carnet-docente .btn-outline {
-    color: #8b0000;
-    border-color: #8b0000;
+    color: #c8102e;
+    border-color: #c8102e;
 }
 .carnet-docente .btn-outline:hover {
-    background: #fff0f0;
+    background: #fff5f5;
 }
 
-/* Variaciones de Rol - Administrativo y Otros */
+/* Variaciones de Rol - Administrativo y Otros (Amarillo/Ámbar) */
 .carnet-administrativo .carnet-top-bar {
-    background-color: #2e4a2e;
-    border-bottom: 4px solid #8b0000;
+    background-color: #d48806;
+    border-bottom: 4px solid #1a2a47;
 }
 .carnet-administrativo .carnet-nombre {
-    color: #2e4a2e;
+    color: #d48806;
 }
 .carnet-administrativo .btn-edit-foto {
-    background: #2e4a2e;
+    background: #d48806;
 }
 .carnet-administrativo .btn-edit-foto:hover {
-    background: #1a301a;
+    background: #a66a05;
 }
 .carnet-administrativo .btn-logout {
-    background: #2e4a2e;
+    background: #d48806;
 }
 .carnet-administrativo .btn-logout:hover {
-    background: #1a301a;
+    background: #a66a05;
 }
 .carnet-administrativo .btn-outline {
-    color: #2e4a2e;
-    border-color: #2e4a2e;
+    color: #d48806;
+    border-color: #d48806;
 }
 .carnet-administrativo .btn-outline:hover {
-    background: #f0f8f0;
+    background: #fffaf0;
+}
+
+/* Variaciones de Rol - Administrador (Dorado) */
+.carnet-administrador .carnet-top-bar {
+    background: linear-gradient(135deg, #d4af37 0%, #b8860b 100%);
+    border-bottom: 4px solid #1a2a47;
+}
+.carnet-administrador .carnet-nombre {
+    color: #b8860b;
+}
+.carnet-administrador .btn-edit-foto {
+    background: #d4af37;
+}
+.carnet-administrador .btn-edit-foto:hover {
+    background: #b8860b;
+}
+.carnet-administrador .btn-logout {
+    background: #d4af37;
+}
+.carnet-administrador .btn-logout:hover {
+    background: #b8860b;
+}
+.carnet-administrador .btn-outline {
+    color: #b8860b;
+    border-color: #b8860b;
+}
+.carnet-administrador .btn-outline:hover {
+    background: #fffdf5;
 }
 
 /* Responsividad para móviles pequeños */

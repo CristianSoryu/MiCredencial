@@ -7,6 +7,8 @@
     
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../css/carnet.css">
+    <link rel="stylesheet" href="../css/ui.css">
     <link rel="stylesheet" href="../css/footer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
@@ -21,8 +23,51 @@
     </header>
 
     <div class="contenedor">
-        <div class="login">
+        <div class="login" style="max-width: 100%;">
 
+            <!-- Carnet del Administrador -->
+            <div class="carnet-wrapper" style="margin-top: 0; padding-top: 0; margin-bottom: 30px;">
+                <div id="cargando-datos" class="mensaje-carga">Cargando tu carnet...</div>
+                
+                <div id="datos-carnet" class="carnet-horizontal" style="display: none;">
+                    <div class="carnet-top-bar">
+                        <img src="../IMG/escudo.png" alt="Escudo Unilibre" class="carnet-mini-logo">
+                        <div class="carnet-title-group">
+                            <span class="carnet-uni-name">UNIVERSIDAD LIBRE</span>
+                            <span class="carnet-sec-name">Seccional Cúcuta</span>
+                        </div>
+                        <div id="badge-rol" class="badge-rol">ADMIN</div>
+                    </div>
+                    <div class="carnet-main-content">
+                        <div class="carnet-left">
+                            <div class="foto-container">
+                                <img src="../IMG/escudo.png" alt="Foto" id="foto-perfil">
+                                <input type="file" id="foto-input" accept="image/*" hidden>
+                                <button type="button" id="cambiar-foto-btn" class="btn-edit-foto">
+                                    <i class="fas fa-camera"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="carnet-right">
+                            <h3 id="carnet-nombre" class="carnet-nombre">Cargando...</h3>
+                            <div class="carnet-info-grid">
+                                <div class="info-text">
+                                    <p><span class="label">ID:</span> <span id="carnet-id"></span></p>
+                                    <p><span class="label">CARGO:</span> <span>Administrador TIC</span></p>
+                                    <p><span class="label">ESTADO:</span> <span style="color: green; font-weight: bold;">ACTIVO</span></p>
+                                </div>
+                                <div class="info-qr">
+                                    <div id="qrcode"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr style="margin-bottom: 30px; border: 0; border-top: 1px solid #eee;">
+            
+            <h3 style="margin-bottom: 20px; color: #b8860b;"><i class="fas fa-tools"></i> Herramientas de Gestión</h3>
             <div class="accesos">
                 <a href="usuarios.html" class="card">
                     <i class="fas fa-users"></i>
@@ -67,6 +112,8 @@
         <!-- footer omitido por brevedad -->
     </footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script src="../js/admin-panel.js"></script>
+<script src="../js/carnet-digital.js"></script>
 </body>
 </html>

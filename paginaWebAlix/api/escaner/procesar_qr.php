@@ -7,7 +7,27 @@ if (!isset($_SESSION['usuario_id'])) {
     exit();
 }
 
-require_once '../../conexion.php';
+require_once '../conexion.php';
+
+// Verificar que el usuario que intenta escanear sea un ESCANEADOR
+try {
+    $sql_check = "SELECT 1 
+                  FROM usuario_rol ur 
+                  JOIN roles r ON ur.id_rol = r.id_rol 
+                  WHERE ur.id_usuario = :id AND r.tipo_usuario = 'escaneador'";
+    $stmt_check = $conexion->prepare($sql_check);
+    $stmt_check->bindParam(':id', $_SESSION['usuario_id']);
+    $stmt_check->execute();
+    $tiene_permiso = $stmt_check->fetch();
+
+    if (!$tiene_permiso) {
+        echo json_encode(['success' => false, 'message' => 'No tiene permisos para realizar escaneos.']);
+        exit();
+    }
+} catch(PDOException $e) {
+    echo json_encode(['success' => false, 'message' => 'Error de seguridad: ' . $e->getMessage()]);
+    exit();
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $input = json_decode(file_get_contents('php://input'), true);

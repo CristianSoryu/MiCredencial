@@ -2,7 +2,27 @@ let html5QrcodeScanner = null;
 let currentUserId = null;
 
 document.addEventListener("DOMContentLoaded", () => {
-    // Iniciar escáner QR
+    // Verificar autorización
+    fetch('../api/carnet/get_carnet.php')
+        .then(response => response.json())
+        .then(data => {
+            const roles = data.usuario.todos_los_roles || [];
+            if (!data.success || !roles.includes('escaneador')) {
+                alert("Acceso no autorizado. Se requiere rol de escaneador.");
+                window.location.href = 'index.html';
+                return;
+            }
+            
+            // Si es autorizado, iniciar escáner
+            iniciarScanner();
+        })
+        .catch(error => {
+            console.error("Error de autorización:", error);
+            window.location.href = 'index.html';
+        });
+});
+
+function iniciarScanner() {
     const qrCodeSuccessCallback = (decodedText, decodedResult) => {
         // Pausar el escáner para evitar lecturas múltiples del mismo QR
         if (html5QrcodeScanner.getState() === Html5QrcodeScannerState.SCANNING) {
@@ -22,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
         console.error("Error iniciando cámara", err);
         document.getElementById('scanner-status').textContent = 'Error al acceder a la cámara. Verifique los permisos en el navegador.';
     });
-});
+}
 
 function procesarQR(qrData) {
     document.getElementById('scanner-status').textContent = 'Procesando QR...';
@@ -32,7 +52,15 @@ function procesarQR(qrData) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ qr_data: qrData })
     })
-    .then(response => response.json())
+    .then(async response => {
+        const text = await response.text();
+        try {
+            return JSON.parse(text);
+        } catch (e) {
+            console.error("Respuesta no es JSON:", text);
+            throw new Error("El servidor no devolvió un JSON válido. Revisa la consola.");
+        }
+    })
     .then(data => {
         if (data.success) {
             mostrarPanelUsuario(data.usuario);
@@ -42,8 +70,8 @@ function procesarQR(qrData) {
         }
     })
     .catch(error => {
-        console.error("Error de red:", error);
-        alert("Error de comunicación con el servidor.");
+        console.error("Error detallado:", error);
+        alert("Error de comunicación con el servidor: " + error.message);
         reanudarEscaneo();
     });
 }
@@ -78,7 +106,15 @@ function registrarAcceso(tipo, metodo) {
             metodo: metodo
         })
     })
-    .then(response => response.json())
+    .then(async response => {
+        const text = await response.text();
+        try {
+            return JSON.parse(text);
+        } catch (e) {
+            console.error("Respuesta no es JSON:", text);
+            throw new Error("Respuesta inválida del servidor.");
+        }
+    })
     .then(data => {
         if (data.success) {
             const accion = tipo.charAt(0).toUpperCase() + tipo.slice(1);
@@ -97,7 +133,7 @@ function registrarAcceso(tipo, metodo) {
     })
     .catch(error => {
         console.error("Error:", error);
-        alert("Error de comunicación al intentar registrar.");
+        alert("Error de comunicación: " + error.message);
     });
 }
 

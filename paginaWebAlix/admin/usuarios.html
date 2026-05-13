@@ -23,33 +23,18 @@
         <div class="contenedor">
             <div class="login">
 
-                <table>
+                <table id="tabla-usuarios">
                     <thead>
                         <tr>
                             <th>Nombre</th>
                             <th>ID / Cédula</th>
-                            <th>Programa / Área</th>
-                            <th>Acciones</th> </tr>
+                            <th>Email</th>
+                            <th>Rol</th>
+                            <th>Acciones</th>
+                        </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>Juan Pérez</td>
-                            <td>123456</td>
-                            <td>Ingeniería de Sistemas</td>
-                            <td>
-                                <button class="btn-aprobar">Aprobar</button>
-                                <button class="btn-rechazar">Rechazar</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Ana Gómez</td>
-                            <td>654321</td>
-                            <td>Derecho</td>
-                            <td>
-                                <button class="btn-aprobar">Aprobar</button>
-                                <button class="btn-rechazar">Rechazar</button>
-                            </td>
-                        </tr>
+                    <tbody id="lista-usuarios-body">
+                        <!-- Se cargará dinámicamente -->
                     </tbody>
                 </table>
 
@@ -101,6 +86,7 @@
 </footer>
 <script src="../js/ui.js"></script>
 <script src="../js/admin-auth.js"></script>
+<script src="../js/admin-usuarios.js"></script>
 <script>
     requireAdminAuth();
 </script>

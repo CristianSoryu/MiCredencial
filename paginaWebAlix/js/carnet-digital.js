@@ -38,6 +38,14 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
                 }
                 
+                // Mostrar botón de solicitudes de egresados NG para admisiones o admin
+                if (todosLosRoles.includes('admisiones_registro') || todosLosRoles.includes('administrador')) {
+                    const solicitudesEgresadosBtn = document.getElementById('card-solicitudes-egresados');
+                    if (solicitudesEgresadosBtn) {
+                        solicitudesEgresadosBtn.style.display = 'block';
+                    }
+                }
+                
                 if (data.usuario.foto) {
                     document.getElementById('foto-perfil').src = data.usuario.foto;
                 } else {

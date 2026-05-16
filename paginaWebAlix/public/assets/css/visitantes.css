@@ -1,0 +1,180 @@
+/* css/visitantes.css */
+
+body {
+    background: #ffffff;
+}
+
+.carrusel-carreras {
+    max-width: 1180px;
+    margin: 0 auto 60px;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 18px;
+    align-items: center;
+}
+
+.carrusel-viewport {
+    overflow: hidden;
+}
+
+.carreras {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: calc(33.333% - 17px);
+    gap: 25px;
+    padding: 30px 0;
+    transition: transform 0.35s ease;
+    will-change: transform;
+}
+
+.card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0px 5px 15px rgba(0,0,0,0.1);
+    transition: 0.3s ease;
+    border-top: 4px solid transparent;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.28);
+    overflow: hidden;
+    position: relative;
+    min-height: 190px;
+}
+
+.card a {
+    display: block;
+    padding: 25px;
+    text-decoration: none;
+    color: inherit;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.card i {
+    font-size: 32px;
+    color: #7b1e2b;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: block;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    border-top: 4px solid #d4af37;
+    box-shadow: 0px 10px 24px rgba(212, 175, 55, 0.2);
+}
+
+.card h3 { color: #7b1e2b; margin-bottom: 10px; }
+.card p { color: #666; font-size: 14px; }
+
+.carrusel-boton {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    border: 1px solid rgba(212, 175, 55, 0.4);
+    background: #ffffff;
+    color: #b8860b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+.carrusel-boton:hover {
+    transform: translateY(-2px);
+    background: #d4af37;
+    color: #1b1b1b;
+}
+
+.carrusel-boton:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.boton-accion {
+    margin: 40px 0;
+    text-align: center;
+}
+
+.main-visitantes {
+    flex: 1;
+}
+
+.titulo-pagina {
+    color: #c4001a;
+    text-align: center;
+    margin-top: 40px;
+}
+
+.divisor {
+    width: 80%;
+    border: 0;
+    border-top: 1px solid rgba(212, 175, 55, 0.35);
+    margin: 40px auto;
+}
+
+.boton-rojo {
+    background: linear-gradient(135deg, #c4001a 0%, #a00015 100%);
+    color: white;
+    padding: 15px 30px;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    display: inline-block;
+    transition: 0.3s;
+}
+
+.boton-rojo:hover {
+    background: linear-gradient(135deg, #1b1b1b 0%, #000 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(212, 175, 55, 0.22);
+}
+
+.contenedor-boton {
+    text-align: center;
+    margin: 40px 0;
+    width: 100%;
+}
+
+.volver-visitantes {
+    color: #c4001a;
+    font-weight: bold;
+}
+
+.volver-visitantes:hover {
+    color: #8b0000;
+}
+
+@media (max-width: 900px) {
+    .carreras {
+        grid-auto-columns: calc(50% - 13px);
+    }
+}
+
+@media (max-width: 640px) {
+    .carrusel-carreras {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .carrusel-viewport {
+        order: 1;
+    }
+
+    .carrusel-boton {
+        order: 2;
+        justify-self: center;
+    }
+
+    .carreras {
+        grid-auto-columns: 100%;
+        padding: 20px 0;
+    }
+
+    .card {
+        min-height: auto;
+    }
+}

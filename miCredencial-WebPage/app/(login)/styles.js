@@ -8,6 +8,23 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  backgroundApp: {
+    flex: 1,
+    width: "100%",
+    height: "100%",
+    alignitems: "center",
+    justifycontent: "center",
+    backgroundColor: "#C00000",
+  },
+  header: {
+    flex: 0.8,
+    alignItems: "center",
+    paddingHorizontal: 40,
+    justifyContent: "center",
+    backgroundColor: "#000000",
+    marginBottom: 40,
+    borderRadius: 20,
+  },
   imageCircle: {
     borderRadius: 100,
     width: 150,
@@ -18,7 +35,7 @@ export const styles = StyleSheet.create({
   container: {
     borderRadius: 20,
     width: "90%",
-    height: "70%",
+    height: "45%",
     backgroundColor: "#e60909c9",
     alignItems: "center",
     justifyContent: "center",
@@ -45,24 +62,27 @@ export const styles = StyleSheet.create({
     textAlign: "center",
     padding: 10,
     fontFamily: "PoppinsSemiBold",
+    marginHorizontal: 20,
   },
   button: {
     backgroundColor: "#C00000",
     borderRadius: 40,
     width: "80%",
-    height: 60,
+    height: "5%",
     margin: 20,
     justifyContent: "center",
     elevation: 5, // Added for Android shadow support
   },
   input: {
     backgroundColor: "#cccccc50", // Fix invalid color code
-    borderRadius: 40,
+    borderRadius: 20,
     width: "80%",
-    height: "7%",
+    height: "6%",
     margin: 10,
     padding: 1,
     paddingLeft: 15,
+    borderColor: "#000000",
+    borderWidth: 1,
   },
   buttonText: {
     color: "white",

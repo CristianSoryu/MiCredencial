@@ -10,14 +10,14 @@ async function cargarSolicitudes() {
         if (data.success) {
             renderizarTabla(data.solicitudes);
         } else {
-            alert('Error: ' + data.message);
+            showToast('Error: ' + data.message, 'error');
             if (data.message === 'No tiene permisos para ver esta sección' || data.message === 'No autorizado') {
                 window.location.href = 'admin.html';
             }
         }
     } catch (error) {
         console.error('Error:', error);
-        alert('Hubo un problema al conectar con el servidor.');
+        showToast('Hubo un problema al conectar con el servidor.', 'error');
     }
 }
 
@@ -71,13 +71,13 @@ async function actualizarSolicitud(id, estado) {
         const data = await response.json();
 
         if (data.success) {
-            alert(data.message);
+            showToast(data.message, 'success');
             cargarSolicitudes(); // Recargar la tabla
         } else {
-            alert('Error: ' + data.message);
+            showToast('Error: ' + data.message, 'error');
         }
     } catch (error) {
         console.error('Error:', error);
-        alert('Hubo un problema al procesar la solicitud.');
+        showToast('Hubo un problema al procesar la solicitud.', 'error');
     }
 }

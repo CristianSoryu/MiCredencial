@@ -8,8 +8,8 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(data => {
             const roles = data.usuario.todos_los_roles || [];
             if (!data.success || !roles.includes('escaneador')) {
-                alert("Acceso no autorizado. Se requiere rol de escaneador.");
-                window.location.href = 'index.html';
+                showToast("Acceso no autorizado. Se requiere rol de escaneador.", "error");
+                setTimeout(() => window.location.href = 'index.html', 1500);
                 return;
             }
             
@@ -65,13 +65,13 @@ function procesarQR(qrData) {
         if (data.success) {
             mostrarPanelUsuario(data.usuario);
         } else {
-            alert("Error: " + data.message);
+            showToast("Error: " + data.message, "error");
             reanudarEscaneo();
         }
     })
     .catch(error => {
         console.error("Error detallado:", error);
-        alert("Error de comunicación con el servidor: " + error.message);
+        showToast("Error de comunicación con el servidor: " + error.message, "error");
         reanudarEscaneo();
     });
 }
@@ -118,22 +118,18 @@ function registrarAcceso(tipo, metodo) {
     .then(data => {
         if (data.success) {
             const accion = tipo.charAt(0).toUpperCase() + tipo.slice(1);
-            if (typeof showToast === 'function') {
-                showToast(`${accion} ${metodo} registrada correctamente.`, 'success');
-            } else {
-                alert(`${accion} ${metodo} registrada correctamente.`);
-            }
+            showToast(`${accion} ${metodo} registrada correctamente.`, 'success');
             
             setTimeout(() => {
                 cancelarEscaneo();
             }, 1500);
         } else {
-            alert("Error al registrar: " + data.message);
+            showToast("Error al registrar: " + data.message, "error");
         }
     })
     .catch(error => {
         console.error("Error:", error);
-        alert("Error de comunicación: " + error.message);
+        showToast("Error de comunicación: " + error.message, "error");
     });
 }
 

@@ -10,7 +10,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const programa_academico = document.getElementById('programa_academico').value;
 
             if (!nombres || !identificacion || !correo || !programa_academico) {
-                alert('Por favor complete todos los campos requeridos.');
+                showToast('Por favor complete todos los campos requeridos.', 'error');
+                return;
+            }
+
+            // Validar que la identificación sea solo números
+            if (!/^\d+$/.test(identificacion)) {
+                showToast('El número de identificación debe contener solo números.', 'error');
                 return;
             }
 
@@ -31,15 +37,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 const data = await response.json();
 
                 if (data.success) {
-                    alert(data.message);
+                    showToast(data.message, 'success');
                     form.reset();
-                    window.location.href = 'index.html'; // Redirigir al inicio después del éxito
+                    setTimeout(() => {
+                        window.location.href = 'index.html'; // Redirigir al inicio después del éxito
+                    }, 1500);
                 } else {
-                    alert('Error: ' + data.message);
+                    showToast('Error: ' + data.message, 'error');
                 }
             } catch (error) {
                 console.error('Error:', error);
-                alert('Hubo un error en la conexión con el servidor. Inténtelo más tarde.');
+                showToast('Hubo un error en la conexión con el servidor. Inténtelo más tarde.', 'error');
             }
         });
     }

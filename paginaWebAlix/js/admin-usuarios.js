@@ -81,20 +81,20 @@ function cambiarRol(idUsuario, idRol) {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            alert('Rol actualizado correctamente');
+            showToast('Rol actualizado correctamente', 'success');
         } else {
-            alert('Error al actualizar rol: ' + data.message);
+            showToast('Error al actualizar rol: ' + data.message, 'error');
         }
     })
     .catch(error => {
         console.error("Error:", error);
-        alert('Error de conexión');
+        showToast('Error de conexión', 'error');
     });
 }
 
 function eliminarUsuario(id) {
     if (confirm('¿Está seguro de eliminar este usuario?')) {
         // Implementar API de eliminación si es necesario
-        alert('Funcionalidad de eliminación pendiente de implementar');
+        showToast('Funcionalidad de eliminación pendiente de implementar', 'info');
     }
 }

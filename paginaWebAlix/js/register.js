@@ -22,6 +22,12 @@ document.getElementById('register-form').addEventListener('submit', function(e) 
         return;
     }
     
+    // Validar que el documento sea solo números sin límite de longitud
+    if (!/^\d+$/.test(documento)) {
+        showToast('El número de documento debe contener solo números.', 'error');
+        return;
+    }
+    
     // Validar contraseña (mínimo 6 caracteres)
     if (password.length < 6) {
         showToast('La contraseña debe tener al menos 6 caracteres.', 'error');

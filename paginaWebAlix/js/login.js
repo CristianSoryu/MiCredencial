@@ -15,8 +15,13 @@ document.getElementById('login-form').addEventListener('submit', function(e) {
     
     const submitBtn = document.getElementById('submit-btn');
     
-    const documento = document.getElementById('login-id').value;
+    const documento = document.getElementById('login-id').value.trim();
     const password = document.getElementById('login-password').value;
+    
+    if (!/^\d+$/.test(documento)) {
+        showToast('La identificación debe contener solo números.', 'error');
+        return;
+    }
     
     submitBtn.disabled = true;
     submitBtn.textContent = 'Iniciando...';
@@ -31,7 +36,10 @@ document.getElementById('login-form').addEventListener('submit', function(e) {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            window.location.href = data.redirect;
+            showToast("Sesión iniciada con éxito", 'success');
+            setTimeout(() => {
+                window.location.href = data.redirect;
+            }, 1500);
         } else {
             showToast(data.message, 'error');
             submitBtn.disabled = false;

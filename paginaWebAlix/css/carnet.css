@@ -1,63 +1,360 @@
-/* carnet.css - Diseno especifico del Carnet */
+/* carnet.css - Diseño Horizontal Moderno (Azul y Blanco) */
 
-.carnet {
-    background: white;
-    width: 300px;
-    margin: 40px auto;
-    padding: 30px 20px;
-    border-radius: 15px;
+/* Contenedor envolvente */
+.carnet-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    width: 100%;
+    max-width: 500px;
+    margin: 20px auto;
+    box-sizing: border-box;
+}
+
+/* Mensaje de Carga */
+.mensaje-carga {
     text-align: center;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    border-top: 10px solid #d4af37;
-    border-bottom: 1px solid rgba(212, 175, 55, 0.35);
+    font-weight: bold;
+    color: #333;
+    background: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+/* Diseño de la Tarjeta Horizontal */
+.carnet-horizontal {
+    background-color: #ffffff;
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    position: relative;
+    border: 1px solid #e0e0e0;
+    margin-bottom: 25px;
+}
+
+/* Franja Superior Azul */
+.carnet-top-bar {
+    background-color: #1a2a47;
+    /* Azul oscuro Unilibre */
+    color: white;
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    border-bottom: 4px solid #c8102e;
+    /* Acento rojo */
+}
+
+.carnet-mini-logo {
+    width: 45px;
+    height: auto;
+    margin-right: 15px;
+}
+
+.carnet-title-group {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.carnet-uni-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin: 0;
+}
+
+.carnet-sec-name {
+    font-size: 0.8rem;
+    color: #e0e0e0;
+    margin: 0;
+}
+
+/* Contenido Principal (División Izquierda/Derecha) */
+.carnet-main-content {
+    display: flex;
+    padding: 20px;
+    gap: 20px;
+    align-items: center;
+}
+
+/* Columna Izquierda (Foto) */
+.carnet-left {
+    flex: 0 0 110px;
+    display: flex;
+    justify-content: center;
+}
+
+.foto-container {
+    position: relative;
+    width: 110px;
+    height: 110px;
 }
 
 #foto-perfil {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    border: 4px solid rgba(212, 175, 55, 0.45);
+    width: 100%;
+    height: 100%;
     object-fit: cover;
-    margin-bottom: 15px;
+    border-radius: 50%;
+    border: 3px solid #1a2a47;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.boton-cambiar-foto {
-    width: auto;
-    padding: 10px 14px;
-    margin: 0 auto 18px;
-    font-size: 13px;
+/* Botón flotante para cambiar foto */
+.btn-edit-foto {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: #1a2a47; /* overrides global gradient */
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    padding: 0; /* overrides global button padding */
+    margin: 0; /* overrides global button margin */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    transition: background 0.3s ease;
+}
+
+.btn-edit-foto:hover {
+    background: #c8102e;
+}
+
+/* Columna Derecha (Datos) */
+.carnet-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+}
+
+.carnet-nombre {
+    font-size: 1.1rem;
+    color: #1a2a47;
+    margin: 0 0 12px 0;
+    text-transform: uppercase;
+    font-weight: 800;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 8px;
+}
+
+.carnet-info-grid {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.info-text p {
+    margin: 4px 0;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.info-text .label {
+    font-size: 0.75rem;
+    color: #666;
+    font-weight: bold;
+    display: inline-block;
+    width: 80px;
+}
+
+/* Código QR generado por JS */
+.info-qr {
+    background: #fff;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#qrcode img,
+#qrcode canvas {
+    max-width: 75px;
+    height: auto;
+}
+
+/* Botones de Acción del Sistema */
+.system-actions {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.actions-row {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+}
+
+.btn-action {
+    flex: 1;
+    padding: 10px;
+    margin: 0; /* overrides global button margin-top */
+    text-align: center;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    border: none;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    max-width: 170px;
 }
 
-.carnet p {
-    margin: 12px 0;
-    color: #333;
-    font-size: 15px;
-    border-bottom: 1px solid #f0f0f0;
-    padding-bottom: 5px;
-    text-align: left;
+.btn-outline {
+    background: transparent;
+    color: #1a2a47;
+    border: 2px solid #1a2a47;
 }
 
-.carnet p b {
-    color: #b8860b;
-    font-size: 12px;
+.btn-outline:hover {
+    background: #f0f4f8;
+}
+
+.btn-logout {
+    background: #1a2a47;
+    color: white;
+}
+
+.btn-logout:hover {
+    background: #c8102e;
+}
+
+/* Badge de Rol */
+.badge-rol {
+    margin-left: auto;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: bold;
     text-transform: uppercase;
-    display: block;
+    letter-spacing: 1px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
 }
 
-#qrcode {
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
+/* Variaciones de Rol - Docente (Rojo) */
+.carnet-docente .carnet-top-bar {
+    background-color: #c8102e;
+    border-bottom: 4px solid #d4af37;
+}
+.carnet-docente .carnet-nombre {
+    color: #c8102e;
+}
+.carnet-docente .btn-edit-foto {
+    background: #c8102e;
+}
+.carnet-docente .btn-edit-foto:hover {
+    background: #9a0d24;
+}
+.carnet-docente .btn-logout {
+    background: #c8102e;
+}
+.carnet-docente .btn-logout:hover {
+    background: #9a0d24;
+}
+.carnet-docente .btn-outline {
+    color: #c8102e;
+    border-color: #c8102e;
+}
+.carnet-docente .btn-outline:hover {
+    background: #fff5f5;
 }
 
-#qrcode img {
-    border: 1px solid rgba(212, 175, 55, 0.4);
-    border-radius: 10px;
-    padding: 8px;
-    background: #fffdf7;
+/* Variaciones de Rol - Administrativo y Otros (Amarillo/Ámbar) */
+.carnet-administrativo .carnet-top-bar {
+    background-color: #d48806;
+    border-bottom: 4px solid #1a2a47;
+}
+.carnet-administrativo .carnet-nombre {
+    color: #d48806;
+}
+.carnet-administrativo .btn-edit-foto {
+    background: #d48806;
+}
+.carnet-administrativo .btn-edit-foto:hover {
+    background: #a66a05;
+}
+.carnet-administrativo .btn-logout {
+    background: #d48806;
+}
+.carnet-administrativo .btn-logout:hover {
+    background: #a66a05;
+}
+.carnet-administrativo .btn-outline {
+    color: #d48806;
+    border-color: #d48806;
+}
+.carnet-administrativo .btn-outline:hover {
+    background: #fffaf0;
+}
+
+/* Variaciones de Rol - Administrador (Dorado) */
+.carnet-administrador .carnet-top-bar {
+    background: linear-gradient(135deg, #d4af37 0%, #b8860b 100%);
+    border-bottom: 4px solid #1a2a47;
+}
+.carnet-administrador .carnet-nombre {
+    color: #b8860b;
+}
+.carnet-administrador .btn-edit-foto {
+    background: #d4af37;
+}
+.carnet-administrador .btn-edit-foto:hover {
+    background: #b8860b;
+}
+.carnet-administrador .btn-logout {
+    background: #d4af37;
+}
+.carnet-administrador .btn-logout:hover {
+    background: #b8860b;
+}
+.carnet-administrador .btn-outline {
+    color: #b8860b;
+    border-color: #b8860b;
+}
+.carnet-administrador .btn-outline:hover {
+    background: #fffdf5;
+}
+
+/* Responsividad para móviles pequeños */
+@media (max-width: 480px) {
+    .carnet-main-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .carnet-title-group {
+        text-align: center;
+    }
+
+    .carnet-right {
+        text-align: center;
+    }
+
+    .carnet-info-grid {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .info-text .label {
+        width: auto;
+        margin-right: 5px;
+    }
 }

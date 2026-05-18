@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,68 +10,107 @@
     <link rel="stylesheet" href="../css/carnet.css">
     <link rel="stylesheet" href="../css/footer.css">
     <link rel="stylesheet" href="../css/ui.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
 <body>
-    <header class="header">
+                <header class="header">
         <img src="../IMG/escudo.png" alt="Escudo Unilibre" class="escudo" style="width: 70px;">
         <h1 style="color: white; margin: 0;">Universidad Libre</h1>
-        <p style="color: #ff4d4d; margin: 5px 0 0; font-weight: bold;">Seccional Cucuta</p>
+        <p style="color: #ff4d4d; margin: 5px 0 0; font-weight: bold;">Seccional Cúcuta</p>
         <h2 style="color: white; margin-top: 20px; text-align: center;">Carnet Universitario</h2>
     </header>
 
-    <div class="carnet">
-        <img src="../IMG/foto.jpeg" alt="Foto de Perfil" id="foto-perfil">
-        <input type="file" id="foto-input" accept="image/*" hidden>
-        <button type="button" id="cambiar-foto-btn" class="boton-cambiar-foto">
-            <i class="fas fa-camera"></i> Cambiar imagen
-        </button>
-        
-        <div id="cargando-datos">Cargando datos...</div>
-        <div id="datos-carnet" style="display: none;">
-            <p><b>Nombre:</b> <span id="carnet-nombre"></span></p>
-            <p><b>ID:</b> <span id="carnet-id"></span></p>
-            <p><b>Programa:</b> <span id="carnet-programa">Ingeniería TIC</span></p> 
-            <p><b>Vence:</b> <span id="carnet-vencimiento">2026-2</span></p>
-            
-            <div id="qrcode"></div>
+    <div class="carnet-wrapper">
+        <div id="cargando-datos" class="mensaje-carga">Cargando datos...</div>
+
+        <!-- Tarjeta de Identidad Horizontal -->
+        <div id="datos-carnet" class="carnet-horizontal" style="display: none;">
+
+            <!-- Franja Superior Azul -->
+            <div class="carnet-top-bar">
+                <img src="../IMG/escudo.png" alt="Escudo Unilibre" class="carnet-mini-logo">
+                <div class="carnet-title-group">
+                    <span class="carnet-uni-name">UNIVERSIDAD LIBRE</span>
+                    <span class="carnet-sec-name">Seccional Cúcuta</span>
+                </div>
+                <div id="badge-rol" class="badge-rol"></div>
+            </div>
+
+            <!-- Contenido Principal -->
+            <div class="carnet-main-content">
+
+                <!-- Izquierda: Foto de Perfil -->
+                <div class="carnet-left">
+                    <div class="foto-container">
+                        <img src="../IMG/foto.jpeg" alt="Foto de Perfil" id="foto-perfil">
+                        <input type="file" id="foto-input" accept="image/*" hidden>
+                        <button type="button" id="cambiar-foto-btn" class="btn-edit-foto" title="Cambiar imagen">
+                            <i class="fas fa-camera"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Derecha: Datos y QR -->
+                <div class="carnet-right">
+                    <h3 id="carnet-nombre" class="carnet-nombre"></h3>
+
+                    <div class="carnet-info-grid">
+                        <div class="info-text">
+                            <p><span class="label">ID:</span> <span id="carnet-id"></span></p>
+                            <p><span class="label">PROGRAMA:</span> <span id="carnet-programa">Ingeniería TIC</span></p>
+                            <p><span class="label">VENCE:</span> <span id="carnet-vencimiento">2026-2</span></p>
+                        </div>
+                        <div class="info-qr">
+                            <div id="qrcode"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <a href="index.html" class="volver" style="margin-top: 15px; font-weight: bold;">
-            <i class="fas fa-arrow-left"></i> Volver al inicio
-        </a>
-
-        <a href="cambiar-contrasena.html" class="volver" style="margin-top: 15px; font-weight: bold;">
-            <i class="fas fa-key"></i> Cambiar contraseña
-        </a>
-
-        <button onclick="logout()" style="background: #333; margin-top: 20px; padding: 10px; font-size: 12px;">
-            <i class="fas fa-sign-out-alt"></i> Cerrar Sesion
-        </button>
+        <!-- Botones de Acción del Sistema -->
+        <div class="system-actions">
+            <div id="scanner-action-container" style="display: none; width: 100%; margin-bottom: 10px;">
+                <a href="escaner.html" class="btn-action btn-scanner" style="background-color: #28a745; color: white; width: 100%;">
+                    <i class="fas fa-qrcode"></i> ESCANEAR CARNET
+                </a>
+            </div>
+            <div class="actions-row">
+                <a href="index.html" class="btn-action btn-outline">
+                    <i class="fas fa-arrow-left"></i> Volver
+                </a>
+                <a href="cambiar-contrasena.html" class="btn-action btn-outline">
+                    <i class="fas fa-key"></i> Cambiar Contraseña
+                </a>
+            </div>
+            <button onclick="logout()" class="btn-action btn-logout">
+                <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+            </button>
+        </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
-    <footer class="footer">
+                <footer class="footer">
         <div class="footer-content">
             <div class="footer-section">
                 <h4>Contacto</h4>
                 <p><i class="fas fa-phone"></i> PBX: (607) 582 9810</p>
                 <p><i class="fas fa-envelope"></i> info.cucuta@unilibre.edu.co</p>
-                <p><i class="fas fa-map-marker-alt"></i> Av. 4ta n.o 12n-81 - El Bosque</p>
+                <p><i class="fas fa-map-marker-alt"></i> Av. 4ta n.º 12n-81 - El Bosque</p>
             </div>
 
             <div class="footer-section">
-                <h4>Enlaces Rapidos</h4>
-                <a href="index.html">Inicio</a>
+                <h4>Enlaces Rápidos</h4>
+                <a href="../html/index.html">Inicio</a>
                 <a href="https://www.unilibre.edu.co/biblioteca" target="_blank">Biblioteca</a>
-                <a href="https://www.unilibre.edu.co/cucuta/" target="_blank">Seccional Cucuta</a>
-                <a href="https://www.kawak.com.co/unilibre/pqrs/pqrs_index.html" target="_blank">PQRS - Soporte Tecnico</a>
+                <a href="https://www.unilibre.edu.co/cucuta/" target="_blank">Seccional Cúcuta</a>
+                <a href="https://www.kawak.com.co/unilibre/pqrs/pqrs_index.html" target="_blank">PQRS - Soporte Técnico</a>
             </div>
 
             <div class="footer-section">
-                <h4>Siguenos</h4>
+                <h4>Síguenos</h4>
                 <div class="social-icons">
                     <a href="https://www.facebook.com/UnilibreCucuta" target="_blank" class="icon-fb"><i class="fab fa-facebook"></i></a>
                     <a href="https://www.instagram.com/unilibrecucuta" target="_blank" class="icon-ig"><i class="fab fa-instagram"></i></a>
@@ -81,7 +121,7 @@
             </div>
 
             <div class="footer-section">
-                <h4>Ubicacion</h4>
+                <h4>Ubicación</h4>
                 <div class="map-container">
                     <iframe
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3257.1771286957737!2d-72.5013971260146!3d7.91221970547162!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e664540a6ea196f%3A0xb1d0e71aebd40351!2sUniversidad%20Libre%20Seccional%20C%C3%BAcuta!5e1!3m2!1ses-419!2sco!4v1773159309972!5m2!1ses-419!2sco"
@@ -91,7 +131,8 @@
             </div>
         </div>
     </footer>
-    
+
     <script src="../js/carnet-digital.js"></script>
 </body>
+
 </html>

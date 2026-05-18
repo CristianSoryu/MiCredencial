@@ -11,14 +11,15 @@
     <link rel="stylesheet" href="../css/admin.css">
     <style>
         .badge {
-            padding: 5px 10px;
+            padding: 6px 12px;
             border-radius: 20px;
-            font-size: 12px;
+            font-size: 13px;
             font-weight: bold;
             color: white;
             display: inline-block;
             text-align: center;
-            min-width: 60px;
+            min-width: 80px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         .badge-activo {
             background-color: #28a745;
@@ -26,103 +27,138 @@
         .badge-inactivo {
             background-color: #dc3545;
         }
+        .btn-activar, .btn-desactivar {
+            border: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
         .btn-activar {
             background-color: #28a745;
             color: white;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background 0.3s;
         }
         .btn-activar:hover {
             background-color: #218838;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.15);
         }
         .btn-desactivar {
             background-color: #dc3545;
             color: white;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background 0.3s;
         }
         .btn-desactivar:hover {
             background-color: #c82333;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+        }
+        .table-container {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin-top: 20px;
+            overflow-x: auto;
         }
         .table-carnets {
             width: 100%;
-            border-collapse: collapse;
+            border-collapse: separate;
+            border-spacing: 0;
             text-align: left;
-            margin-top: 20px;
         }
         .table-carnets th, .table-carnets td {
-            padding: 12px;
-            border-bottom: 1px solid #ddd;
+            padding: 15px;
+            border-bottom: 1px solid #edf2f7;
+            vertical-align: middle;
         }
         .table-carnets th {
             background-color: #f8f9fa;
+            color: #4a5568;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 13px;
+            letter-spacing: 0.5px;
         }
+        .table-carnets th:first-child { border-top-left-radius: 8px; border-bottom-left-radius: 8px; }
+        .table-carnets th:last-child { border-top-right-radius: 8px; border-bottom-right-radius: 8px; }
+        .table-carnets tbody tr { transition: background-color 0.2s ease; }
+        .table-carnets tbody tr:hover { background-color: #f8fafc; }
+        
+        .search-container {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .search-input {
+            flex: 1;
+            padding: 12px 15px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            font-size: 15px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        .search-input:focus { border-color: #e60000; box-shadow: 0 0 0 3px rgba(230,0,0,0.1); }
+        .btn-search {
+            padding: 12px 25px;
+            background-color: #e60000;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 15px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-search:hover { background-color: #cc0000; transform: translateY(-1px); }
     </style>
 </head>
 
 <body>
 
-    <header class="header">
+                <header class="header">
         <img src="../IMG/escudo.png" alt="Escudo Unilibre" class="escudo" style="width: 70px;">
         <h1 style="color: white; margin: 0;">Universidad Libre</h1>
-        <p style="color: #ff4d4d; margin: 5px 0 0; font-weight: bold;">Seccional Cucuta</p>
+        <p style="color: #ff4d4d; margin: 5px 0 0; font-weight: bold;">Seccional Cúcuta</p>
         <h2 style="color: white; margin-top: 20px; text-align: center;">Gestionar Estado de Carnets</h2>
     </header>
 
     <main style="flex: 1;">
         <div class="contenedor">
-            <div class="login" style="max-width: 800px; width: 100%;">
+            <div class="login" style="max-width: 1000px; width: 100%; background-color: #f4f6f9; box-shadow: none; padding: 0;">
 
-                <div style="margin-bottom: 20px; display: flex; gap: 10px;">
-                    <input type="text" placeholder="Buscar por nombre o ID..." style="flex: 1; padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
-                    <button style="padding: 10px 20px; background-color: #e60000; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="Buscar por nombre o ID...">
+                    <button class="btn-search">
                         <i class="fas fa-search"></i> Buscar
                     </button>
                 </div>
 
-                <div style="overflow-x: auto;">
+                <div class="table-container">
                     <table class="table-carnets">
                         <thead>
                             <tr>
                                 <th>Nombre</th>
-                                <th>ID / Cedula</th>
+                                <th>ID / Cédula</th>
                                 <th>Estado Actual</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>Carlos Ramirez</td>
-                                <td>1098765432</td>
-                                <td><span class="badge badge-activo">Activo</span></td>
-                                <td>
-                                    <button class="btn-desactivar" onclick="toggleEstado(this)"><i class="fas fa-ban"></i> Desactivar</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Maria Torres</td>
-                                <td>1098123456</td>
-                                <td><span class="badge badge-inactivo">Inactivo</span></td>
-                                <td>
-                                    <button class="btn-activar" onclick="toggleEstado(this)"><i class="fas fa-check"></i> Activar</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Luis Gomez</td>
-                                <td>1090123456</td>
-                                <td><span class="badge badge-activo">Activo</span></td>
-                                <td>
-                                    <button class="btn-desactivar" onclick="toggleEstado(this)"><i class="fas fa-ban"></i> Desactivar</button>
-                                </td>
-                            </tr>
+                        <tbody id="tabla-usuarios">
+                            <!-- Los usuarios se cargarán dinámicamente aquí -->
                         </tbody>
                     </table>
                 </div>
@@ -136,25 +172,25 @@
         </div>
     </main>
 
-    <footer class="footer">
+                <footer class="footer">
         <div class="footer-content">
             <div class="footer-section">
                 <h4>Contacto</h4>
                 <p><i class="fas fa-phone"></i> PBX: (607) 582 9810</p>
                 <p><i class="fas fa-envelope"></i> info.cucuta@unilibre.edu.co</p>
-                <p><i class="fas fa-map-marker-alt"></i> Av. 4ta n.o 12n-81 - El Bosque</p>
+                <p><i class="fas fa-map-marker-alt"></i> Av. 4ta n.º 12n-81 - El Bosque</p>
             </div>
 
             <div class="footer-section">
-                <h4>Enlaces Rapidos</h4>
+                <h4>Enlaces Rápidos</h4>
                 <a href="../html/index.html">Inicio</a>
                 <a href="https://www.unilibre.edu.co/biblioteca" target="_blank">Biblioteca</a>
-                <a href="https://www.unilibre.edu.co/cucuta/" target="_blank">Seccional Cucuta</a>
-                <a href="https://www.kawak.com.co/unilibre/pqrs/pqrs_index.html" target="_blank">PQRS - Soporte Tecnico</a>
+                <a href="https://www.unilibre.edu.co/cucuta/" target="_blank">Seccional Cúcuta</a>
+                <a href="https://www.kawak.com.co/unilibre/pqrs/pqrs_index.html" target="_blank">PQRS - Soporte Técnico</a>
             </div>
 
             <div class="footer-section">
-                <h4>Siguenos</h4>
+                <h4>Síguenos</h4>
                 <div class="social-icons">
                     <a href="https://www.facebook.com/UnilibreCucuta" target="_blank" class="icon-fb"><i class="fab fa-facebook"></i></a>
                     <a href="https://www.instagram.com/unilibrecucuta" target="_blank" class="icon-ig"><i class="fab fa-instagram"></i></a>
@@ -165,10 +201,10 @@
             </div>
 
             <div class="footer-section">
-                <h4>Ubicacion</h4>
+                <h4>Ubicación</h4>
                 <div class="map-container">
-                    <iframe 
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3257.1771286957737!2d-72.5013971260146!3d7.91221970547162!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e664540a6ea196f%3A0xb1d0e71aebd40351!2sUniversidad%20Libre%20Seccional%20C%C3%BAcuta!5e1!3m2!1ses-419!2sco!4v1773159309972!5m2!1ses-419!2sco" 
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3257.1771286957737!2d-72.5013971260146!3d7.91221970547162!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e664540a6ea196f%3A0xb1d0e71aebd40351!2sUniversidad%20Libre%20Seccional%20C%C3%BAcuta!5e1!3m2!1ses-419!2sco!4v1773159309972!5m2!1ses-419!2sco"
                         width="100%" height="150" style="border:0;" allowfullscreen="" loading="lazy">
                     </iframe>
                 </div>
@@ -181,30 +217,135 @@
     requireAdminAuth();
 </script>
 <script>
-    function toggleEstado(btn) {
-        const row = btn.closest('tr');
-        const badge = row.querySelector('.badge');
-        
-        if (btn.classList.contains('btn-desactivar')) {
-            // Cambiar a inactivo
-            badge.className = 'badge badge-inactivo';
-            badge.textContent = 'Inactivo';
+    let usuariosData = [];
+
+    document.addEventListener('DOMContentLoaded', () => {
+        cargarUsuarios();
+
+        // Configurar buscador
+        const inputBuscar = document.querySelector('input[placeholder="Buscar por nombre o ID..."]');
+        const btnBuscar = document.querySelector('button i.fa-search').parentElement;
+
+        inputBuscar.addEventListener('input', filtrarUsuarios);
+        btnBuscar.addEventListener('click', filtrarUsuarios);
+    });
+
+    async function cargarUsuarios() {
+        try {
+            const response = await fetch('../api/admin/get_usuarios.php');
+            const data = await response.json();
+
+            if (data.success) {
+                usuariosData = data.usuarios;
+                renderUsuarios(usuariosData);
+            } else {
+                alert('Error al cargar usuarios: ' + data.message);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Ocurrió un error al cargar la lista de usuarios.');
+        }
+    }
+
+    function renderUsuarios(usuarios) {
+        const tbody = document.getElementById('tabla-usuarios');
+        tbody.innerHTML = '';
+
+        if (usuarios.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="4" style="text-align: center;">No se encontraron usuarios.</td></tr>';
+            return;
+        }
+
+        usuarios.forEach(user => {
+            const tr = document.createElement('tr');
             
-            btn.className = 'btn-activar';
-            btn.innerHTML = '<i class="fas fa-check"></i> Activar';
+            // Determinar estado actual (por defecto activo si es null/undefined)
+            const estado = user.estado || 'activo';
+            const isActivo = estado === 'activo';
             
-            // Simular petición
-            // alert('Carnet desactivado correctamente.');
-        } else {
-            // Cambiar a activo
-            badge.className = 'badge badge-activo';
-            badge.textContent = 'Activo';
+            const badgeClass = isActivo ? 'badge-activo' : 'badge-inactivo';
+            const badgeText = isActivo ? 'Activo' : 'Inactivo';
             
-            btn.className = 'btn-desactivar';
-            btn.innerHTML = '<i class="fas fa-ban"></i> Desactivar';
+            const btnClass = isActivo ? 'btn-desactivar' : 'btn-activar';
+            const btnIcon = isActivo ? 'fa-ban' : 'fa-check';
+            const btnText = isActivo ? 'Desactivar' : 'Activar';
+
+            tr.innerHTML = `
+                <td>${user.nombres} ${user.apellidos}</td>
+                <td>${user.id_usuario}</td>
+                <td><span class="badge ${badgeClass}">${badgeText}</span></td>
+                <td>
+                    <button class="${btnClass}" onclick="toggleEstado('${user.id_usuario}', this)">
+                        <i class="fas ${btnIcon}"></i> ${btnText}
+                    </button>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    function filtrarUsuarios() {
+        const inputBuscar = document.querySelector('input[placeholder="Buscar por nombre o ID..."]');
+        const termino = inputBuscar.value.toLowerCase().trim();
+
+        const filtrados = usuariosData.filter(user => {
+            const nombreCompleto = `${user.nombres} ${user.apellidos}`.toLowerCase();
+            const id = String(user.id_usuario).toLowerCase();
+            return nombreCompleto.includes(termino) || id.includes(termino);
+        });
+
+        renderUsuarios(filtrados);
+    }
+
+    async function toggleEstado(idUsuario, btn) {
+        // Deshabilitar botón temporalmente para evitar doble clic
+        btn.disabled = true;
+        const originalHtml = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Procesando...';
+
+        try {
+            const response = await fetch('../api/admin/toggle_estado.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id_usuario: idUsuario })
+            });
             
-            // Simular petición
-            // alert('Carnet activado correctamente.');
+            const data = await response.json();
+
+            if (data.success) {
+                // Actualizar estado localmente
+                const userIndex = usuariosData.findIndex(u => u.id_usuario == idUsuario);
+                if (userIndex !== -1) {
+                    usuariosData[userIndex].estado = data.nuevo_estado;
+                }
+                
+                // Actualizar la fila en el DOM
+                const row = btn.closest('tr');
+                const badge = row.querySelector('.badge');
+                
+                if (data.nuevo_estado === 'inactivo') {
+                    badge.className = 'badge badge-inactivo';
+                    badge.textContent = 'Inactivo';
+                    btn.className = 'btn-activar';
+                    btn.innerHTML = '<i class="fas fa-check"></i> Activar';
+                } else {
+                    badge.className = 'badge badge-activo';
+                    badge.textContent = 'Activo';
+                    btn.className = 'btn-desactivar';
+                    btn.innerHTML = '<i class="fas fa-ban"></i> Desactivar';
+                }
+            } else {
+                alert('Error: ' + data.message);
+                btn.innerHTML = originalHtml;
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Error al cambiar el estado del carnet.');
+            btn.innerHTML = originalHtml;
+        } finally {
+            btn.disabled = false;
         }
     }
 </script>

@@ -7,33 +7,72 @@
     
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../css/carnet.css">
+    <link rel="stylesheet" href="../css/ui.css">
     <link rel="stylesheet" href="../css/footer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 
 <body style="display: none;" id="admin-body">
 
-    <header class="header">
+                <header class="header">
         <img src="../IMG/escudo.png" alt="Escudo Unilibre" class="escudo" style="width: 70px;">
         <h1 style="color: white; margin: 0;">Universidad Libre</h1>
-        <p style="color: #ff4d4d; margin: 5px 0 0; font-weight: bold;">Seccional Cucuta</p>
+        <p style="color: #ff4d4d; margin: 5px 0 0; font-weight: bold;">Seccional Cúcuta</p>
         <h2 style="color: white; margin-top: 20px; text-align: center;">Opciones de Gestion</h2>
     </header>
 
     <div class="contenedor">
-        <div class="login">
+        <div class="login" style="max-width: 100%;">
 
+            <!-- Carnet del Administrador -->
+            <div class="carnet-wrapper" style="margin-top: 0; padding-top: 0; margin-bottom: 30px;">
+                <div id="cargando-datos" class="mensaje-carga">Cargando tu carnet...</div>
+                
+                <div id="datos-carnet" class="carnet-horizontal" style="display: none;">
+                    <div class="carnet-top-bar">
+                        <img src="../IMG/escudo.png" alt="Escudo Unilibre" class="carnet-mini-logo">
+                        <div class="carnet-title-group">
+                            <span class="carnet-uni-name">UNIVERSIDAD LIBRE</span>
+                            <span class="carnet-sec-name">Seccional Cúcuta</span>
+                        </div>
+                        <div id="badge-rol" class="badge-rol">ADMIN</div>
+                    </div>
+                    <div class="carnet-main-content">
+                        <div class="carnet-left">
+                            <div class="foto-container">
+                                <img src="../IMG/escudo.png" alt="Foto" id="foto-perfil">
+                                <input type="file" id="foto-input" accept="image/*" hidden>
+                                <button type="button" id="cambiar-foto-btn" class="btn-edit-foto">
+                                    <i class="fas fa-camera"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="carnet-right">
+                            <h3 id="carnet-nombre" class="carnet-nombre">Cargando...</h3>
+                            <div class="carnet-info-grid">
+                                <div class="info-text">
+                                    <p><span class="label">ID:</span> <span id="carnet-id"></span></p>
+                                    <p><span class="label">CARGO:</span> <span>Administrador TIC</span></p>
+                                    <p><span class="label">ESTADO:</span> <span style="color: green; font-weight: bold;">ACTIVO</span></p>
+                                </div>
+                                <div class="info-qr">
+                                    <div id="qrcode"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr style="margin-bottom: 30px; border: 0; border-top: 1px solid #eee;">
+            
+            <h3 style="margin-bottom: 20px; color: #b8860b;"><i class="fas fa-tools"></i> Herramientas de Gestión</h3>
             <div class="accesos">
                 <a href="usuarios.html" class="card">
                     <i class="fas fa-users"></i>
                     <h3>Gestionar Usuarios</h3>
                     <p>Cuentas de acceso.</p>
-                </a>
-
-                <a href="solicitudesADM.html" class="card">
-                    <i class="fas fa-file-signature"></i>
-                    <h3>Ver Solicitudes</h3>
-                    <p>Carnets pendientes.</p>
                 </a>
 
                 <a href="cargar_csv.html" class="card">
@@ -42,10 +81,16 @@
                     <p>Subir lista de usuarios (CSV).</p>
                 </a>
 
-                <a href="estado-carnets.html" class="card">
+                <a href="estado-carnets.html" class="card" id="card-estado-carnets">
                     <i class="fas fa-id-card"></i>
                     <h3>Estado de Carnets</h3>
                     <p>Activar o desactivar credenciales.</p>
+                </a>
+
+                <a href="solicitudes_egresados.html" class="card" id="card-solicitudes-egresados" style="display: none;">
+                    <i class="fas fa-user-graduate"></i>
+                    <h3>Solicitudes Egresados NG</h3>
+                    <p>Aprobar o rechazar solicitudes de egresados no graduados.</p>
                 </a>
             </div>
 
@@ -63,10 +108,48 @@
         </div>
     </div>
 
-    <footer class="footer">
-        <!-- footer omitido por brevedad -->
+                <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Contacto</h4>
+                <p><i class="fas fa-phone"></i> PBX: (607) 582 9810</p>
+                <p><i class="fas fa-envelope"></i> info.cucuta@unilibre.edu.co</p>
+                <p><i class="fas fa-map-marker-alt"></i> Av. 4ta n.º 12n-81 - El Bosque</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>Enlaces Rápidos</h4>
+                <a href="../html/index.html">Inicio</a>
+                <a href="https://www.unilibre.edu.co/biblioteca" target="_blank">Biblioteca</a>
+                <a href="https://www.unilibre.edu.co/cucuta/" target="_blank">Seccional Cúcuta</a>
+                <a href="https://www.kawak.com.co/unilibre/pqrs/pqrs_index.html" target="_blank">PQRS - Soporte Técnico</a>
+            </div>
+
+            <div class="footer-section">
+                <h4>Síguenos</h4>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/UnilibreCucuta" target="_blank" class="icon-fb"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/unilibrecucuta" target="_blank" class="icon-ig"><i class="fab fa-instagram"></i></a>
+                    <a href="https://x.com/unilibrecucuta1" target="_blank" class="icon-x"><i class="fab fa-x-twitter"></i></a>
+                </div>
+                <p>© 2026 Universidad Libre. Todos los derechos reservados.</p>
+                <p><strong>Desarrollado por:</strong><br>Juan Ruiz | Cristian Torres | Alejandro Urbina</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>Ubicación</h4>
+                <div class="map-container">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3257.1771286957737!2d-72.5013971260146!3d7.91221970547162!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e664540a6ea196f%3A0xb1d0e71aebd40351!2sUniversidad%20Libre%20Seccional%20C%C3%BAcuta!5e1!3m2!1ses-419!2sco!4v1773159309972!5m2!1ses-419!2sco"
+                        width="100%" height="150" style="border:0;" allowfullscreen="" loading="lazy">
+                    </iframe>
+                </div>
+            </div>
+        </div>
     </footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script src="../js/admin-panel.js"></script>
+<script src="../js/carnet-digital.js"></script>
 </body>
 </html>

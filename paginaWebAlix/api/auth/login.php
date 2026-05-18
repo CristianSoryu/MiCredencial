@@ -27,13 +27,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     try {
-        $sql = "SELECT id_usuario, contrasena, nombres FROM usuarios WHERE id_usuario = :documento";
+        $sql = "SELECT id_usuario, contrasena, nombres, estado FROM usuarios WHERE id_usuario = :documento";
         $stmt = $conexion->prepare($sql);
         $stmt->bindParam(':documento', $documento);
         $stmt->execute();
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($user && ($password === $user['contrasena'] || empty($user['contrasena']))) {
+            if (isset($user['estado']) && $user['estado'] === 'inactivo') {
+                echo json_encode(['success' => false, 'message' => 'Su carnet ha sido desactivado. Por favor, contacte con el administrador.']);
+                exit();
+            }
+
             // Guardamos los datos en la sesión
             $_SESSION['usuario_id'] = $user['id_usuario'];
             $_SESSION['usuario_nombre'] = $user['nombres'];

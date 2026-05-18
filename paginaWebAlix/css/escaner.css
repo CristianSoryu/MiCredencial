@@ -1,0 +1,175 @@
+.escaner-container {
+    max-width: 600px;
+    padding: 20px;
+}
+
+.scanner-section {
+    text-align: center;
+    width: 100%;
+}
+
+.instruccion {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+#reader {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    border: 3px solid #1a2a47;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #000;
+}
+
+.status-msg {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #666;
+}
+
+/* Panel Usuario */
+.usuario-panel {
+    background: #f9f9f9;
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    margin-top: 20px;
+}
+
+.perfil-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.foto-wrapper {
+    width: 90px;
+    height: 90px;
+    flex-shrink: 0;
+}
+
+.scan-foto {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #1a2a47;
+}
+
+.datos-texto {
+    text-align: left;
+}
+
+.datos-texto h3 {
+    margin: 0 0 10px 0;
+    color: #1a2a47;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+}
+
+.datos-texto p {
+    margin: 5px 0;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.rol-badge {
+    background: #1a2a47;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* Acciones de acceso */
+.acciones-titulo {
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #333;
+    text-align: center;
+}
+
+.grid-botones {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.btn-acceso {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 10px;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 0.95rem;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.2s, filter 0.2s;
+    height: 100px;
+    margin: 0;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+.btn-acceso i {
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+}
+
+.btn-acceso:hover {
+    transform: translateY(-3px);
+    filter: brightness(1.1);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+}
+
+.btn-acceso:active {
+    transform: translateY(1px);
+}
+
+.entrada-peatonal { background: #2e8b57; }
+.salida-peatonal { background: #b22222; }
+.entrada-vehicular { background: #1a6d3f; } /* Darker green */
+.salida-vehicular { background: #8b0000; } /* Darker red */
+
+.btn-cancelar {
+    background: transparent;
+    color: #666;
+    border: 2px solid #ccc;
+    padding: 10px;
+    width: 100%;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    margin: 0;
+    box-shadow: none;
+}
+
+.btn-cancelar:hover {
+    background: #eee;
+}
+
+.acciones-volver {
+    margin-top: 20px;
+}
+
+@media (max-width: 400px) {
+    .perfil-info {
+        flex-direction: column;
+        text-align: center;
+    }
+    .datos-texto {
+        text-align: center;
+    }
+}

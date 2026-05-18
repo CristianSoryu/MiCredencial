@@ -14,37 +14,39 @@
 
 <body>
 
-    <header class="header">
-        <img src="IMG/escudo.png" alt="Escudo Unilibre" class="escudo" style="width: 70px;">
+                <header class="header">
+        <img src="../IMG/escudo.png" alt="Escudo Unilibre" class="escudo" style="width: 70px;">
         <h1 style="color: white; margin: 0;">Universidad Libre</h1>
-        <p style="color: #ff4d4d; margin: 5px 0 0; font-weight: bold;">Seccional Cucuta</p>
+        <p style="color: #ff4d4d; margin: 5px 0 0; font-weight: bold;">Seccional Cúcuta</p>
         <h2 style="color: white; margin-top: 20px; text-align: center;">Carnet Universitario</h2>
     </header>
 
-    <div class="contenedor" style="max-width: 800px; padding: 20px;">
+    <div class="contenedor" style="max-width: 1000px; padding: 0; background-color: #f4f6f9; box-shadow: none; border: none;">
         <h2 style="text-align: center; color: #333; margin-bottom: 20px;">Solicitudes Egresados No Graduados</h2>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Identificación</th>
-                    <th>Programa</th>
-                    <th>Estado</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody id="tabla-solicitudes">
-                <!-- Se llenará con JS -->
-            </tbody>
-        </table>
+        <div class="table-container">
+            <table class="table-carnets">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Identificación</th>
+                        <th>Programa</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tabla-solicitudes">
+                    <!-- Se llenará con JS -->
+                </tbody>
+            </table>
+        </div>
 
-        <div style="text-align: center; margin-top: 20px;">
-            <a href="admin.html" class="btn-volver"><i class="fas fa-arrow-left"></i> Volver al Panel</a>
+        <div style="text-align: center; margin-top: 20px; margin-bottom: 20px;">
+            <a href="admin.html" class="btn-volver" style="font-weight: bold; display: inline-block; text-decoration: none; color: #333;"><i class="fas fa-arrow-left"></i> Volver al Panel</a>
         </div>
     </div>
 
-    <footer class="footer">
+                <footer class="footer">
         <div class="footer-content">
             <div class="footer-section">
                 <h4>Contacto</h4>
@@ -58,19 +60,15 @@
                 <a href="../html/index.html">Inicio</a>
                 <a href="https://www.unilibre.edu.co/biblioteca" target="_blank">Biblioteca</a>
                 <a href="https://www.unilibre.edu.co/cucuta/" target="_blank">Seccional Cúcuta</a>
-                <a href="https://www.kawak.com.co/unilibre/pqrs/pqrs_index.html" target="_blank">PQRS - Soporte
-                    Técnico</a>
+                <a href="https://www.kawak.com.co/unilibre/pqrs/pqrs_index.html" target="_blank">PQRS - Soporte Técnico</a>
             </div>
 
             <div class="footer-section">
                 <h4>Síguenos</h4>
                 <div class="social-icons">
-                    <a href="https://www.facebook.com/UnilibreCucuta" target="_blank" class="icon-fb"><i
-                            class="fab fa-facebook"></i></a>
-                    <a href="https://www.instagram.com/unilibrecucuta" target="_blank" class="icon-ig"><i
-                            class="fab fa-instagram"></i></a>
-                    <a href="https://x.com/unilibrecucuta1" target="_blank" class="icon-x"><i
-                            class="fab fa-x-twitter"></i></a>
+                    <a href="https://www.facebook.com/UnilibreCucuta" target="_blank" class="icon-fb"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/unilibrecucuta" target="_blank" class="icon-ig"><i class="fab fa-instagram"></i></a>
+                    <a href="https://x.com/unilibrecucuta1" target="_blank" class="icon-x"><i class="fab fa-x-twitter"></i></a>
                 </div>
                 <p>© 2026 Universidad Libre. Todos los derechos reservados.</p>
                 <p><strong>Desarrollado por:</strong><br>Juan Ruiz | Cristian Torres | Alejandro Urbina</p>

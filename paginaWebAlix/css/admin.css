@@ -141,3 +141,20 @@ table tr:hover {
 
 .btn-aprobar:hover { background-color: #218838; }
 .btn-rechazar:hover { background-color: #a00015; }
+
+/* Status Badges */
+.estado-pendiente, .estado-aprobado, .estado-rechazado {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: bold;
+    color: white;
+    display: inline-block;
+    text-align: center;
+    min-width: 80px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.estado-pendiente { background-color: #f1c40f; color: #333; }
+.estado-aprobado { background-color: #28a745; }
+.estado-rechazado { background-color: #dc3545; }

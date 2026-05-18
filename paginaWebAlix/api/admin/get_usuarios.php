@@ -11,7 +11,7 @@ if (!isset($_SESSION['is_admin']) || $_SESSION['is_admin'] !== true) {
 require_once '../conexion.php';
 
 try {
-    $sql = "SELECT u.id_usuario, u.nombres, u.apellidos, u.email, r.tipo_usuario as rol, r.id_rol
+    $sql = "SELECT u.id_usuario, u.nombres, u.apellidos, u.email, u.estado, r.tipo_usuario as rol, r.id_rol
             FROM usuarios u
             LEFT JOIN usuario_rol ur ON u.id_usuario = ur.id_usuario
             LEFT JOIN roles r ON ur.id_rol = r.id_rol

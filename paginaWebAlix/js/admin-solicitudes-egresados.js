@@ -25,13 +25,14 @@ function renderizarTabla(solicitudes) {
     const tbody = document.getElementById('tabla-solicitudes');
     tbody.innerHTML = '';
 
-    if (solicitudes.length === 0) {
+    const pendientes = solicitudes.filter(sol => sol.estado === 'pendiente');
+
+    if (pendientes.length === 0) {
         tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;">No hay solicitudes pendientes</td></tr>';
         return;
     }
 
-    solicitudes.forEach(sol => {
-        if(sol.estado !== 'pendiente') return; // Solo mostrar pendientes
+    pendientes.forEach(sol => {
 
         const tr = document.createElement('tr');
         

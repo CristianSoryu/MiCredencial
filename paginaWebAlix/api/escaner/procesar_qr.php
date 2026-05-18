@@ -53,6 +53,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $id_usuario = $parts[0];
+    $qr_fecha_str = $parts[1]; // e.g., "2026-05-18T19:29" (UTC time from JS toISOString)
+    
+    // Validate timestamp (2 minute margin)
+    // Append 'Z' to treat as UTC, since JS toISOString is in UTC
+    $qr_time = strtotime($qr_fecha_str . 'Z');
+    $server_time = time(); // Unix timestamp is always UTC
+    
+    if (!$qr_time) {
+        echo json_encode(['success' => false, 'message' => 'Fecha de QR inválida.']);
+        exit();
+    }
+
+    $time_diff = abs($server_time - $qr_time);
+    
+    if ($time_diff > 120) {
+        echo json_encode(['success' => false, 'message' => 'Código QR expirado o inválido. Por favor, pida al usuario que recargue su carnet.']);
+        exit();
+    }
 
     try {
         $sql = "SELECT u.nombres, u.apellidos, u.tipo_documento, u.id_usuario, u.foto, r.tipo_usuario 

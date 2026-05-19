@@ -53,6 +53,54 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $id_usuario = $parts[0];
+
+    // --- LÓGICA PARA VISITANTES ---
+    if ($id_usuario === 'VISITANTE') {
+        $id_visitante = $parts[1];
+        
+        try {
+            $sql = "SELECT nombre_completo, identificacion, institucion, fecha_visita FROM solicitudes_visitantes WHERE id = :id";
+            $consulta = $conexion->prepare($sql);
+            $consulta->bindParam(':id', $id_visitante);
+            $consulta->execute();
+            $visitante = $consulta->fetch(PDO::FETCH_ASSOC);
+            
+            if ($visitante) {
+                // Verificar la fecha
+                $hoy = date('Y-m-d');
+                $fecha_visita = $visitante['fecha_visita'];
+                
+                if ($fecha_visita < $hoy) {
+                    echo json_encode(['success' => false, 'message' => 'Carnet de visitante EXPIRADO. Válido solo para el día: ' . $fecha_visita]);
+                    exit();
+                } else if ($fecha_visita > $hoy) {
+                    echo json_encode(['success' => false, 'message' => 'Este carnet aún no está activo. Es válido para el día: ' . $fecha_visita]);
+                    exit();
+                }
+                
+                // Si la fecha coincide, permitir el acceso
+                echo json_encode([
+                    'success' => true,
+                    'usuario' => [
+                        'id_usuario' => 'VISITANTE-' . $id_visitante,
+                        'nombre_completo' => strtoupper($visitante['nombre_completo']),
+                        'identificacion' => strtoupper($visitante['institucion']) . ' - ' . $visitante['identificacion'],
+                        'foto' => null,
+                        'rol' => 'visitante'
+                    ]
+                ]);
+                exit();
+            } else {
+                echo json_encode(['success' => false, 'message' => 'Visitante no encontrado en el sistema.']);
+                exit();
+            }
+        } catch(PDOException $e) {
+            echo json_encode(['success' => false, 'message' => 'Error en la base de datos: ' . $e->getMessage()]);
+            exit();
+        }
+    }
+    // --- FIN LÓGICA PARA VISITANTES ---
+
     $qr_fecha_str = $parts[1]; // e.g., "2026-05-18T19:29" (UTC time from JS toISOString)
     
     // Validate timestamp (2 minute margin)

@@ -1,0 +1,181 @@
+/* css/solicitud-carnet-visitante.css */
+
+.main-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Carnet Styles */
+.carnet-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 450px;
+    margin: 20px auto;
+}
+
+.carnet-visitante {
+    background-color: #1a1a1a;
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+    position: relative;
+    border: 1px solid #333;
+    margin-bottom: 25px;
+    color: #e0e0e0;
+}
+
+.carnet-visitante .carnet-top-bar {
+    background: linear-gradient(135deg, #111111 0%, #000000 100%);
+    color: white;
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    border-bottom: 4px solid #7b1e2b; /* Vinotinto */
+}
+
+.carnet-visitante .carnet-mini-logo {
+    width: 45px;
+    height: auto;
+    margin-right: 15px;
+}
+
+.carnet-visitante .carnet-title-group {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.carnet-visitante .carnet-uni-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin: 0;
+    color: #ffffff;
+}
+
+.carnet-visitante .carnet-sec-name {
+    font-size: 0.8rem;
+    color: #aaaaaa;
+    margin: 0;
+}
+
+.carnet-visitante .badge-rol {
+    margin-left: auto;
+    background: #7b1e2b; /* Vinotinto */
+    color: white;
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.carnet-visitante .carnet-main-content {
+    display: flex;
+    padding: 20px;
+    gap: 20px;
+    align-items: center;
+}
+
+.carnet-visitante .carnet-left {
+    flex: 0 0 100px;
+    display: flex;
+    justify-content: center;
+}
+
+.carnet-visitante .foto-container {
+    width: 90px;
+    height: 90px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.carnet-visitante .carnet-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+}
+
+.carnet-visitante .carnet-nombre {
+    font-size: 1.1rem;
+    color: #ffffff;
+    margin: 0 0 12px 0;
+    text-transform: uppercase;
+    font-weight: 800;
+    border-bottom: 1px solid #444;
+    padding-bottom: 8px;
+}
+
+.carnet-visitante .carnet-info-grid {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.carnet-visitante .info-text p {
+    margin: 4px 0;
+    font-size: 0.85rem;
+    color: #cccccc;
+}
+
+.carnet-visitante .info-text .label {
+    font-size: 0.7rem;
+    color: #7b1e2b; /* Vinotinto */
+    font-weight: bold;
+    display: inline-block;
+    width: 95px;
+}
+
+.carnet-visitante .info-qr {
+    background: #fff;
+    padding: 5px;
+    border: 2px solid #7b1e2b;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.carnet-visitante #qrcode img,
+.carnet-visitante #qrcode canvas {
+    max-width: 65px;
+    height: auto;
+}
+
+@media (max-width: 480px) {
+    .carnet-visitante .carnet-main-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .carnet-visitante .carnet-title-group {
+        text-align: center;
+    }
+
+    .carnet-visitante .carnet-right {
+        text-align: center;
+    }
+
+    .carnet-visitante .carnet-info-grid {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .carnet-visitante .info-text .label {
+        width: auto;
+        margin-right: 5px;
+    }
+}

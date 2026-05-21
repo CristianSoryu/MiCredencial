@@ -4,7 +4,11 @@ header('Content-Type: application/json');
 
 // Si ya hay sesión iniciada, lo indicamos para redirigir
 if (isset($_SESSION['usuario_id'])) {
-    echo json_encode(['success' => true, 'redirect' => 'carnet.html']);
+    if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] === true) {
+        echo json_encode(['success' => true, 'redirect' => '../admin/admin.html']);
+    } else {
+        echo json_encode(['success' => true, 'redirect' => 'carnet.html']);
+    }
     exit();
 }
 
@@ -43,8 +47,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['usuario_id'] = $user['id_usuario'];
             $_SESSION['usuario_nombre'] = $user['nombres'];
             $_SESSION['usuario_documento'] = $user['id_usuario']; 
-            
-            echo json_encode(['success' => true, 'redirect' => 'carnet.html']);
+
+            // Verificar si el usuario tiene el rol de administrador
+            $sql_roles = "SELECT r.tipo_usuario 
+                          FROM usuario_rol ur 
+                          JOIN roles r ON ur.id_rol = r.id_rol 
+                          WHERE ur.id_usuario = :id";
+            $stmt_roles = $conexion->prepare($sql_roles);
+            $stmt_roles->bindParam(':id', $user['id_usuario']);
+            $stmt_roles->execute();
+            $roles = $stmt_roles->fetchAll(PDO::FETCH_COLUMN);
+
+            $is_admin = false;
+            foreach ($roles as $rol) {
+                if (strtolower(trim($rol)) === 'administrador') {
+                    $is_admin = true;
+                    break;
+                }
+            }
+
+            if ($is_admin) {
+                $_SESSION['is_admin'] = true;
+                echo json_encode(['success' => true, 'redirect' => '../admin/admin.html']);
+            } else {
+                echo json_encode(['success' => true, 'redirect' => 'carnet.html']);
+            }
         } else {
             echo json_encode(['success' => false, 'message' => 'Identificación o contraseña incorrectos.']);
         }

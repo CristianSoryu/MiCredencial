@@ -64,6 +64,14 @@ try {
         echo json_encode(['success' => false, 'message' => 'Usuario no encontrado', 'redirect' => 'index.html']);
         exit();
     }
+
+    // Obtener programa académico
+    $prog_sql = "SELECT programa_academico FROM preregistro_oficial WHERE documento = :id LIMIT 1";
+    $prog_stmt = $conexion->prepare($prog_sql);
+    $prog_stmt->bindParam(':id', $id_usuario_logueado);
+    $prog_stmt->execute();
+    $prog_row = $prog_stmt->fetch(PDO::FETCH_ASSOC);
+    $programa = $prog_row ? $prog_row['programa_academico'] : 'Ingeniería en Tecnologías de la Información y Comunicación';
     
     // Devolver los datos del usuario para pintar el carnet
     echo json_encode([
@@ -74,6 +82,7 @@ try {
             'documento_puro' => $usuario['id_usuario'],
             'foto' => $usuario['foto'],
             'rol' => $rol_display,
+            'programa' => $programa,
             'todos_los_roles' => $todos_los_roles
         ]
     ]);

@@ -9,12 +9,12 @@ if (!isset($_SESSION['usuario_id'])) {
 
 require_once '../conexion.php';
 
-// Verificar que el usuario que intenta registrar sea un ESCANEADOR
+// Verificar que el usuario que intenta registrar sea un ESCANEADOR o SEGURIDAD
 try {
     $sql_check = "SELECT 1 
                   FROM usuario_rol ur 
                   JOIN roles r ON ur.id_rol = r.id_rol 
-                  WHERE ur.id_usuario = :id AND r.tipo_usuario = 'escaneador'";
+                  WHERE ur.id_usuario = :id AND r.tipo_usuario IN ('escaneador', 'seguridad', 'administrador', 'escaneador de bienestar', 'escaneador de biblioteca')";
     $stmt_check = $conexion->prepare($sql_check);
     $stmt_check->bindParam(':id', $_SESSION['usuario_id']);
     $stmt_check->execute();
@@ -52,15 +52,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $id_registrador = $_SESSION['usuario_id'];
+    $is_temp = strpos($id_usuario, 'TEMP_') === 0;
 
     try {
-        $sql = "INSERT INTO registro (id_usuario, id_registrador, tipo, metodo) 
-                VALUES (:id_usuario, :id_registrador, :tipo, :metodo)";
-        $stmt = $conexion->prepare($sql);
-        $stmt->bindParam(':id_usuario', $id_usuario);
-        $stmt->bindParam(':id_registrador', $id_registrador);
-        $stmt->bindParam(':tipo', $tipo);
-        $stmt->bindParam(':metodo', $metodo);
+        if ($is_temp) {
+            $id_temporal = intval(str_replace('TEMP_', '', $id_usuario));
+            $sql = "INSERT INTO registro_visitantes_temporales (id_temporal, id_registrador, tipo, metodo) 
+                    VALUES (:id_temporal, :id_registrador, :tipo, :metodo)";
+            $stmt = $conexion->prepare($sql);
+            $stmt->bindParam(':id_temporal', $id_temporal);
+            $stmt->bindParam(':id_registrador', $id_registrador);
+            $stmt->bindParam(':tipo', $tipo);
+            $stmt->bindParam(':metodo', $metodo);
+        } else {
+            $sql = "INSERT INTO registro (id_usuario, id_registrador, tipo, metodo) 
+                    VALUES (:id_usuario, :id_registrador, :tipo, :metodo)";
+            $stmt = $conexion->prepare($sql);
+            $stmt->bindParam(':id_usuario', $id_usuario);
+            $stmt->bindParam(':id_registrador', $id_registrador);
+            $stmt->bindParam(':tipo', $tipo);
+            $stmt->bindParam(':metodo', $metodo);
+        }
 
         if ($stmt->execute()) {
             echo json_encode([
@@ -78,3 +90,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 } else {
     echo json_encode(['success' => false, 'message' => 'Método no permitido']);
 }
+

@@ -218,13 +218,16 @@
 }
 
 .btn-outline {
-    background: transparent;
+    background: #ffffff;
     color: #1a2a47;
     border: 2px solid #1a2a47;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.12);
 }
 
 .btn-outline:hover {
-    background: #f0f4f8;
+    background: #f8fafc;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.18);
 }
 
 .btn-logout {

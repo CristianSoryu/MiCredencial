@@ -10,14 +10,17 @@ document.addEventListener("DOMContentLoaded", () => {
         })
         .catch(error => {
             console.error("Error al comprobar sesión:", error);
-            window.location.href = 'login.html';
+            window.location.href = '../html/index.html';
         });
 });
 
 function logoutAdmin(e) {
     e.preventDefault();
     fetch('../api/auth/logout.php', { method: 'POST' })
-        .then(() => window.location.href = 'login.html')
-        .catch(() => window.location.href = 'login.html');
+        .then(() => {
+            window.location.href = '../html/index.html';
+        })
+        .catch(() => {
+            window.location.href = '../html/index.html';
+        });
 }
-

@@ -173,3 +173,99 @@
         text-align: center;
     }
 }
+
+/* Selector de Modo */
+.modo-escaner-container {
+    background: #f4f6f9;
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+}
+.btn-modo-select {
+    flex: 1;
+    padding: 10px 15px;
+    border: 2px solid #cbd5e1;
+    background: white;
+    color: #475569;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: none;
+    font-size: 0.9rem;
+}
+.btn-modo-select:hover {
+    background: #f8fafc;
+    border-color: #94a3b8;
+}
+.btn-modo-select.active {
+    background: #1a2a47;
+    color: white;
+    border-color: #1a2a47;
+    box-shadow: 0 4px 6px rgba(26, 42, 71, 0.2);
+}
+
+/* Panel de Préstamos */
+.prestamos-panel {
+    text-align: left;
+    margin-top: 15px;
+}
+.prestamo-card {
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
+    border-left: 5px solid #cbd5e1;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    margin-top: 15px;
+}
+.prestamo-card.activo {
+    border-left-color: #2e8b57;
+}
+.prestamo-card.vencido {
+    border-left-color: #b22222;
+}
+.prestamo-card.ninguno {
+    border-left-color: #3b82f6;
+}
+.prestamo-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+.badge-activo {
+    background: #dcfce7;
+    color: #15803d;
+}
+.badge-vencido {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+.badge-ninguno {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+.prestamo-detalles p {
+    margin: 8px 0;
+    font-size: 0.95rem;
+    color: #334155;
+}
+.reporte-alerta {
+    background: #fff5f5;
+    border: 1px dashed #feb2b2;
+    color: #c53030;
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    margin-top: 10px;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+}

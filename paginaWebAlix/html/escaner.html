@@ -22,6 +22,22 @@
 
     <div class="contenedor escaner-container">
         
+        <!-- Selector de Modo de Escaneo (Se muestra si el usuario tiene múltiples roles de escaneo) -->
+        <div id="modo-escaner-container" class="modo-escaner-container" style="display: none; margin-bottom: 20px;">
+            <p class="acciones-titulo" style="margin-bottom: 8px; font-size: 0.95rem;"><i class="fas fa-toggle-on"></i> MODO DE ESCANEO:</p>
+            <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+                <button id="btn-modo-seguridad" class="btn-modo-select active" onclick="cambiarModoEscaneo('seguridad')">
+                    <i class="fas fa-shield-alt"></i> Control de Acceso
+                </button>
+                <button id="btn-modo-bienestar" class="btn-modo-select" onclick="cambiarModoEscaneo('bienestar')">
+                    <i class="fas fa-basketball-ball"></i> Préstamos Bienestar
+                </button>
+                <button id="btn-modo-biblioteca" class="btn-modo-select" onclick="cambiarModoEscaneo('biblioteca')">
+                    <i class="fas fa-book"></i> Préstamos Biblioteca
+                </button>
+            </div>
+        </div>
+        
         <!-- Sección de Escaneo -->
         <div id="scanner-section" class="scanner-section">
             <p class="instruccion">Apunte la cámara al código QR del carnet</p>
@@ -42,7 +58,22 @@
                 </div>
             </div>
 
-            <div class="acciones-acceso">
+            <!-- Contenedor destacado ámbar para Visitas Temporales -->
+            <div id="temp-scan-info" class="scan-temporal-alert" style="display: none; margin-bottom: 20px;">
+                <div class="scan-temporal-header">
+                    <i class="fas fa-clock"></i> INGRESO TEMPORAL AUTORIZADO
+                </div>
+                <div class="scan-temporal-body">
+                    <p><strong>Visitante/Grupo:</strong> <span id="temp-scan-visitor" style="font-weight: bold; color: #1e293b;">-</span></p>
+                    <p id="temp-scan-doc-row"><strong>Documento:</strong> <span id="temp-scan-doc">-</span></p>
+                    <p><strong>Motivo de Visita:</strong> <span id="temp-scan-reason">-</span></p>
+                    <p><strong>Anfitrión Autoriza:</strong> <span id="temp-scan-host">-</span></p>
+                    <p><strong>Expira el:</strong> <span id="temp-scan-expires" style="color: #c2410c; font-weight: bold;">-</span></p>
+                </div>
+            </div>
+
+            <!-- Panel de Acciones de Acceso (Solo se muestra en Modo Seguridad) -->
+            <div class="acciones-acceso" id="acciones-acceso">
                 <p class="acciones-titulo">Registrar Acción:</p>
                 <div class="grid-botones">
                     <button class="btn-acceso entrada-peatonal" onclick="registrarAcceso('entrada', 'peatonal')">
@@ -62,12 +93,154 @@
                     <i class="fas fa-times"></i> Cancelar / Escanear de nuevo
                 </button>
             </div>
+
+            <!-- Panel de Préstamos (Se muestra en Modo Bienestar y Modo Biblioteca) -->
+            <div id="acciones-prestamos" class="acciones-prestamos" style="display: none;">
+                <p class="acciones-titulo" id="prestamos-panel-titulo"><i class="fas fa-basketball-ball"></i> Préstamos Bienestar Universitario:</p>
+                
+                <div class="prestamo-card" id="prestamo-card-container">
+                    <span id="prestamo-estado-badge" class="prestamo-badge">Cargando...</span>
+                    
+                    <div class="prestamo-detalles">
+                        <p><strong><i class="fas fa-id-card"></i> Documento:</strong> <span id="pres-documento">-</span></p>
+                        <p><strong><i class="fas fa-user"></i> Vínculo:</strong> <span id="pres-vinculo">-</span></p>
+                        <p><strong><i class="fas fa-graduation-cap"></i> Programa:</strong> <span id="pres-programa">-</span></p>
+                        <p id="container-elemento"><strong><i id="pres-elemento-icono" class="fas fa-table-tennis"></i> <span id="pres-elemento-label">Elemento Prestado</span>:</strong> <span id="pres-elemento">-</span></p>
+                        <p id="container-fechas">
+                            <strong><i class="fas fa-calendar-alt"></i> Préstamo:</strong> <span id="pres-fecha-inicio">-</span> <br>
+                            <strong><i class="fas fa-clock"></i> Vence:</strong> <span id="pres-fecha-vence">-</span>
+                        </p>
+                    </div>
+
+                    <div id="prestamo-reporte-alert" class="reporte-alerta" style="display: none;">
+                        <i class="fas fa-exclamation-triangle" style="font-size: 1.2rem; color: #e53e3e;"></i>
+                        <div>
+                            <strong>Reporte / Sanción:</strong> <br>
+                            <span id="pres-reporte-texto">Ninguno</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn-cancelar" onclick="cancelarEscaneo()" style="margin-top: 20px;">
+                    <i class="fas fa-qrcode"></i> Escanear otro código
+                </button>
+            </div>
         </div>
         
         <div class="acciones-volver">
+            <button onclick="abrirModalTemporal()" class="btn-secundario btn-generar-temp" style="margin-bottom: 15px; max-width: 250px;">
+                <i class="fas fa-id-badge"></i> Generar Carnet Temporal
+            </button>
+            <br>
             <a href="historial-accesos.html" class="btn-secundario" style="margin-bottom: 15px; display: inline-block; background-color: #f1c40f; color: #333; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;"><i class="fas fa-list-alt"></i> Consultar Historial</a>
             <br>
             <a href="index.html" class="volver"><i class="fas fa-arrow-left"></i> Volver al inicio</a>
+        </div>
+    </div>
+
+    <!-- Modal para Carnet Temporal -->
+    <div id="temp-carnet-modal" class="temp-modal">
+        <div class="temp-modal-card">
+            <div class="temp-modal-header">
+                <h3 id="temp-modal-title">Generar Carnet Temporal</h3>
+                <button class="temp-modal-close" onclick="cerrarModalTemporal()">&times;</button>
+            </div>
+            
+            <div class="temp-modal-body">
+                <!-- Vista 1: Formulario -->
+                <div id="temp-form-view">
+                    <form id="temp-creation-form" onsubmit="procesarGenerarTemporal(event)">
+                        <div class="temp-form-group">
+                            <label for="temp-tipo">Tipo de Visitante</label>
+                            <select id="temp-tipo" onchange="toggleTipoVisitante()" required>
+                                <option value="persona">Persona Individual</option>
+                                <option value="grupo">Grupo / Delegación (Colegios/Instituciones)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="temp-form-group">
+                            <label id="lbl-temp-nombre" for="temp-nombre">Nombre del Visitante</label>
+                            <input type="text" id="temp-nombre" placeholder="Ej. Juan Pérez" required>
+                        </div>
+                        
+                        <div class="temp-form-group" id="group-documento">
+                            <label for="temp-documento">Número de Documento</label>
+                            <input type="text" id="temp-documento" placeholder="Ej. 1090123456" required>
+                        </div>
+                        
+                        <div class="temp-form-group">
+                            <label for="temp-motivo">Motivo de la Visita</label>
+                            <input type="text" id="temp-motivo" placeholder="Ej. Reunión de proyecto" required>
+                        </div>
+                        
+                        <div class="temp-form-group">
+                            <label for="temp-duracion">Duración del Pase</label>
+                            <select id="temp-duracion" required>
+                                <!-- Se llena dinámicamente -->
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="btn-temp-primary">
+                            <i class="fas fa-cog"></i> Generar Pase
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- Vista 2: Boleto Generado (Oculto por defecto) -->
+                <div id="temp-ticket-view" style="display: none;">
+                    <div class="ticket-pass-wrapper">
+                        <!-- El boleto premium -->
+                        <div class="ticket-pass" id="ticket-pass-element">
+                            <div class="ticket-header">
+                                <img src="../IMG/escudo.png" alt="Escudo Unilibre" class="logo">
+                                <h4>UNIVERSIDAD LIBRE</h4>
+                                <p>SECCIONAL CÚCUTA</p>
+                            </div>
+                            
+                            <!-- QR a Gran Escala -->
+                            <div class="ticket-qr-container">
+                                <div id="temp-qrcode"></div>
+                            </div>
+                            
+                            <div class="ticket-divider"></div>
+                            
+                            <div class="ticket-info">
+                                <div class="ticket-info-row">
+                                    <span class="ticket-info-label">Visitante</span>
+                                    <span id="ticket-visitor" class="ticket-info-value visitor-name">-</span>
+                                </div>
+                                <div class="ticket-info-row" id="ticket-doc-row">
+                                    <span class="ticket-info-label">Documento</span>
+                                    <span id="ticket-doc" class="ticket-info-value">-</span>
+                                </div>
+                                <div class="ticket-info-row">
+                                    <span class="ticket-info-label">Motivo de Visita</span>
+                                    <span id="ticket-reason" class="ticket-info-value">-</span>
+                                </div>
+                                <div class="ticket-info-row">
+                                    <span class="ticket-info-label">Expira el</span>
+                                    <span id="ticket-expires" class="ticket-info-value">-</span>
+                                </div>
+                                <div class="ticket-info-row">
+                                    <span class="ticket-info-label">Anfitrión Autorizador</span>
+                                    <span id="ticket-host" class="ticket-info-value">-</span>
+                                </div>
+                            </div>
+                            
+                            <div class="ticket-footer">
+                                Control de Acceso Digital
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button onclick="exportarTicketPNG()" class="btn-temp-primary">
+                        <i class="fas fa-file-download"></i> Exportar a Imagen PNG
+                    </button>
+                    <button onclick="volverAlFormulario()" class="btn-temp-outline">
+                        <i class="fas fa-undo"></i> Generar Otro Pase
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -111,6 +284,7 @@
             </div>
         </div>
     </footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
     <script src="../js/ui.js"></script>
     <script src="../js/escaner.js"></script>

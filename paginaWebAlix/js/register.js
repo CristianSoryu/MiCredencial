@@ -11,6 +11,7 @@ document.getElementById('register-form').addEventListener('submit', function(e) 
     const tipoDoc = document.getElementById('reg-tipo-doc').value;
     const documento = document.getElementById('reg-id').value.trim();
     const password = document.getElementById('reg-password').value;
+    const programa = document.getElementById('reg-programa').value;
     
     // Dividir el nombre completo en nombres y apellidos de manera sencilla
     const partes = nombreCompleto.split(' ');
@@ -39,7 +40,8 @@ document.getElementById('register-form').addEventListener('submit', function(e) 
             nombres: nombres,
             apellidos: apellidos,
             email: email,
-            contrasena: password
+            contrasena: password,
+            programa_academico: programa
         })
     })
     .then(response => response.json())

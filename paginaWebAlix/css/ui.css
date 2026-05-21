@@ -59,3 +59,342 @@
         box-sizing: border-box;
     }
 }
+
+/* MODAL PARA CARNET TEMPORAL */
+.temp-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.temp-modal.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.temp-modal-card {
+    background: #ffffff;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 450px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    display: flex;
+    flex-direction: column;
+}
+
+.temp-modal.show .temp-modal-card {
+    transform: scale(1);
+}
+
+.temp-modal-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f8fafc;
+    border-radius: 16px 16px 0 0;
+}
+
+.temp-modal-header h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #0f172a;
+    font-weight: 700;
+}
+
+.temp-modal-close {
+    background: none;
+    border: none;
+    font-size: 1.4rem;
+    color: #64748b;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.temp-modal-close:hover {
+    color: #ef4444;
+}
+
+.temp-modal-body {
+    padding: 20px;
+}
+
+/* FORMULARIO */
+.temp-form-group {
+    margin-bottom: 16px;
+    text-align: left;
+}
+
+.temp-form-group label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #334155;
+    margin-bottom: 6px;
+}
+
+.temp-form-group input,
+.temp-form-group select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    box-sizing: border-box;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    background-color: #ffffff;
+    color: #0f172a;
+}
+
+.temp-form-group input:focus,
+.temp-form-group select:focus {
+    outline: none;
+    border-color: #eab308;
+    box-shadow: 0 0 0 3px rgba(234, 179, 8, 0.15);
+}
+
+/* TICKET DIGITAL STYLE */
+.ticket-pass-wrapper {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+}
+
+.ticket-pass {
+    position: relative;
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    border-radius: 20px;
+    padding: 24px;
+    color: #ffffff;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+    width: 320px;
+    box-sizing: border-box;
+    border: 2px solid rgba(234, 179, 8, 0.25);
+    text-align: center;
+    font-family: 'Outfit', 'Inter', system-ui, sans-serif;
+    overflow: hidden;
+}
+
+/* Troquelado muescas laterales en el boleto */
+.ticket-pass::before,
+.ticket-pass::after {
+    content: '';
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    background-color: #ffffff; /* Matches the parent temp-modal-card background */
+    border-radius: 50%;
+    top: 55%;
+    transform: translateY(-50%);
+    z-index: 10;
+    box-shadow: inset 0 0 4px rgba(0,0,0,0.1);
+}
+
+.ticket-pass::before {
+    left: -12px;
+}
+
+.ticket-pass::after {
+    right: -12px;
+}
+
+.ticket-header {
+    margin-bottom: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-bottom: 12px;
+}
+
+.ticket-header .logo {
+    width: 45px;
+    margin-bottom: 6px;
+}
+
+.ticket-header h4 {
+    margin: 0;
+    font-size: 0.95rem;
+    letter-spacing: 2px;
+    color: #e2e8f0;
+}
+
+.ticket-header p {
+    margin: 2px 0 0 0;
+    font-size: 0.7rem;
+    color: #eab308;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.ticket-qr-container {
+    background: #ffffff;
+    padding: 16px;
+    border-radius: 12px;
+    display: inline-block;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.ticket-qr-container img {
+    display: block;
+}
+
+.ticket-divider {
+    border-top: 2px dashed rgba(255, 255, 255, 0.2);
+    margin: 15px 0;
+    position: relative;
+}
+
+.ticket-info {
+    text-align: left;
+    font-size: 0.85rem;
+    margin-top: 15px;
+}
+
+.ticket-info-row {
+    margin-bottom: 10px;
+}
+
+.ticket-info-label {
+    font-size: 0.7rem;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: block;
+}
+
+.ticket-info-value {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #f8fafc;
+}
+
+.ticket-info-value.visitor-name {
+    font-size: 1.1rem;
+    color: #eab308;
+}
+
+.ticket-footer {
+    margin-top: 20px;
+    font-size: 0.75rem;
+    color: #64748b;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 10px;
+}
+
+/* BOTONES PREMIUM */
+.btn-temp-primary {
+    background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%);
+    color: #0f172a;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    width: 100%;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-temp-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(234, 179, 8, 0.3);
+}
+
+.btn-temp-outline {
+    background: transparent;
+    color: #475569;
+    border: 2px solid #cbd5e1;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+    width: 100%;
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-temp-outline:hover {
+    background-color: #f1f5f9;
+    color: #0f172a;
+}
+
+/* Alerta de pase temporal en el escáner */
+.scan-temporal-alert {
+    background: linear-gradient(135deg, #fef3c7 0%, #fffbeb 100%);
+    border: 2px solid #f59e0b;
+    border-radius: 12px;
+    padding: 15px;
+    margin-top: 15px;
+    box-shadow: 0 4px 6px rgba(245, 158, 11, 0.1);
+}
+
+.scan-temporal-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #b45309;
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    border-bottom: 1px solid rgba(245, 158, 11, 0.2);
+    padding-bottom: 8px;
+}
+
+.scan-temporal-body p {
+    margin: 6px 0;
+    font-size: 0.95rem;
+    color: #78350f;
+    text-align: left;
+}
+
+/* Botón de Generar Carnet Temporal Premium con anulación de estilos globales de botón */
+.btn-generar-temp {
+    background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%) !important;
+    color: #0f172a !important;
+    border: none !important;
+    border-radius: 8px !important;
+    font-weight: bold !important;
+    font-size: 0.95rem !important;
+    padding: 12px !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    width: 100% !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15) !important;
+    transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s !important;
+    margin-top: 0 !important;
+}
+
+.btn-generar-temp:hover {
+    background: linear-gradient(135deg, #facc15 0%, #ca8a04 100%) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 15px rgba(234, 179, 8, 0.45) !important;
+}

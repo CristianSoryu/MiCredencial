@@ -50,8 +50,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     exit();
                 }
             } else {
-                echo json_encode(['success' => false, 'message' => 'No se encuentra en el preregistro oficial de la universidad. Por favor, comuníquese con el administrador.']);
-                exit();
+                // Si no se encuentra preregistrado ni tiene solicitud de egresado no graduado,
+                // procedemos a preregistrarlo automáticamente con los datos digitados en el formulario
+                $in_pre = "INSERT INTO preregistro_oficial (tipo_documento, documento, nombres, apellidos, correo, programa_academico) 
+                           VALUES (:tipo_doc, :doc, :nom, :ape, :email, :prog)";
+                $stmt_in = $conexion->prepare($in_pre);
+                $stmt_in->bindParam(':tipo_doc', $tipo_documento);
+                $stmt_in->bindParam(':doc', $id_usuario);
+                $stmt_in->bindParam(':nom', $nombres);
+                $stmt_in->bindParam(':ape', $apellidos);
+                $stmt_in->bindParam(':email', $email);
+                $stmt_in->bindParam(':prog', $programa_academico);
+                $stmt_in->execute();
             }
         }
 

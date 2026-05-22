@@ -16,8 +16,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (idEl) idEl.textContent = data.usuario.identificacion;
 
                 const progEl = document.getElementById('carnet-programa');
+                const labelEl = document.getElementById('label-programa-cargo');
                 if (progEl && data.usuario.programa) {
                     progEl.textContent = data.usuario.programa;
+                    if (data.usuario.programa.startsWith('Docente') || data.usuario.programa === 'Administrativo') {
+                        if (labelEl) labelEl.textContent = 'CARGO:';
+                    } else {
+                        if (labelEl) labelEl.textContent = 'PROGRAMA:';
+                    }
                 }
 
                 

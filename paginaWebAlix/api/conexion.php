@@ -1,4 +1,6 @@
 <?php
+date_default_timezone_set('America/Bogota');
+
 $host = "localhost";
 $usuario = "root"; // Este es el usuario por defecto en XAMPP
 $contrasena = ""; // En XAMPP, la contraseña del root viene vacía por defecto

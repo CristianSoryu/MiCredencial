@@ -196,6 +196,17 @@ function mostrarPanelUsuario(usuario) {
     document.getElementById('scan-id').textContent = usuario.identificacion;
     document.getElementById('scan-rol').textContent = usuario.rol.toUpperCase();
 
+    const scanProgEl = document.getElementById('scan-programa');
+    const labelScanEl = document.getElementById('label-scan-programa');
+    if (scanProgEl && usuario.programa) {
+        scanProgEl.textContent = usuario.programa;
+        if (usuario.programa.startsWith('Docente') || usuario.programa === 'Administrativo') {
+            if (labelScanEl) labelScanEl.textContent = 'Cargo:';
+        } else {
+            if (labelScanEl) labelScanEl.textContent = 'Programa:';
+        }
+    }
+
     const fotoImg = document.getElementById('scan-foto');
     if (usuario.foto) {
         fotoImg.src = usuario.foto;
@@ -233,7 +244,19 @@ function mostrarPanelUsuario(usuario) {
         // Llenar datos de usuario común
         document.getElementById('pres-documento').textContent = usuario.identificacion;
         document.getElementById('pres-vinculo').textContent = usuario.rol.toUpperCase();
-        document.getElementById('pres-programa').textContent = usuario.programa || 'No especificado';
+        
+        const presProgEl = document.getElementById('pres-programa');
+        const labelPresEl = document.getElementById('label-pres-programa');
+        if (presProgEl && usuario.programa) {
+            presProgEl.textContent = usuario.programa;
+            if (usuario.programa.startsWith('Docente') || usuario.programa === 'Administrativo') {
+                if (labelPresEl) labelPresEl.textContent = 'Cargo:';
+            } else {
+                if (labelPresEl) labelPresEl.textContent = 'Programa:';
+            }
+        } else if (presProgEl) {
+            presProgEl.textContent = 'No especificado';
+        }
 
         // Obtener el objeto de préstamos correspondiente
         const prestamo = isBiblioteca 

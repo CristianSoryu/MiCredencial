@@ -12,17 +12,10 @@ require_once '../conexion.php';
 $id_usuario_logueado = $_SESSION['usuario_id'];
 
 try {
-    // Verificar si el usuario tiene uno de los roles permitidos
-    $sql_check = "SELECT r.tipo_usuario 
-                  FROM usuario_rol ur 
-                  JOIN roles r ON ur.id_rol = r.id_rol 
-                  WHERE ur.id_usuario = :id AND r.tipo_usuario IN ('docente', 'administrativo', 'seguridad', 'administrador', 'escaneador')";
-    $stmt_check = $conexion->prepare($sql_check);
-    $stmt_check->bindParam(':id', $id_usuario_logueado);
-    $stmt_check->execute();
-    $roles_usuario = $stmt_check->fetchAll(PDO::FETCH_COLUMN);
+    // Verificar si el usuario tiene permiso para generar carnets temporales
+    $roles_usuario = obtenerRolesUsuario($id_usuario_logueado, $conexion);
 
-    if (empty($roles_usuario)) {
+    if (!in_array('generar carnet temporal', $roles_usuario)) {
         echo json_encode(['success' => false, 'message' => 'No tiene permisos para generar carnets temporales.']);
         exit();
     }

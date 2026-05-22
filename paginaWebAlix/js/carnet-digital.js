@@ -9,35 +9,47 @@ document.addEventListener("DOMContentLoaded", () => {
                 document.getElementById('cargando-datos').style.display = 'none';
                 document.getElementById('datos-carnet').style.display = 'block';
                 
-                document.getElementById('carnet-nombre').textContent = data.usuario.nombre_completo;
-                document.getElementById('carnet-id').textContent = data.usuario.identificacion;
-                if (data.usuario.programa) {
-                    document.getElementById('carnet-programa').textContent = data.usuario.programa;
+                const nombreEl = document.getElementById('carnet-nombre');
+                if (nombreEl) nombreEl.textContent = data.usuario.nombre_completo;
+
+                const idEl = document.getElementById('carnet-id');
+                if (idEl) idEl.textContent = data.usuario.identificacion;
+
+                const progEl = document.getElementById('carnet-programa');
+                if (progEl && data.usuario.programa) {
+                    progEl.textContent = data.usuario.programa;
                 }
+
                 
-                const rol = data.usuario.rol ? data.usuario.rol.toLowerCase() : 'estudiante';
+                const rol = data.usuario.rol ? data.usuario.rol.toLowerCase().trim() : 'estudiante';
                 const badge = document.getElementById('badge-rol');
                 if (badge) {
                     badge.textContent = rol.toUpperCase();
                 }
 
                 const carnetDiv = document.getElementById('datos-carnet');
-                carnetDiv.classList.remove('carnet-docente', 'carnet-administrativo', 'carnet-administrador');
-                
-                if (rol === 'administrador') {
-                    carnetDiv.classList.add('carnet-administrador');
-                } else if (rol === 'docente') {
-                    carnetDiv.classList.add('carnet-docente');
-                } else if (['administrativo', 'bienestar', 'seguridad', 'egresado', 'egresado no graduado', 'externo'].includes(rol)) {
-                    carnetDiv.classList.add('carnet-administrativo');
+                if (carnetDiv) {
+                    carnetDiv.classList.remove('carnet-docente', 'carnet-administrativo', 'carnet-administrador');
+                    
+                    if (rol === 'administrador') {
+                        carnetDiv.classList.add('carnet-administrador');
+                    } else if (rol === 'docente') {
+                        carnetDiv.classList.add('carnet-docente');
+                    } else if (['administrativo', 'bienestar', 'seguridad', 'egresado', 'egresado no graduado', 'externo'].includes(rol)) {
+                        carnetDiv.classList.add('carnet-administrativo');
+                    }
                 }
 
-                // Mostrar botón de escáner si el usuario tiene el rol de escaneador entre sus roles
+                // Mostrar botón de escáner si el usuario tiene el rol de escaneador o administrador entre sus roles
                 const todosLosRoles = data.usuario.todos_los_roles || [];
-                if (todosLosRoles.includes('escaneador')) {
+                if (todosLosRoles.includes('escaneador') || todosLosRoles.includes('administrador') || rol === 'administrador') {
                     const scannerBtn = document.getElementById('scanner-action-container');
                     if (scannerBtn) {
                         scannerBtn.style.display = 'block';
+                    }
+                    const historialBtn = document.getElementById('historial-action-container');
+                    if (historialBtn) {
+                        historialBtn.style.display = 'block';
                     }
                 }
                 
@@ -49,9 +61,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
                 }
 
-                // Mostrar botón de generar carnet temporal si el usuario tiene rol docente, administrativo, seguridad o administrador
-                const rolesAutorizados = ['docente', 'administrativo', 'seguridad', 'administrador'];
-                if (rolesAutorizados.includes(rol) || todosLosRoles.some(r => rolesAutorizados.includes(r.toLowerCase()))) {
+                // Mostrar botón de generar carnet temporal si el usuario tiene la capacidad/rol de generar carnet temporal
+                if (todosLosRoles.includes('generar carnet temporal') || todosLosRoles.some(r => r.toLowerCase() === 'generar carnet temporal')) {
                     const btnContainer = document.getElementById('btn-generar-temp-container');
                     if (btnContainer) {
                         btnContainer.style.display = 'block';

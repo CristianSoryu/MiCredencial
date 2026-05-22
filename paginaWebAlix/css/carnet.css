@@ -308,32 +308,90 @@
     background: #fffaf0;
 }
 
-/* Variaciones de Rol - Administrador (Dorado) */
+/* Variaciones de Rol - Administrador (Dorado Premium) */
+.carnet-horizontal.carnet-administrador {
+    background: linear-gradient(135deg, #ffffff 0%, #fffdf0 45%, #fff5cc 100%) !important;
+    border: 2.5px solid #d4af37 !important;
+    box-shadow: 0 15px 35px rgba(212, 175, 55, 0.35) !important;
+    transition: all 0.3s ease;
+}
+
+.carnet-horizontal.carnet-administrador:hover {
+    box-shadow: 0 20px 45px rgba(212, 175, 55, 0.5) !important;
+    transform: translateY(-2px);
+}
+
 .carnet-administrador .carnet-top-bar {
-    background: linear-gradient(135deg, #d4af37 0%, #b8860b 100%);
-    border-bottom: 4px solid #1a2a47;
+    background: linear-gradient(135deg, #d4af37 0%, #f3e5ab 50%, #b8860b 100%) !important;
+    border-bottom: 4px solid #1a2a47 !important;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
+
+.carnet-administrador .badge-rol {
+    background: #1a2a47 !important;
+    color: #d4af37 !important;
+    border: 1px solid #d4af37 !important;
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+}
+
 .carnet-administrador .carnet-nombre {
-    color: #b8860b;
+    color: #8a6d1c !important;
+    border-bottom: 2px solid rgba(212, 175, 55, 0.3) !important;
+    text-shadow: 0 1px 0px rgba(255, 255, 255, 0.8);
 }
+
+.carnet-administrador #foto-perfil {
+    border: 3px solid #d4af37 !important;
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4) !important;
+}
+
 .carnet-administrador .btn-edit-foto {
-    background: #d4af37;
+    background: linear-gradient(135deg, #d4af37 0%, #b8860b 100%) !important;
+    border: 1.5px solid #ffffff !important;
 }
+
 .carnet-administrador .btn-edit-foto:hover {
-    background: #b8860b;
+    background: #1a2a47 !important;
+    color: #d4af37 !important;
 }
+
+.carnet-administrador .info-qr {
+    border: 2.5px solid #d4af37 !important;
+    background: #ffffff !important;
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.25) !important;
+}
+
+.carnet-administrador .info-text p {
+    color: #4a3e1d !important;
+}
+
+.carnet-administrador .info-text .label {
+    color: #8a7333 !important;
+}
+
 .carnet-administrador .btn-logout {
-    background: #d4af37;
+    background: linear-gradient(135deg, #d4af37 0%, #b8860b 100%) !important;
+    color: white !important;
+    box-shadow: 0 4px 10px rgba(212, 175, 55, 0.3) !important;
 }
+
 .carnet-administrador .btn-logout:hover {
-    background: #b8860b;
+    background: #1a2a47 !important;
+    color: #d4af37 !important;
+    transform: translateY(-1px);
 }
+
 .carnet-administrador .btn-outline {
-    color: #b8860b;
-    border-color: #b8860b;
+    color: #8a6d1c !important;
+    border-color: #d4af37 !important;
+    background: #ffffff !important;
+    box-shadow: 0 4px 6px rgba(212, 175, 55, 0.15) !important;
 }
+
 .carnet-administrador .btn-outline:hover {
-    background: #fffdf5;
+    background: #fffdf5 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(212, 175, 55, 0.25) !important;
 }
 
 /* Responsividad para móviles pequeños */

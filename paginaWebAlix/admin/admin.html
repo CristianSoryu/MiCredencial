@@ -87,6 +87,24 @@
                     <p>Activar o desactivar credenciales.</p>
                 </a>
 
+                <a href="../html/escaner.html" class="card" style="border-color: #28a745;">
+                    <i class="fas fa-qrcode" style="color: #28a745;"></i>
+                    <h3>Escanear Carnet</h3>
+                    <p>Módulo de escaneo y control de accesos.</p>
+                </a>
+
+                <a href="../html/historial-accesos.html" class="card" style="border-color: #f1c40f;">
+                    <i class="fas fa-list-alt" style="color: #f1c40f;"></i>
+                    <h3>Consultar Historial</h3>
+                    <p>Ver bitácora de entradas y salidas.</p>
+                </a>
+
+                <a href="#" onclick="abrirModalTemporal(); return false;" class="card" style="border-color: #1a2a47;">
+                    <i class="fas fa-id-badge" style="color: #1a2a47;"></i>
+                    <h3>Generar Pase Temporal</h3>
+                    <p>Crear credencial para visitantes.</p>
+                </a>
+
                 <a href="solicitudes_egresados.html" class="card" id="card-solicitudes-egresados" style="display: none;">
                     <i class="fas fa-user-graduate"></i>
                     <h3>Solicitudes Egresados NG</h3>
@@ -147,6 +165,112 @@
             </div>
         </div>
     </footer>
+
+    <!-- Modal para Carnet Temporal -->
+    <div id="temp-carnet-modal" class="temp-modal">
+        <div class="temp-modal-card">
+            <div class="temp-modal-header">
+                <h3 id="temp-modal-title">Generar Carnet Temporal</h3>
+                <button class="temp-modal-close" onclick="cerrarModalTemporal()">&times;</button>
+            </div>
+            
+            <div class="temp-modal-body">
+                <!-- Vista 1: Formulario -->
+                <div id="temp-form-view">
+                    <form id="temp-creation-form" onsubmit="procesarGenerarTemporal(event)">
+                        <div class="temp-form-group">
+                            <label for="temp-tipo">Tipo de Visitante</label>
+                            <select id="temp-tipo" onchange="toggleTipoVisitante()" required>
+                                <option value="persona">Persona Individual</option>
+                                <option value="grupo">Grupo / Delegación (Colegios/Instituciones)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="temp-form-group">
+                            <label id="lbl-temp-nombre" for="temp-nombre">Nombre del Visitante</label>
+                            <input type="text" id="temp-nombre" placeholder="Ej. Juan Pérez" required>
+                        </div>
+                        
+                        <div class="temp-form-group" id="group-documento">
+                            <label for="temp-documento">Número de Documento</label>
+                            <input type="text" id="temp-documento" placeholder="Ej. 1090123456" required>
+                        </div>
+                        
+                        <div class="temp-form-group">
+                            <label for="temp-motivo">Motivo de la Visita</label>
+                            <input type="text" id="temp-motivo" placeholder="Ej. Reunión de proyecto" required>
+                        </div>
+                        
+                        <div class="temp-form-group">
+                            <label for="temp-duracion">Duración del Pase</label>
+                            <select id="temp-duracion" required>
+                                <!-- Se llena dinámicamente -->
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="btn-temp-primary">
+                            <i class="fas fa-cog"></i> Generar Pase
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- Vista 2: Boleto Generado (Oculto por defecto) -->
+                <div id="temp-ticket-view" style="display: none;">
+                    <div class="ticket-pass-wrapper">
+                        <!-- El boleto premium -->
+                        <div class="ticket-pass" id="ticket-pass-element">
+                            <div class="ticket-header">
+                                <img src="../IMG/escudo.png" alt="Escudo Unilibre" class="logo">
+                                <h4>UNIVERSIDAD LIBRE</h4>
+                                <p>SECCIONAL CÚCUTA</p>
+                            </div>
+                            
+                            <!-- QR a Gran Escala -->
+                            <div class="ticket-qr-container">
+                                <div id="temp-qrcode"></div>
+                            </div>
+                            
+                            <div class="ticket-divider"></div>
+                            
+                            <div class="ticket-info">
+                                <div class="ticket-info-row">
+                                    <span class="ticket-info-label">Visitante</span>
+                                    <span id="ticket-visitor" class="ticket-info-value visitor-name">-</span>
+                                </div>
+                                <div class="ticket-info-row" id="ticket-doc-row">
+                                    <span class="ticket-info-label">Documento</span>
+                                    <span id="ticket-doc" class="ticket-info-value">-</span>
+                                </div>
+                                <div class="ticket-info-row">
+                                    <span class="ticket-info-label">Motivo de Visita</span>
+                                    <span id="ticket-reason" class="ticket-info-value">-</span>
+                                </div>
+                                <div class="ticket-info-row">
+                                    <span class="ticket-info-label">Expira el</span>
+                                    <span id="ticket-expires" class="ticket-info-value">-</span>
+                                </div>
+                                <div class="ticket-info-row">
+                                    <span class="ticket-info-label">Anfitrión Autorizador</span>
+                                    <span id="ticket-host" class="ticket-info-value">-</span>
+                                </div>
+                            </div>
+                            
+                            <div class="ticket-footer">
+                                Control de Acceso Digital
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button onclick="exportarTicketPNG()" class="btn-temp-primary">
+                        <i class="fas fa-file-download"></i> Exportar a Imagen PNG
+                    </button>
+                    <button onclick="volverAlFormulario()" class="btn-temp-outline">
+                        <i class="fas fa-undo"></i> Generar Otro Pase
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script src="../js/admin-panel.js"></script>

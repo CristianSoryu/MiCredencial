@@ -4,8 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(response => response.json())
         .then(data => {
             const roles = data.usuario?.todos_los_roles || [];
-            if (!data.success || !roles.includes('escaneador')) {
-                alert("Acceso no autorizado. Se requiere rol de escaneador.");
+            if (!data.success || (!roles.includes('escaneador') && !roles.includes('administrador') && data.usuario?.rol !== 'administrador')) {
+                alert("Acceso no autorizado. Se requiere rol de escaneador o administrador.");
                 window.location.href = 'index.html';
                 return;
             }

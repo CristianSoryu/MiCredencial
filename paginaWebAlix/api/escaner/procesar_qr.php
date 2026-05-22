@@ -9,16 +9,17 @@ if (!isset($_SESSION['usuario_id'])) {
 
 require_once '../conexion.php';
 
-// Verificar que el usuario que intenta escanear sea un ESCANEADOR (Seguridad, Bienestar o Biblioteca)
+// Verificar que el usuario que intenta escanear sea un ESCANEADOR o ADMINISTRADOR
 try {
-    $sql_check = "SELECT r.tipo_usuario 
-                  FROM usuario_rol ur 
-                  JOIN roles r ON ur.id_rol = r.id_rol 
-                  WHERE ur.id_usuario = :id AND r.tipo_usuario IN ('escaneador', 'escaneador de bienestar', 'bienestar', 'escaneador de biblioteca', 'biblioteca')";
-    $stmt_check = $conexion->prepare($sql_check);
-    $stmt_check->bindParam(':id', $_SESSION['usuario_id']);
-    $stmt_check->execute();
-    $tiene_permiso = $stmt_check->fetch();
+    $roles_usuario = obtenerRolesUsuario($_SESSION['usuario_id'], $conexion);
+    $roles_permitidos = ['escaneador', 'escaneador de bienestar', 'bienestar', 'escaneador de biblioteca', 'biblioteca', 'administrador'];
+    $tiene_permiso = false;
+    foreach ($roles_usuario as $r) {
+        if (in_array($r, $roles_permitidos)) {
+            $tiene_permiso = true;
+            break;
+        }
+    }
 
     if (!$tiene_permiso) {
         echo json_encode(['success' => false, 'message' => 'No tiene permisos para realizar escaneos.']);

@@ -7,9 +7,10 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(response => response.json())
         .then(data => {
             const roles = data.usuario.todos_los_roles || [];
-            const esEscaneadorSeguridad = roles.includes('escaneador');
-            const esEscaneadorBienestar = roles.includes('escaneador de bienestar') || roles.includes('bienestar');
-            const esEscaneadorBiblioteca = roles.includes('escaneador de biblioteca') || roles.includes('biblioteca');
+            const esAdmin = roles.includes('administrador') || data.usuario.rol === 'administrador';
+            const esEscaneadorSeguridad = roles.includes('escaneador') || esAdmin;
+            const esEscaneadorBienestar = roles.includes('escaneador de bienestar') || roles.includes('bienestar') || esAdmin;
+            const esEscaneadorBiblioteca = roles.includes('escaneador de biblioteca') || roles.includes('biblioteca') || esAdmin;
 
             if (!data.success || (!esEscaneadorSeguridad && !esEscaneadorBienestar && !esEscaneadorBiblioteca)) {
                 alert("Acceso no autorizado. Se requiere rol de escaneador.");

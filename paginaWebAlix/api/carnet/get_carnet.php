@@ -12,7 +12,7 @@ require_once '../conexion.php';
 $id_usuario_logueado = $_SESSION['usuario_id']; 
 
 try {
-    // Obtener todos los roles del usuario
+    // Obtener todos los roles físicos del usuario
     $sql = "SELECT r.tipo_usuario 
             FROM usuario_rol ur 
             JOIN roles r ON ur.id_rol = r.id_rol 
@@ -22,11 +22,14 @@ try {
     $stmt_roles->execute();
     $todos_los_roles_raw = $stmt_roles->fetchAll(PDO::FETCH_ASSOC);
     
-    $todos_los_roles = array_map(function($row) {
-        return strtolower($row['tipo_usuario']);
+    $raw_roles = array_map(function($row) {
+        return strtolower(trim($row['tipo_usuario']));
     }, $todos_los_roles_raw);
 
-    // Definir prioridades (menor nmero = mayor prioridad)
+    // Obtener todos los roles/capacidades heredadas de forma dinámica
+    $todos_los_roles = obtenerRolesUsuario($id_usuario_logueado, $conexion);
+
+    // Definir prioridades (menor número = mayor prioridad)
     $prioridades = [
         'administrador' => 1,
         'docente' => 2,
@@ -36,14 +39,14 @@ try {
         'egresado' => 6,
         'egresado no graduado' => 7,
         'externo' => 8,
-        'escaneador' => 100 // Rol funcional, baja prioridad de visualizacin
+        'escaneador' => 100 // Rol funcional, baja prioridad de visualización
     ];
 
     // Determinar el rol a mostrar
     $rol_display = 'estudiante'; // Fallback
-    if (!empty($todos_los_roles)) {
+    if (!empty($raw_roles)) {
         $mejor_prioridad = 999;
-        foreach ($todos_los_roles as $r) {
+        foreach ($raw_roles as $r) {
             $p = isset($prioridades[$r]) ? $prioridades[$r] : 50; // Roles desconocidos prioridad media
             if ($p < $mejor_prioridad) {
                 $mejor_prioridad = $p;

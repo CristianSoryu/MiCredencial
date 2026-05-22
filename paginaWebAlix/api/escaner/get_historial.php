@@ -10,15 +10,9 @@ if (!isset($_SESSION['usuario_id'])) {
 require_once '../conexion.php';
 
 try {
-    // Verificar que el usuario tenga el rol de ESCANEADOR
-    $sql_check = "SELECT 1 
-                  FROM usuario_rol ur 
-                  JOIN roles r ON ur.id_rol = r.id_rol 
-                  WHERE ur.id_usuario = :id AND r.tipo_usuario = 'escaneador'";
-    $stmt_check = $conexion->prepare($sql_check);
-    $stmt_check->bindParam(':id', $_SESSION['usuario_id']);
-    $stmt_check->execute();
-    $tiene_permiso = $stmt_check->fetch();
+    // Verificar que el usuario tenga el rol de ESCANEADOR o ADMINISTRADOR (incluyendo herencia de seguridad/administrador)
+    $roles_usuario = obtenerRolesUsuario($_SESSION['usuario_id'], $conexion);
+    $tiene_permiso = in_array('escaneador', $roles_usuario) || in_array('administrador', $roles_usuario);
 
     if (!$tiene_permiso) {
         echo json_encode(['success' => false, 'message' => 'No tiene permisos para ver el historial.']);

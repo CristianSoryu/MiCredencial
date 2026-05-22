@@ -11,14 +11,15 @@ require_once '../conexion.php';
 
 // Verificar que el usuario que intenta registrar sea un ESCANEADOR o SEGURIDAD
 try {
-    $sql_check = "SELECT 1 
-                  FROM usuario_rol ur 
-                  JOIN roles r ON ur.id_rol = r.id_rol 
-                  WHERE ur.id_usuario = :id AND r.tipo_usuario IN ('escaneador', 'seguridad', 'administrador', 'escaneador de bienestar', 'escaneador de biblioteca')";
-    $stmt_check = $conexion->prepare($sql_check);
-    $stmt_check->bindParam(':id', $_SESSION['usuario_id']);
-    $stmt_check->execute();
-    $tiene_permiso = $stmt_check->fetch();
+    $roles_usuario = obtenerRolesUsuario($_SESSION['usuario_id'], $conexion);
+    $roles_permitidos = ['escaneador', 'seguridad', 'administrador', 'escaneador de bienestar', 'escaneador de biblioteca'];
+    $tiene_permiso = false;
+    foreach ($roles_usuario as $r) {
+        if (in_array($r, $roles_permitidos)) {
+            $tiene_permiso = true;
+            break;
+        }
+    }
 
     if (!$tiene_permiso) {
         echo json_encode(['success' => false, 'message' => 'No tiene permisos para registrar accesos.']);

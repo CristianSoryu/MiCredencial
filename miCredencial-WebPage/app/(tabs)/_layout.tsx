@@ -1,7 +1,7 @@
-import CustomHeader from "@/components/CustomHeader";
-import Ionicons from "@expo/vector-icons/Ionicons";
-import { Tabs } from "expo-router";
-import { CustomTabBar } from "../../components/CustomTabBar";
+import CustomHeader from '@/components/CustomHeader';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import { Tabs } from 'expo-router';
+import { CustomTabBar } from '../../components/CustomTabBar';
 export default function TabLayout() {
   return (
     <Tabs
@@ -14,10 +14,10 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: "Home",
+          title: 'Home',
           tabBarIcon: ({ color, focused, size }) => (
             <Ionicons
-              name={focused ? "home" : "home-outline"}
+              name={focused ? 'home' : 'home-outline'}
               color={color}
               size={size}
             />
@@ -25,12 +25,12 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="prestamos"
+        name="bienestar"
         options={{
-          title: "Prestamos",
+          title: 'Bienestar',
           tabBarIcon: ({ color, focused, size }) => (
             <Ionicons
-              name={focused ? "book" : "book-outline"}
+              name={focused ? 'book' : 'book-outline'}
               color={color}
               size={size}
             />
@@ -40,11 +40,11 @@ export default function TabLayout() {
       <Tabs.Screen
         name="about"
         options={{
-          title: "About",
+          title: 'About',
           tabBarIcon: ({ color, focused, size }) => (
             <Ionicons
               name={
-                focused ? "information-circle" : "information-circle-outline"
+                focused ? 'information-circle' : 'information-circle-outline'
               }
               color={color}
               size={size}

@@ -31,13 +31,11 @@ export default function AboutScreen() {
       [HEADER_MAX_HEIGHT, HEADER_MIN_HEIGHT],
       Extrapolation.CLAMP
     );
-
     const backgroundColor = interpolateColor(
       scrollY.value,
       [0, SCROLL_DISTANCE],
       ['transparent', '#8A001E']
     );
-
     return { height, backgroundColor };
   });
 
@@ -45,26 +43,17 @@ export default function AboutScreen() {
     const scale = interpolate(
       scrollY.value,
       [0, SCROLL_DISTANCE],
-      [1.8, 0.7],
+      [1.4, 0.7],
       Extrapolation.CLAMP
     );
-
-    const translateY = interpolate(
-      scrollY.value,
-      [0, SCROLL_DISTANCE],
-      [40, 0],
-      Extrapolation.CLAMP
-    );
-
     const translateX = interpolate(
       scrollY.value,
       [0, SCROLL_DISTANCE],
-      [0, -55],
+      [0, -120],
       Extrapolation.CLAMP
     );
-
     return {
-      transform: [{ translateX }, { translateY }, { scale }],
+      transform: [{ translateX }, { scale }],
     };
   });
 
@@ -75,24 +64,15 @@ export default function AboutScreen() {
       [0, 1],
       Extrapolation.CLAMP
     );
-
     const translateX = interpolate(
       scrollY.value,
       [0, SCROLL_DISTANCE],
       [40, 0],
       Extrapolation.CLAMP
     );
-
-    const translateY = interpolate(
-      scrollY.value,
-      [0, SCROLL_DISTANCE],
-      [20, 0],
-      Extrapolation.CLAMP
-    );
-
     return {
       opacity,
-      transform: [{ translateX }, { translateY }],
+      transform: [{ translateX }],
     };
   });
 
@@ -103,14 +83,12 @@ export default function AboutScreen() {
       [1, 0.4, 0],
       Extrapolation.CLAMP
     );
-
     const translateY = interpolate(
       scrollY.value,
       [0, SCROLL_DISTANCE],
       [0, -30],
       Extrapolation.CLAMP
     );
-
     return {
       opacity,
       transform: [{ translateY }],
@@ -126,6 +104,7 @@ export default function AboutScreen() {
         edges={['top', 'left', 'right', 'bottom']}
         style={styles.background}
       >
+        {/* HEADER FIJO ANIMADO */}
         <Animated.View
           style={[
             {
@@ -135,46 +114,54 @@ export default function AboutScreen() {
               right: 0,
               zIndex: 20,
               paddingHorizontal: 20,
-              justifyContent: 'center',
             },
             headerAnimatedStyle,
           ]}
         >
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              height: '100%',
-            }}
+          {/* Logo centrado que se mueve a la izquierda al colapsar */}
+          <Animated.View
+            style={[
+              {
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                alignItems: 'center',
+                justifyContent: 'center',
+              },
+              logoAnimatedStyle,
+            ]}
           >
-            <Animated.Image
+            <Image
               source={require('../../assets/images/logoUniversidad.png')}
               style={[
                 styles.imageCircle,
-                {
-                  width: 72,
-                  height: 72,
-                  resizeMode: 'contain',
-                },
-                logoAnimatedStyle,
+                { width: 72, height: 72, resizeMode: 'contain' },
               ]}
             />
+          </Animated.View>
 
-            <Animated.Text
-              style={[
-                styles.title,
-                {
-                  marginLeft: 12,
-                  color: '#fff',
-                },
-                titleAnimatedStyle,
-              ]}
-            >
-              miCredencial
-            </Animated.Text>
-          </View>
+          {/* Título que aparece al lado al colapsar */}
+          <Animated.Text
+            style={[
+              styles.title,
+              {
+                position: 'absolute',
+                left: 90,
+                top: 0,
+                bottom: 0,
+                textAlignVertical: 'center',
+                color: '#fff',
+              },
+              titleAnimatedStyle,
+            ]}
+          >
+            miCredencial
+          </Animated.Text>
         </Animated.View>
 
+        {/* SCROLL CONTENT */}
         <Animated.ScrollView
           onScroll={handleScroll}
           scrollEventThrottle={16}
@@ -184,6 +171,7 @@ export default function AboutScreen() {
             paddingBottom: 120,
           }}
         >
+          {/* Título hero que desaparece al hacer scroll */}
           <Animated.View style={heroTitleAnimatedStyle}>
             <Text
               style={[

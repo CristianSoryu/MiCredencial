@@ -11,7 +11,7 @@ import Animated, {
   useSharedValue,
 } from 'react-native-reanimated';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { styles } from '../../constants/styles';
+import { styles } from '../../constants/tabBarstyles';
 
 const HEADER_MAX_HEIGHT = 220;
 const HEADER_MIN_HEIGHT = 90;

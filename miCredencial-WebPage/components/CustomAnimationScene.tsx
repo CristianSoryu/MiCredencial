@@ -1,12 +1,12 @@
-import { Href, router } from "expo-router";
-import React, { useEffect } from "react";
+import { Href, router } from 'expo-router';
+import React, { useEffect } from 'react';
 import Animated, {
   runOnJS,
   useAnimatedStyle,
   useSharedValue,
   withTiming,
-} from "react-native-reanimated";
-import styles from "../constants/styles";
+} from 'react-native-reanimated';
+import styles from '../constants/tabBarstyles';
 
 export default function AnimationScene({
   yInitialPos,

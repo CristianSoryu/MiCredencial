@@ -1,14 +1,14 @@
-import { Image } from "expo-image";
-import React from "react";
-import { Text } from "react-native";
+import { Image } from 'expo-image';
+import React from 'react';
+import { Text } from 'react-native';
 import Animated, {
-    interpolate,
-    useAnimatedScrollHandler,
-    useAnimatedStyle,
-    useSharedValue,
-} from "react-native-reanimated";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { styles } from "../constants/styles";
+  interpolate,
+  useAnimatedScrollHandler,
+  useAnimatedStyle,
+  useSharedValue,
+} from 'react-native-reanimated';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { styles } from '../constants/tabBarstyles';
 export default function CustomHeader() {
   const scrollY = useSharedValue(0);
 
@@ -20,7 +20,7 @@ export default function CustomHeader() {
     const translateY = interpolate(
       scrollY.value,
       [0, 320],
-      [0, -styles.header.height],
+      [0, -styles.header.height]
     );
     return {
       transform: [
@@ -34,14 +34,14 @@ export default function CustomHeader() {
     <SafeAreaView style={[styles.header]}>
       <Animated.View style={[styles.headerContainer, headerAnimatedStyle]}>
         <Image
-          source={require("../assets/images/logoUniversidad.png")}
+          source={require('../assets/images/logoUniversidad.png')}
           style={[styles.imageCircle, { width: 40, height: 40 }]}
         />
         <Text
           style={{
-            color: "white",
+            color: 'white',
             fontSize: 20,
-            fontWeight: "bold",
+            fontWeight: 'bold',
           }}
         >
           miCredencial

@@ -1,4 +1,4 @@
-import { styles } from '@/app/(tabs)/styles';
+import { styles } from '../constants/tabStyles';
 import Ionicons from '@expo/vector-icons/build/Ionicons';
 import React from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';

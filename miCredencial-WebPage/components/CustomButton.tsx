@@ -1,7 +1,7 @@
-import { LinearGradient } from "expo-linear-gradient";
-import { Href, useRouter } from "expo-router";
-import { Text, TouchableOpacity } from "react-native";
-import { styles } from "../constants/styles";
+import { LinearGradient } from 'expo-linear-gradient';
+import { Href, useRouter } from 'expo-router';
+import { Text, TouchableOpacity } from 'react-native';
+import { styles } from '../constants/tabBarstyles';
 
 type CustomFormProps = {
   route: Href;
@@ -18,7 +18,7 @@ export default function CustomButton({ route, text }: CustomFormProps) {
       }}
     >
       <LinearGradient //boton de login
-        colors={["#C00000", "#8A001E"]}
+        colors={['#C00000', '#8A001E']}
         style={[styles.background, { borderRadius: 40 }]}
       >
         <Text style={styles.buttonText}>{text}</Text>

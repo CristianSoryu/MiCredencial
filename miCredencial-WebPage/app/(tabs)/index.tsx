@@ -1,6 +1,6 @@
 import React from 'react';
-import { styles } from './styles';
-import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native';
+import { styles } from '../../constants/tabStyles';
+import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Carnet from '@/components/carnet';
@@ -10,7 +10,7 @@ const coloresCarnet = {
   texto: '#333333',
   detalles: '#d4af37',
 };
-const index = () => {
+export default function Index() {
   const { nombre, id, programa } = {
     nombre: 'Juan Pérez',
     id: '123456789',
@@ -65,7 +65,7 @@ const index = () => {
                   size={20}
                   color={'#d9534f'}
                 />
-              </TouchableOpacity>{' '}
+              </TouchableOpacity>
               <TouchableOpacity style={styles.prestamoInfoContainer}>
                 <Text style={styles.infoText}>Alix</Text>
                 <Ionicons
@@ -74,7 +74,7 @@ const index = () => {
                   size={20}
                   color={'#d9534f'}
                 />
-              </TouchableOpacity>{' '}
+              </TouchableOpacity>
               <TouchableOpacity style={styles.prestamoInfoContainer}>
                 <Text style={styles.infoText}>Alix</Text>
                 <Ionicons
@@ -83,7 +83,7 @@ const index = () => {
                   size={20}
                   color={'#d9534f'}
                 />
-              </TouchableOpacity>{' '}
+              </TouchableOpacity>
               <TouchableOpacity style={styles.prestamoInfoContainer}>
                 <Text style={styles.infoText}>Alix</Text>
                 <Ionicons
@@ -92,7 +92,7 @@ const index = () => {
                   size={20}
                   color={'#d9534f'}
                 />
-              </TouchableOpacity>{' '}
+              </TouchableOpacity>
               <TouchableOpacity style={styles.prestamoInfoContainer}>
                 <Text style={styles.infoText}>Alix</Text>
                 <Ionicons
@@ -108,6 +108,4 @@ const index = () => {
       </ScrollView>
     </SafeAreaProvider>
   );
-};
-
-export default index;
+}

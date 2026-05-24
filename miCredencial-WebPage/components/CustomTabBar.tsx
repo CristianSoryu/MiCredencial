@@ -1,13 +1,13 @@
-import { styles } from "@/constants/styles";
-import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
-import { useState } from "react";
-import { LayoutChangeEvent, View } from "react-native";
+import { styles } from '../constants/tabBarstyles';
+import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
+import { useState } from 'react';
+import { LayoutChangeEvent, View } from 'react-native';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withSpring,
-} from "react-native-reanimated";
-import CustomTabBarButton from "./CustomTabBarButton";
+} from 'react-native-reanimated';
+import CustomTabBarButton from './CustomTabBarButton';
 
 export function CustomTabBar({
   state,
@@ -36,12 +36,12 @@ export function CustomTabBar({
         style={[
           animateTabPosition,
           {
-            position: "absolute",
+            position: 'absolute',
             borderRadius: 30,
             marginHorizontal: 10,
             height: dimensions.height - 15,
             width: buttonWidth - 20,
-            backgroundColor: "#E0E0E0",
+            backgroundColor: '#E0E0E0',
           },
         ]}
       />
@@ -61,7 +61,7 @@ export function CustomTabBar({
             duration: 1500,
           });
           const event = navigation.emit({
-            type: "tabPress",
+            type: 'tabPress',
             target: route.key,
             canPreventDefault: true,
           });
@@ -73,7 +73,7 @@ export function CustomTabBar({
 
         const onLongPress = () => {
           navigation.emit({
-            type: "tabLongPress",
+            type: 'tabLongPress',
             target: route.key,
           });
         };

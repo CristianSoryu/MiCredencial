@@ -1,15 +1,15 @@
-import { Href, useFocusEffect } from "expo-router";
-import { useCallback, useEffect, useState } from "react";
-import { TouchableOpacity } from "react-native";
+import { Href, useFocusEffect } from 'expo-router';
+import { useCallback, useEffect, useState } from 'react';
+import { TouchableOpacity } from 'react-native';
 import Animated, {
   runOnJS,
   useAnimatedStyle,
   useSharedValue,
   withSpring,
   withTiming,
-} from "react-native-reanimated";
-import { styles } from "../constants/styles";
-import AnimationScene from "./CustomAnimationScene";
+} from 'react-native-reanimated';
+import { styles } from '../constants/tabBarstyles';
+import AnimationScene from './CustomAnimationScene';
 
 export default function FallingButton({
   titulo,
@@ -71,17 +71,17 @@ export default function FallingButton({
                     if (finish) {
                       runOnJS(setShowScene)(true);
                     }
-                  },
+                  }
                 );
               }
-            },
+            }
           );
         }
-      },
+      }
     );
   };
 
-  const defaultStyle = useCallback (() => {
+  const defaultStyle = useCallback(() => {
     textScaleValue.value = withSpring(1, { duration: 20 });
     width.value = withSpring(styles.button.width, { duration: 110 });
     borderRadius.value = withSpring(styles.button.borderRadius, {
@@ -108,12 +108,7 @@ export default function FallingButton({
   return (
     <>
       <TouchableOpacity onPress={OnPress} style={styles.buttonContainer}>
-        <Animated.View
-          style={[
-            styles.button,
-            animatedButton,
-          ]}
-        >
+        <Animated.View style={[styles.button, animatedButton]}>
           <Animated.Text style={[styles.buttonText, animatedTextStyle]}>
             {titulo}
           </Animated.Text>

@@ -1,15 +1,15 @@
-import { icon } from "@/constants/icons";
-import { styles } from "@/constants/styles";
-import { useTheme } from "@react-navigation/native";
-import React, { useEffect } from "react";
-import { TouchableOpacity } from "react-native";
+import { icon } from '@/constants/icons';
+import { styles } from '../constants/tabBarstyles';
+import { useTheme } from '@react-navigation/native';
+import React, { useEffect } from 'react';
+import { TouchableOpacity } from 'react-native';
 
 import Animated, {
   interpolate,
   useAnimatedStyle,
   useSharedValue,
   withSpring,
-} from "react-native-reanimated";
+} from 'react-native-reanimated';
 
 export default function CustomTabBarButton({
   onPress,
@@ -29,8 +29,8 @@ export default function CustomTabBarButton({
 
   useEffect(() => {
     scale.value = withSpring(
-      typeof isFocused === "boolean" ? (isFocused ? 1 : 0) : isFocused,
-      { duration: 350 },
+      typeof isFocused === 'boolean' ? (isFocused ? 1 : 0) : isFocused,
+      { duration: 350 }
     );
   }, [scale, isFocused]);
 

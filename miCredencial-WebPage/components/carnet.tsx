@@ -15,7 +15,6 @@ interface CarnetProps {
 const Carnet = ({ nombre, id, programa, tipoUsuario, foto }: CarnetProps) => {
   const [fotoLocal, setFotoLocal] = useState<string | null>(foto ?? null);
 
-  // Sincroniza cuando llegue la foto del servidor
   React.useEffect(() => {
     if (foto) setFotoLocal(foto);
   }, [foto]);
@@ -35,20 +34,21 @@ const Carnet = ({ nombre, id, programa, tipoUsuario, foto }: CarnetProps) => {
       const base64 = `data:image/jpeg;base64,${result.assets[0].base64}`;
       setFotoLocal(base64);
 
-      await fetch(
-        'http://192.168.137.1/MiCredencial/miCredencial-Backend/api/carnet/upload_foto.php',
+      const res = await fetch(
+        'http://192.168.137.1/MiCredencial/miCredencial-Backend/api/uploadPhoto.php',
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ id_usuario: id, foto: base64 }),
         }
       );
+      const json = await res.json();
+      console.log('uploadPhoto:', JSON.stringify(json));
     }
   };
 
   return (
     <View style={styles.card}>
-      {/* Parte superior del carnet */}
       <View style={styles.topCard}>
         <View style={styles.logoContainer}>
           <Image
@@ -64,7 +64,6 @@ const Carnet = ({ nombre, id, programa, tipoUsuario, foto }: CarnetProps) => {
           <Text style={styles.roleText}>{tipoUsuario}</Text>
         </View>
       </View>
-      {/*información adicional */}
       <View style={styles.infoRow}>
         <View style={styles.fotoUsuarioContainer}>
           <Image
@@ -75,7 +74,6 @@ const Carnet = ({ nombre, id, programa, tipoUsuario, foto }: CarnetProps) => {
                 : require('../assets/images/user.png')
             }
           />
-
           <TouchableOpacity
             style={styles.cameraIconContainer}
             onPress={handleFoto}

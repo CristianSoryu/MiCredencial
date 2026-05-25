@@ -29,6 +29,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     try {
+        // 1. Verificar si el usuario se encuentra en el preregistro de los CSV oficiales
+        $pre_sql = "SELECT 1 FROM preregistro_oficial WHERE documento = :doc LIMIT 1";
+        $pre_stmt = $conexion->prepare($pre_sql);
+        $pre_stmt->bindParam(':doc', $id_usuario);
+        $pre_stmt->execute();
+        $esta_pre = $pre_stmt->fetch();
+
+        // 2. Verificar si cuenta con una solicitud de egresado no graduado
+        $egre_sql = "SELECT estado FROM solicitudes_egresados_no_graduados WHERE identificacion = :doc LIMIT 1";
+        $egre_stmt = $conexion->prepare($egre_sql);
+        $egre_stmt->bindParam(':doc', $id_usuario);
+        $egre_stmt->execute();
+        $solicitud_egre = $egre_stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$esta_pre) {
+            if ($solicitud_egre) {
+                if ($solicitud_egre['estado'] !== 'aprobado') {
+                    echo json_encode(['success' => false, 'message' => 'Su solicitud de egresado no graduado se encuentra ' . $solicitud_egre['estado'] . '. Solo se permite el registro a egresados aprobados.']);
+                    exit();
+                }
+            } else {
+                // Si no se encuentra preregistrado ni tiene solicitud de egresado no graduado,
+                // procedemos a preregistrarlo automáticamente con los datos digitados en el formulario
+                $in_pre = "INSERT INTO preregistro_oficial (tipo_documento, documento, nombres, apellidos, correo, programa_academico) 
+                           VALUES (:tipo_doc, :doc, :nom, :ape, :email, :prog)";
+                $stmt_in = $conexion->prepare($in_pre);
+                $stmt_in->bindParam(':tipo_doc', $tipo_documento);
+                $stmt_in->bindParam(':doc', $id_usuario);
+                $stmt_in->bindParam(':nom', $nombres);
+                $stmt_in->bindParam(':ape', $apellidos);
+                $stmt_in->bindParam(':email', $email);
+                $stmt_in->bindParam(':prog', $programa_academico);
+                $stmt_in->execute();
+            }
+        }
+
         // Verificar si el usuario ya existe
         $check_sql = "SELECT id_usuario FROM usuarios WHERE id_usuario = :id_usuario OR email = :email";
         $check_stmt = $conexion->prepare($check_sql);

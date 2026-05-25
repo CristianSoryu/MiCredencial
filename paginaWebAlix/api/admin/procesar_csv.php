@@ -33,6 +33,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['csvFile'])) {
         $errores = 0;
         $fila = 0;
         
+        // Helper para convertir strings de ISO-8859-1 / Windows-1252 a UTF-8 si no son válidos
+        $to_utf8 = function($str) {
+            $str = trim($str);
+            return mb_check_encoding($str, 'UTF-8') ? $str : mb_convert_encoding($str, 'UTF-8', 'ISO-8859-1');
+        };
+
         // Preparar la consulta SQL con ON DUPLICATE KEY UPDATE
         // Así si el documento ya existe, actualiza los datos.
         $sql = "INSERT INTO preregistro_oficial (tipo_documento, documento, nombres, apellidos, correo, programa_academico) 
@@ -56,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['csvFile'])) {
             
             // Validar que tenga las columnas mínimas (Ej: TipoDoc, Doc, Nombres, Apellidos, Correo, Programa)
             if (count($datos) >= 6) {
-                $correo = trim($datos[4]);
+                $correo = $to_utf8($datos[4]);
                 
                 // Validar dominio del correo
                 if (!str_ends_with($correo, '@unilibre.edu.co')) {
@@ -66,12 +72,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['csvFile'])) {
 
                 try {
                     $stmt->execute([
-                        ':tipo' => trim($datos[0]),
-                        ':doc' => trim($datos[1]),
-                        ':nombres' => trim($datos[2]),
-                        ':apellidos' => trim($datos[3]),
+                        ':tipo' => $to_utf8($datos[0]),
+                        ':doc' => $to_utf8($datos[1]),
+                        ':nombres' => $to_utf8($datos[2]),
+                        ':apellidos' => $to_utf8($datos[3]),
                         ':correo' => $correo,
-                        ':programa' => trim($datos[5])
+                        ':programa' => $to_utf8($datos[5])
                     ]);
                     $cargados++;
                 } catch (PDOException $e) {

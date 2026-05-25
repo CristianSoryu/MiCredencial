@@ -31,7 +31,8 @@
         <img src="../IMG/escudo.png" alt="Escudo Unilibre" class="escudo" style="width: 70px;">
         <h1 style="color: white; margin: 0;">Universidad Libre</h1>
         <p style="color: #ff4d4d; margin: 5px 0 0; font-weight: bold;">Seccional Cúcuta</p>
-        <h2 style="color: white; margin-top: 20px; text-align: center;">Login</h2>
+        <div style="color: #d4af37; margin: 8px 0 0 0; font-size: 1.25rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">Mi Credencial</div>
+        <h2 style="color: white; margin-top: 15px; text-align: center;">Login</h2>
     </header>
 
     <div class="contenedor">
@@ -40,9 +41,9 @@
                 <p id="error-msg"
                     style="color: red; text-align: center; font-weight: bold; margin-bottom: 15px; display: none;"></p>
 
-                <label>Identificacion</label>
-                <input type="text" id="login-id" name="documento" placeholder="Ingrese su ID de 10 numeros"
-                    inputmode="numeric" maxlength="10" pattern="[0-9]{10}" required>
+                <label>Identificación</label>
+                <input type="text" id="login-id" name="documento" placeholder="Ingrese su ID (máx. 10 números)"
+                    inputmode="numeric" maxlength="10" pattern="[0-9]{1,10}" required>
 
                 <label>Contraseña</label>
                 <input type="password" id="login-password" name="password" placeholder="Ingrese su contraseña" required>

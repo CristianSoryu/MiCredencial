@@ -1,11 +1,13 @@
 <?php
+date_default_timezone_set('America/Bogota');
+
 $host = "localhost";
 $usuario = "root"; // Este es el usuario por defecto en XAMPP
 $contrasena = ""; // En XAMPP, la contraseña del root viene vacía por defecto
 $base_de_datos = "micredencial";
 try {
     // Aquí se crea el puente PDO
-    $conexion = new PDO("mysql:host=$host;dbname=$base_de_datos", $usuario, $contrasena);
+    $conexion = new PDO("mysql:host=$host;dbname=$base_de_datos;charset=utf8mb4", $usuario, $contrasena);
     
     // Le decimos a PDO que nos muestre los errores si algo falla
     $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

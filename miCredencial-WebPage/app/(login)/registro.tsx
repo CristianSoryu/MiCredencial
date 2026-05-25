@@ -1,5 +1,11 @@
 import React from 'react';
-import { Text, TextInput, TouchableOpacity, View } from 'react-native';
+import {
+  ScrollView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { styles } from './styles';
 import { Picker } from '@react-native-picker/picker';
 import CustomPageHeader from '@/components/customPageHeader';
@@ -10,12 +16,10 @@ const registro = () => {
     alert('Solicitud enviada');
   };
   return (
-    <View style={styles.backgroundApp}>
+    <ScrollView contentContainerStyle={styles.backgroundApp}>
       <CustomPageHeader />
-      <View style={[styles.content, { bottom: '3%' }]}>
-        <Text style={[styles.parragraph, { marginTop: 50 }]}>
-          Registro de carnet
-        </Text>
+      <View style={[styles.content, { marginBottom: 200 }]}>
+        <Text style={styles.parragraph}>Registro de carnet</Text>
         <TextInput style={styles.input} placeholder="Nombre completo" />
         <TextInput style={styles.input} placeholder="Correo institucional" />
         <View style={styles.input}>
@@ -56,7 +60,7 @@ const registro = () => {
           <Text style={styles.buttonText}>Enviar solicitud</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 

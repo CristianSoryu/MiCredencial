@@ -29,7 +29,7 @@ export default function Bienestar() {
                 source={require('../../assets/images/PC.png')}
               />
               <View style={styles.prestamosInfoContainer}>
-                <Text style={styles.prestamosText}>Computadoras</Text>
+                <Text style={styles.prestamosText}>PC</Text>
                 <TouchableOpacity style={styles.prestamosIcon}>
                   <Ionicons name="arrow-forward" size={20} color={'#333'} />
                 </TouchableOpacity>

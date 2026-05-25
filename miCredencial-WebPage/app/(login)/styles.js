@@ -1,9 +1,12 @@
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
+  backgroundApp: {
+    flexGrow: 1,
+    backgroundColor: '#C00000',
+  },
   header: {
     top: 0,
-    position: 'absolute',
     backgroundColor: '#141414',
     padding: 20,
     width: '100%',
@@ -17,13 +20,12 @@ export const styles = StyleSheet.create({
     elevation: 20,
   },
   content: {
-    position: 'absolute',
     width: '100%',
     height: '60%',
     alignItems: 'center',
     bottom: 0,
     justifyContent: 'flex-start',
-    paddingTop: '10%',
+    paddingTop: '8%',
   },
   background: {
     flex: 1,
@@ -31,14 +33,6 @@ export const styles = StyleSheet.create({
     height: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  backgroundApp: {
-    flex: 1,
-    width: '100%',
-    height: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#C00000',
   },
   imageCircle: {
     borderRadius: 100,
@@ -89,17 +83,16 @@ export const styles = StyleSheet.create({
     elevation: 5, // Added for Android shadow support
   },
   moreActionsButton: {
+    marginBottom: 20,
     backgroundColor: '#ffffff',
     borderRadius: 40,
     width: '80%',
     height: '30%',
-    margin: 20,
     justifyContent: 'center',
     borderWidth: 1,
     borderBottomWidth: 4,
     borderColor: '#d4af37',
     elevation: 5, // Added for Android shadow support
-    top: 60,
   },
   input: {
     backgroundColor: '#fdfbe3', // Fix invalid color code

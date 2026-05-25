@@ -13,10 +13,8 @@ const RenovacionSolicitud = () => {
   return (
     <View style={styles.backgroundApp}>
       <CustomPageHeader />
-      <View style={[styles.content, { bottom: '13%' }]}>
-        <Text style={[styles.parragraph, { marginTop: 50 }]}>
-          Solicitud o renovación de carnet
-        </Text>
+      <View style={[styles.content]}>
+        <Text style={styles.parragraph}>Solicitud o renovación de carnet</Text>
         <TextInput style={styles.input} placeholder="Nombre completo" />
         <TextInput
           style={styles.input}

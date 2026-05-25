@@ -6,10 +6,10 @@ header("Access-Control-Allow-Headers: Content-Type");
 
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') { http_response_code(200); exit; }
 
-require_once '../../config/db.php';
+require_once '../config/db.php';
 
 $data = json_decode(file_get_contents("php://input"), true);
-$id   = trim($data['id_usuario'] ?? '');
+$id   = intval($data['id_usuario'] ?? 0);
 $foto = $data['foto'] ?? '';
 
 if (!$id || !$foto) {
@@ -18,7 +18,7 @@ if (!$id || !$foto) {
 }
 
 $stmt = $conn->prepare("UPDATE usuarios SET foto = ? WHERE id_usuario = ?");
-$stmt->bind_param("ss", $foto, $id);
+$stmt->bind_param("si", $foto, $id);
 $stmt->execute();
 
 echo json_encode([

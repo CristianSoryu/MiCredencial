@@ -58,13 +58,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
         if ($is_temp) {
             $id_temporal = intval(str_replace('TEMP_', '', $id_usuario));
-            $sql = "INSERT INTO registro_visitantes_temporales (id_temporal, id_registrador, tipo, metodo) 
-                    VALUES (:id_temporal, :id_registrador, :tipo, :metodo)";
+            
+            // Consultar el tipo de visitante (persona o grupo/institución) en la tabla carnets_temporales
+            $sql_type = "SELECT tipo FROM carnets_temporales WHERE id_temporal = :id_temp";
+            $stmt_type = $conexion->prepare($sql_type);
+            $stmt_type->bindParam(':id_temp', $id_temporal);
+            $stmt_type->execute();
+            $temp_card = $stmt_type->fetch(PDO::FETCH_ASSOC);
+            
+            $tipo_visitante = 'persona'; // valor por defecto
+            if ($temp_card) {
+                $tipo_visitante = ($temp_card['tipo'] === 'grupo') ? 'institucion' : 'persona';
+            }
+
+            $sql = "INSERT INTO registro_visitantes_temporales (id_temporal, id_registrador, tipo, metodo, tipo_visitante) 
+                    VALUES (:id_temporal, :id_registrador, :tipo, :metodo, :tipo_visitante)";
             $stmt = $conexion->prepare($sql);
             $stmt->bindParam(':id_temporal', $id_temporal);
             $stmt->bindParam(':id_registrador', $id_registrador);
             $stmt->bindParam(':tipo', $tipo);
             $stmt->bindParam(':metodo', $metodo);
+            $stmt->bindParam(':tipo_visitante', $tipo_visitante);
         } else {
             $sql = "INSERT INTO registro (id_usuario, id_registrador, tipo, metodo) 
                     VALUES (:id_usuario, :id_registrador, :tipo, :metodo)";

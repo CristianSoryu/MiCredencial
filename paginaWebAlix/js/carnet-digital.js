@@ -134,6 +134,8 @@ document.addEventListener("DOMContentLoaded", () => {
             lector.readAsDataURL(archivo);
         });
     }
+    inicializarDatalistInstituciones();
+    inicializarDatalistMotivos();
 });
 
 function actualizarQR() {
@@ -217,19 +219,127 @@ function toggleTipoVisitante() {
     const groupDoc = document.getElementById('group-documento');
     const inputNombre = document.getElementById('temp-nombre');
     const inputDoc = document.getElementById('temp-documento');
+    const inputMotivo = document.getElementById('temp-motivo');
     
     if (tipo === 'grupo') {
         lblNombre.textContent = "Nombre del Grupo / Delegación";
-        inputNombre.placeholder = "Ej. Colegio Gimnasio Moderno";
+        inputNombre.placeholder = "Seleccione o escriba la institución...";
+        inputNombre.setAttribute('list', 'instituciones-list');
         groupDoc.style.display = 'none';
         inputDoc.required = false;
         inputDoc.value = '';
+        
+        if (inputMotivo) {
+            inputMotivo.placeholder = "Seleccione o escriba el motivo...";
+            inputMotivo.setAttribute('list', 'motivos-grupo-list');
+        }
     } else {
         lblNombre.textContent = "Nombre del Visitante";
         inputNombre.placeholder = "Ej. Juan Pérez";
+        inputNombre.removeAttribute('list');
         groupDoc.style.display = 'block';
         inputDoc.required = true;
+        
+        if (inputMotivo) {
+            inputMotivo.placeholder = "Seleccione o escriba el motivo...";
+            inputMotivo.setAttribute('list', 'motivos-persona-list');
+        }
     }
+}
+
+function inicializarDatalistMotivos() {
+    if (document.getElementById('motivos-persona-list')) return;
+
+    const datalistPersona = document.createElement('datalist');
+    datalistPersona.id = 'motivos-persona-list';
+    const motivosPersona = [
+        "Consultorio Jurídico y Conciliación",
+        "Admisiones y matrículas",
+        "Trámites administrativos y registro",
+        "Recorrido por el campus",
+        "Eventos, congresos y talleres",
+        "Entrevistas de selección",
+        "Uso de biblioteca y áreas comunes",
+        "Egreso y fidelización"
+    ];
+    motivosPersona.forEach(motivo => {
+        const option = document.createElement('option');
+        option.value = motivo;
+        datalistPersona.appendChild(option);
+    });
+    document.body.appendChild(datalistPersona);
+
+    const datalistGrupo = document.createElement('datalist');
+    datalistGrupo.id = 'motivos-grupo-list';
+    const motivosGrupo = [
+        "Orientación vocacional",
+        "Alianzas, convenios y articulación",
+        "Encuentros deportivos y culturales",
+        "Visitas técnicas y prácticas académicas",
+        "Proyectos de proyección social y extensión",
+        "Eventos académicos y ferias de ciencia",
+        "Capacitación y reuniones docentes"
+    ];
+    motivosGrupo.forEach(motivo => {
+        const option = document.createElement('option');
+        option.value = motivo;
+        datalistGrupo.appendChild(option);
+    });
+    document.body.appendChild(datalistGrupo);
+}
+
+function inicializarDatalistInstituciones() {
+    if (document.getElementById('instituciones-list')) return;
+
+    const datalist = document.createElement('datalist');
+    datalist.id = 'instituciones-list';
+
+    const instituciones = [
+        // Universidades
+        "Universidad Libre (Seccional Cúcuta)",
+        "Universidad Francisco de Paula Santander (UFPS - Cúcuta)",
+        "Universidad de Pamplona (Unipamplona - Sede Villa del Rosario)",
+        "Universidad de Santander (UDES - Cúcuta)",
+        "Universidad Simón Bolívar (Sede Cúcuta)",
+        "FESC (Fundación de Estudios Superiores Comfanorte)",
+        "SENA (Servicio Nacional de Aprendizaje - Cúcuta)",
+        "Corporación Universitaria Minuto de Dios (Uniminuto - Cúcuta)",
+        "Corporación Universitaria Remington (Cúcuta)",
+        "Universidad Antonio Nariño (UAN - Cúcuta)",
+        "UNAD (Universidad Nacional Abierta y a Distancia - Cúcuta/Los Patios)",
+        // Colegios
+        "Colegio Calasanz (Cúcuta)",
+        "Colegio Sagrado Corazón de Jesús (Cúcuta)",
+        "Colegio Santo Ángel de la Guarda (Cúcuta)",
+        "Colegio Carmen Teresiano (Cúcuta)",
+        "Colegio INEM José Eusebio Caro (Cúcuta)",
+        "Colegio Municipal Gremios Unidos (Cúcuta)",
+        "Institución Educativa Colegio de Sugamuxi (Cúcuta)",
+        "Colegio Provincial San José (Cúcuta)",
+        "Colegio Salesiano Instituto San Tarsicio (Cúcuta)",
+        "Colegio Padre Manuel Briceño Jáuregui - Fe y Alegría (Cúcuta)",
+        "Colegio Mercedes Ábrego (Cúcuta)",
+        "Gimnasio Domingo Savio (Cúcuta)",
+        "Institución Educativa Colegio General Santander (Villa del Rosario)",
+        "Colegio Manuel Antonio Rueda Jara (Villa del Rosario)",
+        "Colegio Integrado Crecer y Crear (Villa del Rosario)",
+        "Institución Educativa San Antonio (Villa del Rosario)",
+        "Colegio María Inmaculada (Villa del Rosario)",
+        "Colegio Técnico Municipal de Los Patios",
+        "Institución Educativa Fe y Alegría (Los Patios)",
+        "Colegio Once de Noviembre (Los Patios)",
+        "Colegio Instituto Técnico Municipal Patios Centro",
+        "Colegio Sinaí (Los Patios)",
+        "Colegio Cooperativo San José de Peralta (Los Patios)"
+    ];
+
+    instituciones.forEach(inst => {
+        const option = document.createElement('option');
+        option.value = inst;
+        datalist.appendChild(option);
+    });
+
+    document.body.appendChild(datalist);
 }
 
 function volverAlFormulario() {

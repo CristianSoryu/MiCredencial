@@ -1,17 +1,20 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { router } from 'expo-router';
 import React from 'react';
 import {
   ActivityIndicator,
   Alert,
+  ScrollView,
   Text,
   TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
-import { styles } from './styles';
 import CustomPageHeader from '../../components/customPageHeader';
+import { styles } from './styles';
 
-const API_URL = 'http://10.0.2.2/MiCredencial/paginaWebAlix/api/auth/login.php';
+export const API_URL =
+  'http://192.168.137.1/MiCredencial/miCredencial-Backend/api/login.php';
 
 export default function Index() {
   const [user, setUser] = React.useState('');
@@ -28,10 +31,11 @@ export default function Index() {
       const res = await fetch(API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ documento: user, password: password }),
+        body: JSON.stringify({ documento: user, contrasena: password }),
       });
       const data = await res.json();
       if (data.success) {
+        await AsyncStorage.setItem('usuario', JSON.stringify(data.usuario));
         router.replace('/(tabs)');
       } else {
         Alert.alert('Error', data.error ?? 'Credenciales incorrectas');

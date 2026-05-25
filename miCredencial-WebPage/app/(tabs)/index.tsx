@@ -1,26 +1,41 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import React from 'react';
 import { styles } from '../../constants/tabStyles';
 import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Carnet from '@/components/carnet';
+import Logout from '@/components/logout';
 
-const coloresCarnet = {
-  fondo: '#f4f6f9',
-  texto: '#333333',
-  detalles: '#d4af37',
-};
 export default function Index() {
-  const { nombre, id, programa } = {
-    nombre: 'Juan Pérez',
-    id: '123456789',
-    programa: 'Ingeniería de Sistemas',
-  };
+  const [usuario, setUsuario] = React.useState({
+    nombre: 'Cargando...',
+    id: '',
+    programa: '',
+    tipoUsuario: '',
+    foto: null as string | null,
+  });
+
+  React.useEffect(() => {
+    AsyncStorage.getItem('usuario').then((raw) => {
+      if (!raw) return;
+      const { nombres, apellidos, id_usuario, tipo_usuario, programa, foto } =
+        JSON.parse(raw);
+      setUsuario({
+        nombre: `${nombres} ${apellidos}`,
+        id: String(id_usuario),
+        programa: programa ?? '',
+        tipoUsuario: tipo_usuario ?? '',
+        foto: foto ?? null,
+      });
+    });
+  }, []);
   return (
     <SafeAreaProvider>
       <ScrollView contentInsetAdjustmentBehavior="automatic">
         <View style={styles.appBackGround}>
-          <Carnet nombre={nombre} id={id} programa={programa} />
+          <Carnet {...usuario} />
+
           <View style={styles.card}>
             <View style={styles.topCard}>
               <Text style={styles.uniName}>Carnets temporales</Text>
@@ -105,6 +120,7 @@ export default function Index() {
             </View>
           </View>
         </View>
+        <Logout />
       </ScrollView>
     </SafeAreaProvider>
   );

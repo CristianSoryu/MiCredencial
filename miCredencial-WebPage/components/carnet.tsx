@@ -1,16 +1,51 @@
 import { styles } from '../constants/tabStyles';
 import Ionicons from '@expo/vector-icons/build/Ionicons';
-import React from 'react';
+import React, { useState } from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
+import Qr from './qr';
+import * as ImagePicker from 'expo-image-picker';
 
 interface CarnetProps {
   nombre: string;
   id: string;
   programa: string;
+  tipoUsuario: string;
+  foto?: string | null;
 }
+const Carnet = ({ nombre, id, programa, tipoUsuario, foto }: CarnetProps) => {
+  const [fotoLocal, setFotoLocal] = useState<string | null>(foto ?? null);
 
-const Carnet = (props: CarnetProps) => {
-  const { nombre, id, programa } = props;
+  // Sincroniza cuando llegue la foto del servidor
+  React.useEffect(() => {
+    if (foto) setFotoLocal(foto);
+  }, [foto]);
+
+  const handleFoto = async () => {
+    const { status } = await ImagePicker.requestCameraPermissionsAsync();
+    if (status !== 'granted') return;
+
+    const result = await ImagePicker.launchCameraAsync({
+      base64: true,
+      quality: 0.5,
+      allowsEditing: true,
+      aspect: [1, 1],
+    });
+
+    if (!result.canceled && result.assets[0].base64) {
+      const base64 = `data:image/jpeg;base64,${result.assets[0].base64}`;
+      setFotoLocal(base64);
+
+      await fetch(
+        'http://192.168.137.1/MiCredencial/miCredencial-Backend/api/carnet/upload_foto.php',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id_usuario: id, foto: base64 }),
+        }
+      );
+    }
+  };
+
   return (
     <View style={styles.card}>
       {/* Parte superior del carnet */}
@@ -26,7 +61,7 @@ const Carnet = (props: CarnetProps) => {
           <Text style={styles.secName}>Seccional cucuta</Text>
         </View>
         <View style={styles.roleContainer}>
-          <Text style={styles.roleText}>Estudiante</Text>
+          <Text style={styles.roleText}>{tipoUsuario}</Text>
         </View>
       </View>
       {/*información adicional */}
@@ -34,9 +69,17 @@ const Carnet = (props: CarnetProps) => {
         <View style={styles.fotoUsuarioContainer}>
           <Image
             style={styles.fotoUsuario}
-            source={require('../assets/images/user.png')}
+            source={
+              fotoLocal
+                ? { uri: fotoLocal }
+                : require('../assets/images/user.png')
+            }
           />
-          <TouchableOpacity style={styles.cameraIconContainer}>
+
+          <TouchableOpacity
+            style={styles.cameraIconContainer}
+            onPress={handleFoto}
+          >
             <Ionicons name="camera" size={20} color={'#fff'} />
           </TouchableOpacity>
         </View>
@@ -46,12 +89,7 @@ const Carnet = (props: CarnetProps) => {
           <Text style={styles.infoText}>Programa: {programa}</Text>
         </View>
       </View>
-      <View style={styles.qrContainer}>
-        <Image
-          style={styles.qrImage}
-          source={require('../assets/images/qr.png')}
-        />
-      </View>
+      <Qr cedula={id} />
     </View>
   );
 };

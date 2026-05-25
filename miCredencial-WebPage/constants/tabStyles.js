@@ -78,8 +78,8 @@ export const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderBottomWidth: 2,
     borderColor: 'rgba(255,255,255,0.4)',
-    marginLeft: 15,
-    marginRight: 15,
+    marginLeft: 10,
+    marginRight: 5,
     elevation: 3,
   },
   roleText: {

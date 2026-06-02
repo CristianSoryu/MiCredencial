@@ -5,8 +5,10 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(data => {
             const roles = data.usuario?.todos_los_roles || [];
             if (!data.success || (!roles.includes('escaneador') && !roles.includes('administrador') && data.usuario?.rol !== 'administrador')) {
-                alert("Acceso no autorizado. Se requiere rol de escaneador o administrador.");
-                window.location.href = 'index.html';
+                showToast("Acceso no autorizado. Se requiere rol de escaneador o administrador.", "error");
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1500);
                 return;
             }
             

@@ -1,15 +1,16 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import {
   Modal,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
-import QRCode from 'react-native-qrcode-svg';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { API_BASE_URL } from '@/constants/api';
 import { styles as tabStyles } from '../constants/tabStyles';
+import CarnetTemporalTicket from './CarnetTemporalTicket';
 
 interface CarnetTemporalItem {
   id_temporal: number;
@@ -74,7 +75,10 @@ const CarnetsTemporalesCard = ({ idUsuario, refreshTrigger = 0 }: Props) => {
                   {item.nombre}
                 </Text>
                 <Text style={localStyles.itemSub} numberOfLines={1}>
-                  {item.tipo === 'grupo' ? 'Grupo / Institución' : `Doc: ${item.documento}`} • {item.motivo}
+                  {item.tipo === 'grupo'
+                    ? 'Grupo / Institución'
+                    : `Doc: ${item.documento}`}{' '}
+                  • {item.motivo}
                 </Text>
               </View>
               <View style={localStyles.expBox}>
@@ -92,32 +96,22 @@ const CarnetsTemporalesCard = ({ idUsuario, refreshTrigger = 0 }: Props) => {
         onRequestClose={() => setSelected(null)}
       >
         <View style={localStyles.backdrop}>
-          <View style={localStyles.modalCard}>
-            <Text style={localStyles.modalTitle}>{selected?.nombre}</Text>
-            <Text style={localStyles.modalSub}>
-              {selected?.tipo === 'grupo'
-                ? 'GRUPO / INSTITUCIÓN'
-                : `Documento: ${selected?.documento}`}
-            </Text>
-            <View style={localStyles.qrWrap}>
-              {selected?.codigo_qr_base64 ? (
-                <QRCode value={selected.codigo_qr_base64} size={180} />
-              ) : null}
+          <ScrollView
+            contentContainerStyle={localStyles.modalScroll}
+            style={{ width: '100%' }}
+          >
+            <View style={localStyles.modalCard}>
+              {selected ? <CarnetTemporalTicket carnet={selected} /> : null}
+              <TouchableOpacity
+                style={localStyles.closeBtn}
+                onPress={() => setSelected(null)}
+              >
+                <Text style={{ color: '#1a2a47', fontWeight: 'bold' }}>
+                  Cerrar
+                </Text>
+              </TouchableOpacity>
             </View>
-            <Text style={localStyles.modalDetail}>Motivo: {selected?.motivo}</Text>
-            <Text style={localStyles.modalDetail}>
-              Anfitrión: {selected?.anfitrion}
-            </Text>
-            <Text style={localStyles.modalDetail}>
-              Expira: {selected?.fecha_expiracion}
-            </Text>
-            <TouchableOpacity
-              style={localStyles.closeBtn}
-              onPress={() => setSelected(null)}
-            >
-              <Text style={{ color: '#fff', fontWeight: 'bold' }}>Cerrar</Text>
-            </TouchableOpacity>
-          </View>
+          </ScrollView>
         </View>
       </Modal>
     </View>
@@ -149,34 +143,31 @@ const localStyles = StyleSheet.create({
   expText: { fontWeight: 'bold', fontSize: 12, color: '#1a2a47' },
   backdrop: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.5)',
+    backgroundColor: 'rgba(0,0,0,0.6)',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
+    padding: 16,
+  },
+  modalScroll: {
+    flexGrow: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   modalCard: {
     width: '100%',
-    backgroundColor: '#fff',
-    borderRadius: 16,
-    padding: 20,
+    maxWidth: 400,
+    backgroundColor: '#f4f6f9',
+    borderRadius: 18,
+    padding: 16,
     alignItems: 'center',
   },
-  modalTitle: { fontSize: 18, fontWeight: 'bold', color: '#1a2a47', textAlign: 'center' },
-  modalSub: { fontSize: 12, color: '#666', marginTop: 4 },
-  qrWrap: {
-    marginVertical: 16,
-    padding: 12,
-    backgroundColor: '#fff',
-    borderRadius: 12,
-    elevation: 3,
-  },
-  modalDetail: { fontSize: 13, color: '#333', marginBottom: 4, textAlign: 'center' },
   closeBtn: {
-    marginTop: 14,
-    backgroundColor: '#1a2a47',
-    paddingHorizontal: 28,
-    paddingVertical: 10,
-    borderRadius: 8,
+    marginTop: 10,
+    width: '100%',
+    backgroundColor: '#e5e7eb',
+    paddingVertical: 11,
+    borderRadius: 10,
+    alignItems: 'center',
   },
 });
 

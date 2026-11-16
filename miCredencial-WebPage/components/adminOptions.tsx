@@ -9,6 +9,7 @@ interface AdminOptionsProps {
   subTitle: string;
   ruta?: Href;
 }
+
 const AdminOptions = (adminProps: AdminOptionsProps) => {
   const router = useRouter();
   const handlePress = () => {
@@ -18,10 +19,13 @@ const AdminOptions = (adminProps: AdminOptionsProps) => {
     <TouchableOpacity
       style={herramientasStyles.buttonOptions}
       onPress={handlePress}
+      activeOpacity={0.8}
     >
       <Text style={herramientasStyles.iconButton}>{adminProps.icon}</Text>
-      <Text style={herramientasStyles.titleButton}>{adminProps.title}</Text>
-      <Text style={herramientasStyles.subTitleButton}>
+      <Text style={herramientasStyles.titleButton} numberOfLines={2}>
+        {adminProps.title}
+      </Text>
+      <Text style={herramientasStyles.subTitleButton} numberOfLines={2}>
         {adminProps.subTitle}
       </Text>
     </TouchableOpacity>

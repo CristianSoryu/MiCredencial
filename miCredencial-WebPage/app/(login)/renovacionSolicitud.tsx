@@ -1,18 +1,21 @@
 import React, { useState } from 'react';
-import { Picker } from '@react-native-picker/picker';
 import {
   ActivityIndicator,
   Alert,
+  KeyboardAvoidingView,
+  Platform,
   ScrollView,
   Text,
   TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
+import { Image } from 'expo-image';
+import { Picker } from '@react-native-picker/picker';
 import { router } from 'expo-router';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { API_BASE_URL, PROGRAMAS_ACADEMICOS } from '@/constants/api';
-import CustomPageHeader from '@/components/customPageHeader';
-import styles from './styles';
+import { formStyles } from './formStyles';
 
 const RenovacionSolicitud = () => {
   const [nombres, setNombres] = useState('');
@@ -55,36 +58,56 @@ const RenovacionSolicitud = () => {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.backgroundApp}>
-      <CustomPageHeader />
-      <View style={[styles.content, { marginBottom: 140 }]}>
-        <Text style={styles.parragraph}>
-          Solicitud o renovación de carnet (Egresados no graduados)
+    <KeyboardAvoidingView
+      style={formStyles.screen}
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+    >
+      <SafeAreaView edges={['top']} style={formStyles.compactHeader}>
+        <Image
+          source={require('../../assets/images/logoUniversidad.png')}
+          style={formStyles.compactLogo}
+          contentFit="contain"
+        />
+        <Text style={formStyles.compactTitle}>miCredencial</Text>
+        <Text style={formStyles.compactSub}>Egresados No Graduados</Text>
+      </SafeAreaView>
+
+      <ScrollView
+        contentContainerStyle={formStyles.scrollContent}
+        keyboardShouldPersistTaps="handled"
+      >
+        <Text style={formStyles.heading}>
+          Solicitud o renovación de carnet
         </Text>
+
         <TextInput
-          style={styles.input}
+          style={formStyles.input}
           placeholder="Nombre completo"
+          placeholderTextColor="#888"
           value={nombres}
           onChangeText={setNombres}
         />
         <TextInput
-          style={styles.input}
+          style={formStyles.input}
           placeholder="Número de identificación"
+          placeholderTextColor="#888"
           value={identificacion}
           onChangeText={setIdentificacion}
           keyboardType="numeric"
         />
         <TextInput
-          style={styles.input}
+          style={formStyles.input}
           placeholder="Correo electrónico"
+          placeholderTextColor="#888"
           value={correo}
           onChangeText={setCorreo}
           keyboardType="email-address"
           autoCapitalize="none"
         />
-        <View style={styles.input}>
+
+        <View style={formStyles.pickerWrapper}>
           <Picker selectedValue={programa} onValueChange={setPrograma}>
-            <Picker.Item label="Programa académico..." value="" color="#aaa" />
+            <Picker.Item label="Programa académico..." value="" color="#888" />
             {PROGRAMAS_ACADEMICOS.map((prog) => (
               <Picker.Item key={prog} label={prog} value={prog} />
             ))}
@@ -92,21 +115,21 @@ const RenovacionSolicitud = () => {
         </View>
 
         {loading ? (
-          <ActivityIndicator size="large" color="#1a2a47" style={{ marginTop: 12 }} />
+          <ActivityIndicator size="large" color="#fff" style={{ marginTop: 12 }} />
         ) : (
-          <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-            <Text style={styles.buttonText}>Enviar solicitud</Text>
+          <TouchableOpacity style={formStyles.primaryBtn} onPress={handleSubmit}>
+            <Text style={formStyles.primaryBtnText}>Enviar solicitud</Text>
           </TouchableOpacity>
         )}
 
         <TouchableOpacity
           onPress={() => router.back()}
-          style={{ marginTop: 14, alignSelf: 'center' }}
+          style={formStyles.backLink}
         >
-          <Text style={[styles.parragraph, { fontSize: 13 }]}>Volver</Text>
+          <Text style={formStyles.backLinkText}>Volver</Text>
         </TouchableOpacity>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 

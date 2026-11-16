@@ -2,10 +2,10 @@ import { StyleSheet } from 'react-native';
 
 export const card = StyleSheet.create({
   container: {
-    top: 20,
+    marginTop: 12,
     borderRadius: 17,
     alignSelf: 'center',
-    width: '90%',
+    width: '92%',
     backgroundColor: '#fbfced',
     elevation: 6,
     shadowColor: '#000',
@@ -13,6 +13,7 @@ export const card = StyleSheet.create({
     shadowRadius: 10,
     shadowOffset: { width: 0, height: 4 },
     marginBottom: 20,
+    overflow: 'hidden',
   },
   topContainer: {
     top: 0,

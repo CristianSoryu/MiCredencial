@@ -1,52 +1,49 @@
 import { Image } from 'expo-image';
 import React from 'react';
-import { Text } from 'react-native';
-import Animated, {
-  interpolate,
-  useAnimatedScrollHandler,
-  useAnimatedStyle,
-  useSharedValue,
-} from 'react-native-reanimated';
+import { StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { styles } from '../constants/tabBarstyles';
+
 export default function CustomHeader() {
-  const scrollY = useSharedValue(0);
-
-  useAnimatedScrollHandler((event) => {
-    scrollY.value = event.contentOffset.y;
-  });
-
-  const headerAnimatedStyle = useAnimatedStyle(() => {
-    const translateY = interpolate(
-      scrollY.value,
-      [0, 320],
-      [0, -styles.header.height]
-    );
-    return {
-      transform: [
-        {
-          translateY,
-        },
-      ],
-    };
-  });
   return (
-    <SafeAreaView style={[styles.header]}>
-      <Animated.View style={[styles.headerContainer, headerAnimatedStyle]}>
-        <Image
-          source={require('../assets/images/logoUniversidad.png')}
-          style={[styles.imageCircle, { width: 40, height: 40 }]}
-        />
-        <Text
-          style={{
-            color: 'white',
-            fontSize: 20,
-            fontWeight: 'bold',
-          }}
-        >
-          miCredencial
-        </Text>
-      </Animated.View>
+    <SafeAreaView edges={['top']} style={styles.header}>
+      <View style={styles.headerContainer}>
+        <View style={localStyles.brandRow}>
+          <Image
+            source={require('../assets/images/logoUniversidad.png')}
+            style={localStyles.logo}
+            contentFit="contain"
+          />
+          <View>
+            <Text style={localStyles.brandTitle}>miCredencial</Text>
+            <Text style={localStyles.brandSub}>Universidad Libre • Cúcuta</Text>
+          </View>
+        </View>
+      </View>
     </SafeAreaView>
   );
 }
+
+const localStyles = StyleSheet.create({
+  brandRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+  },
+  logo: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+  },
+  brandTitle: {
+    color: '#ffffff',
+    fontSize: 18,
+    fontWeight: 'bold',
+    letterSpacing: 0.4,
+  },
+  brandSub: {
+    color: '#ffe082',
+    fontSize: 11,
+    fontWeight: '600',
+  },
+});

@@ -2,17 +2,20 @@ import React, { useState } from 'react';
 import {
   ActivityIndicator,
   Alert,
+  KeyboardAvoidingView,
+  Platform,
   ScrollView,
   Text,
   TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
+import { Image } from 'expo-image';
 import { Picker } from '@react-native-picker/picker';
 import { router } from 'expo-router';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { API_BASE_URL, PROGRAMAS_ACADEMICOS } from '@/constants/api';
-import CustomPageHeader from '@/components/customPageHeader';
-import { styles } from './styles';
+import { formStyles } from './formStyles';
 
 const Registro = () => {
   const [nombres, setNombres] = useState('');
@@ -77,77 +80,101 @@ const Registro = () => {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.backgroundApp}>
-      <CustomPageHeader />
-      <View style={[styles.content, { marginBottom: 140 }]}>
-        <Text style={styles.parragraph}>Registro de carnet</Text>
+    <KeyboardAvoidingView
+      style={formStyles.screen}
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+    >
+      <SafeAreaView edges={['top']} style={formStyles.compactHeader}>
+        <Image
+          source={require('../../assets/images/logoUniversidad.png')}
+          style={formStyles.compactLogo}
+          contentFit="contain"
+        />
+        <Text style={formStyles.compactTitle}>miCredencial</Text>
+        <Text style={formStyles.compactSub}>Registro Institucional</Text>
+      </SafeAreaView>
+
+      <ScrollView
+        contentContainerStyle={formStyles.scrollContent}
+        keyboardShouldPersistTaps="handled"
+      >
+        <Text style={formStyles.heading}>Registro de Carnet Digital</Text>
+
         <TextInput
-          style={styles.input}
+          style={formStyles.input}
           placeholder="Nombres"
+          placeholderTextColor="#888"
           value={nombres}
           onChangeText={setNombres}
         />
         <TextInput
-          style={styles.input}
+          style={formStyles.input}
           placeholder="Apellidos"
+          placeholderTextColor="#888"
           value={apellidos}
           onChangeText={setApellidos}
         />
         <TextInput
-          style={styles.input}
+          style={formStyles.input}
           placeholder="Correo institucional (@unilibre.edu.co)"
+          placeholderTextColor="#888"
           value={email}
           onChangeText={setEmail}
           keyboardType="email-address"
           autoCapitalize="none"
         />
-        <View style={styles.input}>
+
+        <View style={formStyles.pickerWrapper}>
           <Picker selectedValue={programa} onValueChange={setPrograma}>
-            <Picker.Item label="Programa académico..." value="" color="#aaa" />
+            <Picker.Item label="Programa académico..." value="" color="#888" />
             {PROGRAMAS_ACADEMICOS.map((prog) => (
               <Picker.Item key={prog} label={prog} value={prog} />
             ))}
           </Picker>
         </View>
-        <View style={styles.input}>
+
+        <View style={formStyles.pickerWrapper}>
           <Picker selectedValue={tipoDoc} onValueChange={setTipoDoc}>
-            <Picker.Item label="Tipo de documento..." value="" color="#aaa" />
+            <Picker.Item label="Tipo de documento..." value="" color="#888" />
             <Picker.Item label="Cédula de ciudadanía" value="CC" />
             <Picker.Item label="Tarjeta de identidad" value="TI" />
             <Picker.Item label="Cédula de extranjería" value="CE" />
           </Picker>
         </View>
+
         <TextInput
-          style={styles.input}
+          style={formStyles.input}
           placeholder="Número de identificación"
+          placeholderTextColor="#888"
           value={documento}
           onChangeText={setDocumento}
           keyboardType="numeric"
         />
         <TextInput
-          style={styles.input}
+          style={formStyles.input}
           placeholder="Contraseña"
+          placeholderTextColor="#888"
           value={contrasena}
           onChangeText={setContrasena}
           secureTextEntry
         />
 
         {loading ? (
-          <ActivityIndicator size="large" color="#1a2a47" style={{ marginTop: 12 }} />
+          <ActivityIndicator size="large" color="#fff" style={{ marginTop: 12 }} />
         ) : (
-          <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-            <Text style={styles.buttonText}>Registrarme</Text>
+          <TouchableOpacity style={formStyles.primaryBtn} onPress={handleSubmit}>
+            <Text style={formStyles.primaryBtnText}>Registrarme</Text>
           </TouchableOpacity>
         )}
 
         <TouchableOpacity
           onPress={() => router.back()}
-          style={{ marginTop: 14, alignSelf: 'center' }}
+          style={formStyles.backLink}
         >
-          <Text style={[styles.parragraph, { fontSize: 13 }]}>Volver</Text>
+          <Text style={formStyles.backLinkText}>Volver</Text>
         </TouchableOpacity>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 

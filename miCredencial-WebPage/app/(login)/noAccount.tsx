@@ -1,41 +1,54 @@
-import { View, Text, TouchableOpacity } from 'react-native';
-import { styles } from './styles';
+import React from 'react';
+import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { Image } from 'expo-image';
 import { router } from 'expo-router';
-import CustomPageHeader from '@/components/customPageHeader';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { formStyles } from './formStyles';
 
-export default function noAccount() {
-  const egresadosNoGraduados = () => {
-    router.push('/renovacionSolicitud');
-  };
-
-  const registro = () => {
-    router.push('/registro');
-  };
-
+export default function NoAccount() {
   return (
-    <View style={styles.backgroundApp}>
-      <CustomPageHeader />
-      <View style={styles.content}>
+    <View style={formStyles.screen}>
+      <SafeAreaView edges={['top']} style={formStyles.compactHeader}>
+        <Image
+          source={require('../../assets/images/logoUniversidad.png')}
+          style={formStyles.compactLogo}
+          contentFit="contain"
+        />
+        <Text style={formStyles.compactTitle}>miCredencial</Text>
+        <Text style={formStyles.compactSub}>Universidad Libre • Seccional Cúcuta</Text>
+      </SafeAreaView>
+
+      <ScrollView
+        contentContainerStyle={[
+          formStyles.scrollContent,
+          { justifyContent: 'center' },
+        ]}
+      >
+        <Text style={formStyles.heading}>Elige una opción para continuar</Text>
+
         <TouchableOpacity
-          style={styles.moreActionsButton}
-          onPress={egresadosNoGraduados}
+          style={formStyles.actionCard}
+          onPress={() => router.push('/renovacionSolicitud')}
         >
-          <Text style={[styles.buttonText, { color: '#fcb839' }]}>
-            Egresados no graduados
-          </Text>
-          <Text style={[styles.buttonText, { color: '#000000' }]}>
-            renovacion/ solicitud
-          </Text>
+          <Text style={formStyles.actionCardTitle}>Egresados no graduados</Text>
+          <Text style={formStyles.actionCardSub}>Renovación / Solicitud</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.moreActionsButton} onPress={registro}>
-          <Text style={[styles.buttonText, { color: '#fcb839' }]}>
-            ¿Sin cuenta?
-          </Text>
-          <Text style={[styles.buttonText, { color: '#000000' }]}>
-            Realiza tu registro
-          </Text>
+
+        <TouchableOpacity
+          style={formStyles.actionCard}
+          onPress={() => router.push('/registro')}
+        >
+          <Text style={formStyles.actionCardTitle}>¿Sin cuenta?</Text>
+          <Text style={formStyles.actionCardSub}>Realiza tu registro</Text>
         </TouchableOpacity>
-      </View>
+
+        <TouchableOpacity
+          style={formStyles.backLink}
+          onPress={() => router.back()}
+        >
+          <Text style={formStyles.backLinkText}>Volver al inicio de sesión</Text>
+        </TouchableOpacity>
+      </ScrollView>
     </View>
   );
 }

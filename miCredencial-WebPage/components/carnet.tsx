@@ -64,6 +64,15 @@ const Carnet = ({ nombre, id, programa, tipoUsuario, foto }: CarnetProps) => {
     }
   };
 
+  const etiquetaPrograma = [
+    'docente',
+    'administrativo',
+    'administrador',
+    'seguridad',
+  ].includes(tipoUsuario?.toLowerCase())
+    ? 'Cargo'
+    : 'Programa';
+
   return (
     <View style={styles.card}>
       <View style={styles.topCard}>
@@ -74,15 +83,20 @@ const Carnet = ({ nombre, id, programa, tipoUsuario, foto }: CarnetProps) => {
           />
         </View>
         <View style={styles.universidadContainer}>
-          <Text style={styles.uniName}>Universidad Libre</Text>
-          <Text style={styles.secName}>Seccional Cúcuta</Text>
+          <Text style={styles.uniName} numberOfLines={1}>
+            Universidad Libre
+          </Text>
+          <Text style={styles.secName} numberOfLines={1}>
+            Seccional Cúcuta
+          </Text>
         </View>
         <View style={styles.roleContainer}>
-          <Text style={[styles.roleText, { fontSize: 13, textAlign: 'center' }]}>
+          <Text style={styles.roleText} numberOfLines={2}>
             {tipoUsuario ? tipoUsuario.toUpperCase() : 'USUARIO'}
           </Text>
         </View>
       </View>
+
       <View style={styles.infoRow}>
         <View style={styles.fotoUsuarioContainer}>
           <Image
@@ -97,23 +111,31 @@ const Carnet = ({ nombre, id, programa, tipoUsuario, foto }: CarnetProps) => {
             style={styles.cameraIconContainer}
             onPress={handleFoto}
           >
-            <Ionicons name="camera" size={20} color={'#fff'} />
+            <Ionicons name="camera" size={16} color={'#fff'} />
           </TouchableOpacity>
         </View>
-        <View style={styles.infoContainer}>
-          <Text style={styles.infoText}>Nombre: {nombre}</Text>
-          <Text style={styles.infoText}>ID: {id}</Text>
+
+        <View style={[styles.infoContainer, { paddingVertical: 2 }]}>
           <Text style={styles.infoText}>
-            {['docente', 'administrativo', 'administrador', 'seguridad'].includes(
-              tipoUsuario?.toLowerCase()
-            )
-              ? 'Cargo'
-              : 'Programa'}
-            : {programa || 'Universidad Libre'}
+            <Text style={{ fontWeight: 'bold', color: '#1a2a47' }}>Nombre: </Text>
+            {nombre}
+          </Text>
+          <Text style={styles.infoText}>
+            <Text style={{ fontWeight: 'bold', color: '#1a2a47' }}>ID: </Text>
+            {id}
+          </Text>
+          <Text style={styles.infoText}>
+            <Text style={{ fontWeight: 'bold', color: '#1a2a47' }}>
+              {etiquetaPrograma}:{' '}
+            </Text>
+            {programa || 'Universidad Libre'}
           </Text>
         </View>
       </View>
-      <Qr cedula={id} />
+
+      <View style={{ paddingBottom: 14 }}>
+        <Qr cedula={id} />
+      </View>
     </View>
   );
 };

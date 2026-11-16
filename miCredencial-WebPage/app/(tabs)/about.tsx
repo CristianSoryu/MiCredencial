@@ -1,7 +1,16 @@
 import { CampusMapPreview } from '@/components/CampusMapPreview';
 import { SocialFooter } from '@/components/SocialFooter';
+import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Image, Text, View } from 'react-native';
+import { router } from 'expo-router';
+import {
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  useWindowDimensions,
+  View,
+} from 'react-native';
 import Animated, {
   Extrapolation,
   interpolate,
@@ -10,15 +19,19 @@ import Animated, {
   useAnimatedStyle,
   useSharedValue,
 } from 'react-native-reanimated';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { styles } from '../../constants/tabBarstyles';
 
-const HEADER_MAX_HEIGHT = 220;
-const HEADER_MIN_HEIGHT = 90;
-const SCROLL_DISTANCE = 160;
+const HEADER_MAX_HEIGHT = 170;
+const HEADER_MIN_HEIGHT = 68;
+const SCROLL_DISTANCE = 120;
 
 export default function AboutScreen() {
+  const { width } = useWindowDimensions();
+  const insets = useSafeAreaInsets();
   const scrollY = useSharedValue(0);
+
+  const logoShiftX = -(width * 0.34);
 
   const handleScroll = useAnimatedScrollHandler((event) => {
     scrollY.value = event.contentOffset.y;
@@ -43,13 +56,13 @@ export default function AboutScreen() {
     const scale = interpolate(
       scrollY.value,
       [0, SCROLL_DISTANCE],
-      [1.4, 0.7],
+      [1.15, 0.58],
       Extrapolation.CLAMP
     );
     const translateX = interpolate(
       scrollY.value,
       [0, SCROLL_DISTANCE],
-      [0, -120],
+      [0, logoShiftX],
       Extrapolation.CLAMP
     );
     return {
@@ -60,14 +73,14 @@ export default function AboutScreen() {
   const titleAnimatedStyle = useAnimatedStyle(() => {
     const opacity = interpolate(
       scrollY.value,
-      [60, SCROLL_DISTANCE],
+      [45, SCROLL_DISTANCE],
       [0, 1],
       Extrapolation.CLAMP
     );
     const translateX = interpolate(
       scrollY.value,
       [0, SCROLL_DISTANCE],
-      [40, 0],
+      [30, 0],
       Extrapolation.CLAMP
     );
     return {
@@ -79,14 +92,14 @@ export default function AboutScreen() {
   const heroTitleAnimatedStyle = useAnimatedStyle(() => {
     const opacity = interpolate(
       scrollY.value,
-      [0, 80, 140],
+      [0, 60, 110],
       [1, 0.4, 0],
       Extrapolation.CLAMP
     );
     const translateY = interpolate(
       scrollY.value,
       [0, SCROLL_DISTANCE],
-      [0, -30],
+      [0, -24],
       Extrapolation.CLAMP
     );
     return {
@@ -97,14 +110,10 @@ export default function AboutScreen() {
 
   return (
     <LinearGradient
-      style={styles.background}
-      colors={['#FF0000', '#C00000', '#8A001E']}
+      style={{ flex: 1 }}
+      colors={['#C00000', '#9E001B', '#6E0018']}
     >
-      <SafeAreaView
-        edges={['top', 'left', 'right', 'bottom']}
-        style={styles.background}
-      >
-        {/* HEADER FIJO ANIMADO */}
+      <View style={{ flex: 1 }}>
         <Animated.View
           style={[
             {
@@ -113,12 +122,12 @@ export default function AboutScreen() {
               left: 0,
               right: 0,
               zIndex: 20,
-              paddingHorizontal: 20,
+              paddingHorizontal: 18,
+              justifyContent: 'center',
             },
             headerAnimatedStyle,
           ]}
         >
-          {/* Logo centrado que se mueve a la izquierda al colapsar */}
           <Animated.View
             style={[
               {
@@ -137,50 +146,42 @@ export default function AboutScreen() {
               source={require('../../assets/images/logoUniversidad.png')}
               style={[
                 styles.imageCircle,
-                { width: 72, height: 72, resizeMode: 'contain' },
+                { width: 76, height: 76, resizeMode: 'contain' },
               ]}
             />
           </Animated.View>
 
-          {/* Título que aparece al lado al colapsar */}
           <Animated.Text
             style={[
-              styles.title,
-              {
-                position: 'absolute',
-                left: 90,
-                top: 0,
-                bottom: 0,
-                textAlignVertical: 'center',
-                color: '#fff',
-              },
+              localStyles.collapsedTitle,
+              { left: width * 0.24 },
               titleAnimatedStyle,
             ]}
           >
             miCredencial
           </Animated.Text>
+
+          <TouchableOpacity
+            style={localStyles.backButton}
+            onPress={() => router.replace('/(tabs)')}
+            activeOpacity={0.8}
+          >
+            <Ionicons name="arrow-back" size={18} color="#fff" />
+            <Text style={localStyles.backText}>Volver</Text>
+          </TouchableOpacity>
         </Animated.View>
 
-        {/* SCROLL CONTENT */}
         <Animated.ScrollView
           onScroll={handleScroll}
           scrollEventThrottle={16}
           contentContainerStyle={{
-            paddingTop: HEADER_MAX_HEIGHT + 20,
-            paddingHorizontal: 24,
-            paddingBottom: 120,
+            paddingTop: HEADER_MAX_HEIGHT + 12,
+            paddingHorizontal: 20,
+            paddingBottom: Math.max(insets.bottom, 16) + 24,
           }}
         >
-          {/* Título hero que desaparece al hacer scroll */}
           <Animated.View style={heroTitleAnimatedStyle}>
-            <Text
-              style={[
-                styles.title,
-                { color: '#fff', textAlign: 'center', marginBottom: 24 },
-              ]}
-            >
-              miCredencial
-            </Text>
+            <Text style={localStyles.heroTitle}>miCredencial</Text>
           </Animated.View>
 
           <Text style={styles.subTitle}>¿Qué es miCredencial?</Text>
@@ -193,41 +194,81 @@ export default function AboutScreen() {
 
           <Text style={styles.subTitle}>¿Qué puedes hacer con la app?</Text>
           <Text style={styles.paragraph}>
-            - Mostrar tu credencial digital para ingresar al campus.{'\n'}-
-            Acceder a servicios como biblioteca, laboratorios o espacios
-            deportivos según tu rol.{'\n'}- Centralizar tu identificación
-            universitaria en tu teléfono, de forma cómoda y siempre disponible.
+            • Mostrar tu credencial digital con QR dinámico para ingresar al campus.{'\n'}
+            • Acceder a servicios como biblioteca, bienestar universitario o espacios
+            deportivos según tu rol.{'\n'}
+            • Centralizar tu identificación universitaria en tu teléfono, siempre disponible.
           </Text>
 
           <Text style={styles.subTitle}>¿Por qué un carnet digital?</Text>
           <Text style={styles.paragraph}>
             El carnet digital reduce el uso de plástico y papel, evita la
-            reimpresión de carnets físicos, y permite actualizar datos sin
-            volver a emitir tarjetas. Además, mejora la seguridad al poder
-            revocar o actualizar credenciales desde sistemas centrales de la
-            universidad.
+            reimpresión de carnets físicos y permite actualizar datos sin volver
+            a emitir tarjetas. Además, mejora la seguridad al poder revocar o
+            actualizar credenciales desde sistemas centrales de la universidad.
           </Text>
 
           <Text style={styles.subTitle}>Visión del proyecto</Text>
           <Text style={styles.paragraph}>
             El objetivo de miCredencial es convertirse en una plataforma
-            integrada de acreditación universitaria: un único lugar donde los
-            miembros de la comunidad puedan gestionar su identidad digital y
-            futuras credenciales académicas o de acceso.
+            integrada de acreditación universitaria donde los miembros de la
+            comunidad gestionen su identidad digital y servicios académicos.
           </Text>
 
           <View style={styles.container}>
-            <Text style={styles.subTitle}>Conéctate con la Unilibre</Text>
-            <Text style={styles.paragraph}>
-              Universidad Libre Seccional Cúcuta{'\n'}
-              Av. Canal Bogotá Margen Izquierdo, Cúcuta, Norte de Santander.
+            <Text style={[styles.subTitle, { marginTop: 4, textAlign: 'center' }]}>
+              Conéctate con la Unilibre
             </Text>
-            <Text style={styles.subTitle}>Síguenos en redes:</Text>
+            <Text style={[styles.paragraph, { textAlign: 'center', marginBottom: 10 }]}>
+              Universidad Libre Seccional Cúcuta{'\n'}
+              Av. 4ta n.º 12n-81 - El Bosque, Cúcuta.
+            </Text>
+            <Text style={[styles.subTitle, { fontSize: 16, marginTop: 6 }]}>
+              Síguenos en redes
+            </Text>
             <SocialFooter />
-            <CampusMapPreview />
+            <View style={{ width: '100%', marginTop: 12 }}>
+              <CampusMapPreview />
+            </View>
           </View>
         </Animated.ScrollView>
-      </SafeAreaView>
+      </View>
     </LinearGradient>
   );
 }
+
+const localStyles = StyleSheet.create({
+  heroTitle: {
+    color: '#fff',
+    fontSize: 30,
+    fontFamily: 'PoppinsSemiBold',
+    textAlign: 'center',
+    marginBottom: 12,
+  },
+  collapsedTitle: {
+    position: 'absolute',
+    color: '#fff',
+    fontSize: 20,
+    fontFamily: 'PoppinsSemiBold',
+  },
+  backButton: {
+    position: 'absolute',
+    right: 14,
+    top: 14,
+    zIndex: 30,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    backgroundColor: 'rgba(0,0,0,0.35)',
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.35)',
+  },
+  backText: {
+    color: '#fff',
+    fontSize: 12,
+    fontWeight: 'bold',
+  },
+});

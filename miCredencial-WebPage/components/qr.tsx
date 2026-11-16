@@ -1,6 +1,5 @@
-// components/qr.tsx
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { StyleSheet, Text, useWindowDimensions, View } from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
 
 interface QrProps {
@@ -8,14 +7,15 @@ interface QrProps {
   size?: number;
 }
 
-const Qr = ({ cedula, size = 200 }: QrProps) => {
+const Qr = ({ cedula, size }: QrProps) => {
+  const { width } = useWindowDimensions();
+  const responsiveSize = size ?? Math.min(Math.round(width * 0.46), 190);
   const [qrValue, setQrValue] = useState('');
   const [segundos, setSegundos] = useState(60);
 
   const generarQR = () => {
     const fecha = new Date().toISOString().slice(0, 16);
     const raw = `${cedula}_${fecha}`;
-    // Mismo método que carnet-digital.js de Alix: btoa()
     const encoded = btoa(unescape(encodeURIComponent(raw)));
     setQrValue(encoded);
     setSegundos(60);
@@ -44,7 +44,7 @@ const Qr = ({ cedula, size = 200 }: QrProps) => {
         {qrValue ? (
           <QRCode
             value={qrValue}
-            size={size}
+            size={responsiveSize}
             color="#000"
             backgroundColor="#fff"
           />
@@ -58,9 +58,9 @@ const Qr = ({ cedula, size = 200 }: QrProps) => {
 };
 
 const styles = StyleSheet.create({
-  wrapper: { alignItems: 'center' },
+  wrapper: { alignItems: 'center', marginTop: 4 },
   container: {
-    padding: 10,
+    padding: 12,
     backgroundColor: '#fff',
     borderRadius: 12,
     elevation: 3,
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     borderColor: '#e0e0e0',
   },
   urgente: { borderColor: '#cc0000' },
-  timer: { marginTop: 6, fontSize: 11, fontWeight: '600', color: '#555' },
+  timer: { marginTop: 8, fontSize: 12, fontWeight: '600', color: '#555' },
   timerUrgente: { color: '#cc0000' },
 });
 

@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Href, router, useFocusEffect } from 'expo-router';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Carnet from '@/components/carnet';
@@ -16,12 +16,13 @@ import Logout from '@/components/logout';
 import Notificaciones from '@/components/notificaciones';
 import {
   getStoredUsuario,
-  hasAnyRole,
+  isStaffUser,
   UsuarioSession,
 } from '@/constants/api';
 import { styles } from '../../constants/tabStyles';
 
 export default function Index() {
+  const insets = useSafeAreaInsets();
   const [usuario, setUsuario] = useState<UsuarioSession | null>(null);
   const [refreshTick, setRefreshTick] = useState(0);
   const [refreshing, setRefreshing] = useState(false);
@@ -44,13 +45,7 @@ export default function Index() {
     setRefreshing(false);
   };
 
-  const puedeGenerarTemp = hasAnyRole(usuario, [
-    'generar carnet temporal',
-    'administrador',
-    'docente',
-    'administrativo',
-    'seguridad',
-  ]);
+  const puedeVerTemporales = isStaffUser(usuario);
 
   const idUsuarioStr = usuario ? String(usuario.id_usuario) : '';
   const nombreCompleto = usuario
@@ -58,55 +53,58 @@ export default function Index() {
     : 'Cargando...';
 
   return (
-    <SafeAreaProvider>
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        contentContainerStyle={{ paddingBottom: 140 }}
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }
-      >
-        <View style={[styles.appBackGround, { marginBottom: 10 }]}>
-          <Carnet
-            nombre={nombreCompleto}
-            id={idUsuarioStr}
-            programa={usuario?.programa ?? ''}
-            tipoUsuario={usuario?.tipo_usuario ?? ''}
-            foto={usuario?.foto ?? null}
+    <ScrollView
+      style={{ flex: 1, backgroundColor: '#f4f6f9' }}
+      contentInsetAdjustmentBehavior="automatic"
+      contentContainerStyle={{
+        paddingBottom: Math.max(insets.bottom, 16) + 96,
+      }}
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
+    >
+      <View style={styles.appBackGround}>
+        <Carnet
+          nombre={nombreCompleto}
+          id={idUsuarioStr}
+          programa={usuario?.programa ?? ''}
+          tipoUsuario={usuario?.tipo_usuario ?? ''}
+          foto={usuario?.foto ?? null}
+        />
+
+        {puedeVerTemporales && idUsuarioStr ? (
+          <CarnetsTemporalesCard
+            idUsuario={idUsuarioStr}
+            refreshTrigger={refreshTick}
           />
+        ) : null}
 
-          {puedeGenerarTemp && idUsuarioStr ? (
-            <CarnetsTemporalesCard
-              idUsuario={idUsuarioStr}
-              refreshTrigger={refreshTick}
-            />
-          ) : null}
+        {idUsuarioStr ? (
+          <Notificaciones
+            idUsuario={idUsuarioStr}
+            refreshTrigger={refreshTick}
+          />
+        ) : null}
+      </View>
 
-          {idUsuarioStr ? (
-            <Notificaciones
-              idUsuario={idUsuarioStr}
-              refreshTrigger={refreshTick}
-            />
-          ) : null}
+      <View style={localStyles.actionsRow}>
+        <TouchableOpacity
+          style={localStyles.passwordBtn}
+          onPress={() =>
+            router.push('/herramientas/cambiarContrasena' as Href)
+          }
+        >
+          <Ionicons name="key-outline" size={18} color="#1a2a47" />
+          <Text style={localStyles.passwordText} numberOfLines={1}>
+            Cambiar Contraseña
+          </Text>
+        </TouchableOpacity>
+
+        <View style={localStyles.logoutWrap}>
+          <Logout showLabel />
         </View>
-
-        <View style={localStyles.actionsRow}>
-          <TouchableOpacity
-            style={localStyles.passwordBtn}
-            onPress={() =>
-              router.push('/herramientas/cambiarContrasena' as Href)
-            }
-          >
-            <Ionicons name="key-outline" size={18} color="#1a2a47" />
-            <Text style={localStyles.passwordText}>Cambiar Contraseña</Text>
-          </TouchableOpacity>
-
-          <View style={localStyles.logoutWrap}>
-            <Logout />
-          </View>
-        </View>
-      </ScrollView>
-    </SafeAreaProvider>
+      </View>
+    </ScrollView>
   );
 }
 
@@ -115,21 +113,25 @@ const localStyles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    width: '90%',
+    width: '92%',
+    maxWidth: 520,
     alignSelf: 'center',
-    marginTop: 10,
-    marginBottom: 20,
+    gap: 10,
+    marginTop: 4,
+    marginBottom: 12,
   },
   passwordBtn: {
+    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
+    justifyContent: 'center',
+    gap: 6,
     backgroundColor: '#fff',
     borderWidth: 1,
     borderColor: '#1a2a47',
     borderRadius: 10,
-    paddingHorizontal: 14,
-    paddingVertical: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 11,
   },
   passwordText: {
     color: '#1a2a47',
@@ -141,7 +143,7 @@ const localStyles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 1,
     borderColor: '#d9534f',
-    paddingVertical: 8,
-    paddingLeft: 12,
+    paddingVertical: 11,
+    paddingHorizontal: 14,
   },
 });

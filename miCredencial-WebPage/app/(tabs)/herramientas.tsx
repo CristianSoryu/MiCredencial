@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Href, useFocusEffect } from 'expo-router';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import AdminOptions from '@/components/adminOptions';
 import {
   getStoredUsuario,
@@ -100,6 +101,7 @@ const TOOL_OPTIONS: ToolOption[] = [
 ];
 
 const Herramientas = () => {
+  const insets = useSafeAreaInsets();
   const [usuario, setUsuario] = useState<UsuarioSession | null>(null);
 
   useFocusEffect(
@@ -114,8 +116,8 @@ const Herramientas = () => {
 
   return (
     <ScrollView
-      style={[herramientasStyles.appBackGround, { marginBottom: 0 }]}
-      contentContainerStyle={{ paddingBottom: 140 }}
+      style={herramientasStyles.appBackGround}
+      contentContainerStyle={{ paddingBottom: Math.max(insets.bottom, 16) + 96 }}
     >
       <View style={herramientasStyles.topContainer}>
         <Text style={herramientasStyles.topText}>Herramientas de Gestión</Text>

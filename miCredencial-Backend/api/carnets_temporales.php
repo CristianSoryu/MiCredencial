@@ -10,7 +10,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     }
 
     $rolesInfo = obtenerRolesUsuario($conn, $id_usuario);
-    if (!in_array('generar carnet temporal', $rolesInfo['expanded'])) {
+    $rolesVer = [
+        'generar carnet temporal',
+        'administrador',
+        'docente',
+        'administrativo',
+        'seguridad',
+        'escaneador',
+        'escaneador de bienestar',
+        'escaneador de biblioteca',
+        'bienestar',
+        'biblioteca',
+        'admisiones_registro',
+    ];
+
+    if (count(array_intersect($rolesInfo['expanded'], $rolesVer)) === 0) {
         echo json_encode(["success" => true, "carnets" => [], "permitido" => false]);
         $conn->close();
         exit;

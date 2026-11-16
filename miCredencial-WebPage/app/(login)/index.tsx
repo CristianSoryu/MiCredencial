@@ -4,18 +4,16 @@ import React from 'react';
 import {
   ActivityIndicator,
   Alert,
-  KeyboardAvoidingView,
-  Platform,
   Text,
   TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
+import { API_BASE_URL } from '@/constants/api';
 import CustomPageHeader from '../../components/customPageHeader';
 import { styles } from './styles';
 
-export const API_URL =
-  'http://192.168.137.1/MiCredencial/miCredencial-Backend/api/login.php';
+export const API_URL = `${API_BASE_URL}/login.php`;
 
 export default function Index() {
   const [user, setUser] = React.useState('');
@@ -23,7 +21,7 @@ export default function Index() {
   const [loading, setLoading] = React.useState(false);
 
   const handleSubmit = async () => {
-    if (!user || !password) {
+    if (!user.trim() || !password.trim()) {
       Alert.alert('Error', 'Completa todos los campos');
       return;
     }
@@ -32,16 +30,22 @@ export default function Index() {
       const res = await fetch(API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ documento: user, contrasena: password }),
+        body: JSON.stringify({
+          documento: user.trim(),
+          contrasena: password.trim(),
+        }),
       });
       const data = await res.json();
       if (data.success) {
         await AsyncStorage.setItem('usuario', JSON.stringify(data.usuario));
         router.replace('/(tabs)');
       } else {
-        Alert.alert('Error', data.error ?? 'Credenciales incorrectas');
+        Alert.alert(
+          'Acceso denegado',
+          data.message ?? data.error ?? 'Credenciales incorrectas'
+        );
       }
-    } catch (e) {
+    } catch {
       Alert.alert('Error', 'No se pudo conectar al servidor');
     } finally {
       setLoading(false);
@@ -82,12 +86,12 @@ export default function Index() {
           />
         ) : (
           <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-            <Text style={styles.buttonText}>continuar</Text>
+            <Text style={styles.buttonText}>Continuar</Text>
           </TouchableOpacity>
         )}
         <TouchableOpacity onPress={noAccount}>
           <Text style={styles.parragraph}>
-            ¿no tienes una cuenta? Haz click aqui
+            ¿No tienes una cuenta? Haz click aquí
           </Text>
         </TouchableOpacity>
       </View>

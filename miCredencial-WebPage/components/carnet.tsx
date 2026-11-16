@@ -1,7 +1,9 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { API_BASE_URL } from '@/constants/api';
 import { styles } from '../constants/tabStyles';
 import Ionicons from '@expo/vector-icons/build/Ionicons';
 import React, { useState } from 'react';
-import { Image, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, Image, Text, TouchableOpacity, View } from 'react-native';
 import Qr from './qr';
 import * as ImagePicker from 'expo-image-picker';
 
@@ -12,6 +14,7 @@ interface CarnetProps {
   tipoUsuario: string;
   foto?: string | null;
 }
+
 const Carnet = ({ nombre, id, programa, tipoUsuario, foto }: CarnetProps) => {
   const [fotoLocal, setFotoLocal] = useState<string | null>(foto ?? null);
 
@@ -21,7 +24,13 @@ const Carnet = ({ nombre, id, programa, tipoUsuario, foto }: CarnetProps) => {
 
   const handleFoto = async () => {
     const { status } = await ImagePicker.requestCameraPermissionsAsync();
-    if (status !== 'granted') return;
+    if (status !== 'granted') {
+      Alert.alert(
+        'Permiso requerido',
+        'Necesitamos permiso de cámara para actualizar tu foto.'
+      );
+      return;
+    }
 
     const result = await ImagePicker.launchCameraAsync({
       base64: true,
@@ -34,16 +43,24 @@ const Carnet = ({ nombre, id, programa, tipoUsuario, foto }: CarnetProps) => {
       const base64 = `data:image/jpeg;base64,${result.assets[0].base64}`;
       setFotoLocal(base64);
 
-      const res = await fetch(
-        'http://192.168.137.1/MiCredencial/miCredencial-Backend/api/uploadPhoto.php',
-        {
+      try {
+        const res = await fetch(`${API_BASE_URL}/uploadPhoto.php`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ id_usuario: id, foto: base64 }),
+        });
+        const json = await res.json();
+        if (json.success) {
+          const raw = await AsyncStorage.getItem('usuario');
+          if (raw) {
+            const parsed = JSON.parse(raw);
+            parsed.foto = base64;
+            await AsyncStorage.setItem('usuario', JSON.stringify(parsed));
+          }
         }
-      );
-      const json = await res.json();
-      console.log('uploadPhoto:', JSON.stringify(json));
+      } catch {
+        Alert.alert('Aviso', 'Foto guardada localmente, pero falló la subida.');
+      }
     }
   };
 
@@ -58,10 +75,12 @@ const Carnet = ({ nombre, id, programa, tipoUsuario, foto }: CarnetProps) => {
         </View>
         <View style={styles.universidadContainer}>
           <Text style={styles.uniName}>Universidad Libre</Text>
-          <Text style={styles.secName}>Seccional cucuta</Text>
+          <Text style={styles.secName}>Seccional Cúcuta</Text>
         </View>
         <View style={styles.roleContainer}>
-          <Text style={styles.roleText}>{tipoUsuario}</Text>
+          <Text style={[styles.roleText, { fontSize: 13, textAlign: 'center' }]}>
+            {tipoUsuario ? tipoUsuario.toUpperCase() : 'USUARIO'}
+          </Text>
         </View>
       </View>
       <View style={styles.infoRow}>
@@ -84,7 +103,14 @@ const Carnet = ({ nombre, id, programa, tipoUsuario, foto }: CarnetProps) => {
         <View style={styles.infoContainer}>
           <Text style={styles.infoText}>Nombre: {nombre}</Text>
           <Text style={styles.infoText}>ID: {id}</Text>
-          <Text style={styles.infoText}>Programa: {programa}</Text>
+          <Text style={styles.infoText}>
+            {['docente', 'administrativo', 'administrador', 'seguridad'].includes(
+              tipoUsuario?.toLowerCase()
+            )
+              ? 'Cargo'
+              : 'Programa'}
+            : {programa || 'Universidad Libre'}
+          </Text>
         </View>
       </View>
       <Qr cedula={id} />

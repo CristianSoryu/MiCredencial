@@ -1,0 +1,62 @@
+import { StyleSheet } from 'react-native';
+
+export const card = StyleSheet.create({
+  container: {
+    top: 20,
+    borderRadius: 17,
+    alignSelf: 'center',
+    width: '90%',
+    backgroundColor: '#fbfced',
+    elevation: 6,
+    shadowColor: '#000',
+    shadowOpacity: 0.15,
+    shadowRadius: 10,
+    shadowOffset: { width: 0, height: 4 },
+    marginBottom: 20,
+  },
+  topContainer: {
+    top: 0,
+    borderTopEndRadius: 17,
+    borderTopStartRadius: 17,
+    backgroundColor: '#1a2a47',
+    padding: 12,
+    width: '100%',
+    marginBottom: 12,
+    flexDirection: 'row',
+  },
+  logoContainer: {
+    width: 55,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 8,
+  },
+  logo: {
+    width: 40,
+    height: 40,
+    resizeMode: 'contain',
+  },
+  universidadContainer: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+  },
+  title: {
+    color: '#fff',
+    fontWeight: '800',
+    fontSize: 15,
+    letterSpacing: 0.5,
+  },
+  subTitle: { color: '#e0e0e0', fontSize: 12 },
+  rightInfoContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(255,255,255,0.2)',
+    borderRadius: 8,
+    borderWidth: 0.5,
+    borderBottomWidth: 2,
+    borderColor: 'rgba(255,255,255,0.4)',
+    marginLeft: 10,
+    marginRight: 5,
+    elevation: 3,
+  },
+});

@@ -1,6 +1,6 @@
 import { styles } from '../constants/tabBarstyles';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { LayoutChangeEvent, View } from 'react-native';
 import Animated, {
   useAnimatedStyle,
@@ -15,7 +15,21 @@ export function CustomTabBar({
   navigation,
 }: BottomTabBarProps) {
   const [dimensions, setDimensions] = useState({ height: 20, width: 100 });
-  const buttonWidth = dimensions.width / state.routes.length;
+
+  const visibleRoutes = state.routes.filter((route) => {
+    const opts = descriptors[route.key]?.options as Record<string, any>;
+    return opts?.href !== null;
+  });
+
+  const activeRouteKey = state.routes[state.index]?.key;
+  const activeVisibleIndex = Math.max(
+    0,
+    visibleRoutes.findIndex((r) => r.key === activeRouteKey)
+  );
+
+  const buttonWidth =
+    visibleRoutes.length > 0 ? dimensions.width / visibleRoutes.length : 0;
+
   const onTabBarLayout = (event: LayoutChangeEvent) => {
     setDimensions({
       height: event.nativeEvent.layout.height,
@@ -25,27 +39,38 @@ export function CustomTabBar({
 
   const tabPositionX = useSharedValue(0);
 
+  useEffect(() => {
+    if (buttonWidth > 0) {
+      tabPositionX.value = withSpring(buttonWidth * activeVisibleIndex, {
+        duration: 600,
+      });
+    }
+  }, [activeVisibleIndex, buttonWidth, tabPositionX]);
+
   const animateTabPosition = useAnimatedStyle(() => {
     return {
       transform: [{ translateX: tabPositionX.value }],
     };
   });
+
   return (
     <View style={styles.tabBarContainer} onLayout={onTabBarLayout}>
-      <Animated.View
-        style={[
-          animateTabPosition,
-          {
-            position: 'absolute',
-            borderRadius: 30,
-            marginHorizontal: 10,
-            height: dimensions.height - 15,
-            width: buttonWidth - 20,
-            backgroundColor: '#E0E0E0',
-          },
-        ]}
-      />
-      {state.routes.map((route, index) => {
+      {buttonWidth > 0 && (
+        <Animated.View
+          style={[
+            animateTabPosition,
+            {
+              position: 'absolute',
+              borderRadius: 30,
+              marginHorizontal: 10,
+              height: dimensions.height - 15,
+              width: buttonWidth - 20,
+              backgroundColor: '#E0E0E0',
+            },
+          ]}
+        />
+      )}
+      {visibleRoutes.map((route, index) => {
         const { options } = descriptors[route.key];
         const label =
           options.tabBarLabel !== undefined
@@ -54,11 +79,11 @@ export function CustomTabBar({
               ? options.title
               : route.name;
 
-        const isFocused = state.index === index;
+        const isFocused = route.key === activeRouteKey;
 
         const onPress = () => {
           tabPositionX.value = withSpring(buttonWidth * index, {
-            duration: 1500,
+            duration: 600,
           });
           const event = navigation.emit({
             type: 'tabPress',

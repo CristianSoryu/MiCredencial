@@ -1,8 +1,25 @@
 import CustomHeader from '@/components/CustomHeader';
+import { getStoredUsuario, isStaffUser } from '@/constants/api';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { Tabs } from 'expo-router';
+import { Tabs, useFocusEffect } from 'expo-router';
+import React, { useCallback, useState } from 'react';
 import { CustomTabBar } from '../../components/CustomTabBar';
+
 export default function TabLayout() {
+  const [esStaff, setEsStaff] = useState(false);
+
+  const verificarRol = useCallback(() => {
+    getStoredUsuario().then((user) => {
+      setEsStaff(isStaffUser(user));
+    });
+  }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      verificarRol();
+    }, [verificarRol])
+  );
+
   return (
     <Tabs
       tabBar={(props) => <CustomTabBar {...props} />}
@@ -31,6 +48,20 @@ export default function TabLayout() {
           tabBarIcon: ({ color, focused, size }) => (
             <Ionicons
               name={focused ? 'heart' : 'heart-outline'}
+              color={color}
+              size={size}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="herramientas"
+        options={{
+          title: 'Gestión',
+          href: esStaff ? undefined : null,
+          tabBarIcon: ({ color, focused, size }) => (
+            <Ionicons
+              name={focused ? 'briefcase' : 'briefcase-outline'}
               color={color}
               size={size}
             />

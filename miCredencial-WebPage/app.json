@@ -50,7 +50,13 @@
           ]
         }
       ],
-      "expo-web-browser"
+      "expo-web-browser",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Permite usar la cámara para escanear carnets QR y actualizar tu foto de perfil."
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true,

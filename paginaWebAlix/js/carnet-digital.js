@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     document.getElementById('foto-perfil').src = data.usuario.foto;
                 } else {
                     document.getElementById('foto-perfil').src = '../IMG/escudo.png'; // Fallback
-                    alert('¡Atención! Debes cargar una foto para tu carnet virtual.');
+                    showToast('¡Atención! Debes cargar una foto para tu carnet virtual.', 'info');
                 }
                 
                 documentoEstudiante = data.usuario.documento_puro;
@@ -108,7 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (!archivo) return;
 
             if (!archivo.type.startsWith('image/')) {
-                alert('Selecciona un archivo de imagen válido.');
+                showToast('Selecciona un archivo de imagen válido.', 'error');
                 event.target.value = '';
                 return;
             }
@@ -126,10 +126,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 .then(res => res.json())
                 .then(resData => {
                     if(!resData.success) {
-                        alert('Error al guardar la foto en el servidor: ' + resData.message);
+                        showToast('Error al guardar la foto en el servidor: ' + resData.message, 'error');
+                    } else {
+                        showToast('¡Foto de perfil actualizada correctamente!', 'success');
                     }
                 })
-                .catch(err => console.error('Error subiendo foto:', err));
+                .catch(err => {
+                    console.error('Error subiendo foto:', err);
+                    showToast('Hubo un error de conexión al subir la foto.', 'error');
+                });
             };
             lector.readAsDataURL(archivo);
         });
@@ -372,14 +377,15 @@ function procesarGenerarTemporal(event) {
     .then(res => res.json())
     .then(data => {
         if (data.success) {
+            showToast('¡Pase temporal generado correctamente!', 'success');
             mostrarTicketTemporal(data.carnet);
         } else {
-            alert('Error: ' + data.message);
+            showToast('Error: ' + data.message, 'error');
         }
     })
     .catch(err => {
         console.error('Error al generar carnet temporal:', err);
-        alert('Ocurrió un error al generar el carnet temporal.');
+        showToast('Ocurrió un error al generar el carnet temporal.', 'error');
     });
 }
 

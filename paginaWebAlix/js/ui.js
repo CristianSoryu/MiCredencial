@@ -77,3 +77,8 @@ function clearCurrentSession() {
     localStorage.removeItem('carnet');
 }
 
+// Sobrescribir alert nativo para usar showToast
+window.alert = function(message) {
+    showToast(message, 'info');
+};
+

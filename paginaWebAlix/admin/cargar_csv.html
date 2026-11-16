@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/admin.css">
     <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="../css/ui.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
         .upload-container {
@@ -162,7 +163,7 @@
             });
             
         } else {
-            alert('¡Atención! Primero debes seleccionar un archivo CSV desde tu computadora usando el botón "Seleccionar archivo".');
+            showToast('¡Atención! Primero debes seleccionar un archivo CSV desde tu computadora usando el botón "Seleccionar archivo".', 'info');
             resultDiv.style.color = 'red';
             resultDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> Por favor selecciona un archivo CSV antes de presionar el botón.';
         }

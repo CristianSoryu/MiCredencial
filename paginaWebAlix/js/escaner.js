@@ -13,8 +13,10 @@ document.addEventListener("DOMContentLoaded", () => {
             const esEscaneadorBiblioteca = roles.includes('escaneador de biblioteca') || roles.includes('biblioteca') || esAdmin;
 
             if (!data.success || (!esEscaneadorSeguridad && !esEscaneadorBienestar && !esEscaneadorBiblioteca)) {
-                alert("Acceso no autorizado. Se requiere rol de escaneador.");
-                window.location.href = 'index.html';
+                showToast("Acceso no autorizado. Se requiere rol de escaneador.", "error");
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1500);
                 return;
             }
             
@@ -108,13 +110,13 @@ function procesarQR(qrData) {
         if (data.success) {
             mostrarPanelUsuario(data.usuario);
         } else {
-            alert("Error: " + data.message);
+            showToast("Error: " + data.message, "error");
             reanudarEscaneo();
         }
     })
     .catch(error => {
         console.error("Error detallado:", error);
-        alert("Error de comunicación con el servidor: " + error.message);
+        showToast("Error de comunicación con el servidor: " + error.message, "error");
         reanudarEscaneo();
     });
 }
@@ -139,15 +141,15 @@ function actualizarInterfazModo() {
 
 function cambiarModoEscaneo(nuevoModo) {
     if (nuevoModo === 'seguridad' && !window.esEscaneadorSeguridad) {
-        alert("No tiene permisos de escáner de seguridad.");
+        showToast("No tiene permisos de escáner de seguridad.", "error");
         return;
     }
     if (nuevoModo === 'bienestar' && !window.esEscaneadorBienestar) {
-        alert("No tiene permisos de escáner de Bienestar.");
+        showToast("No tiene permisos de escáner de Bienestar.", "error");
         return;
     }
     if (nuevoModo === 'biblioteca' && !window.esEscaneadorBiblioteca) {
-        alert("No tiene permisos de escáner de Biblioteca.");
+        showToast("No tiene permisos de escáner de Biblioteca.", "error");
         return;
     }
     window.modoEscaneo = nuevoModo;
@@ -334,22 +336,18 @@ function registrarAcceso(tipo, metodo) {
     .then(data => {
         if (data.success) {
             const accion = tipo.charAt(0).toUpperCase() + tipo.slice(1);
-            if (typeof showToast === 'function') {
-                showToast(`${accion} ${metodo} registrada correctamente.`, 'success');
-            } else {
-                alert(`${accion} ${metodo} registrada correctamente.`);
-            }
+            showToast(`${accion} ${metodo} registrada correctamente.`, 'success');
             
             setTimeout(() => {
                 cancelarEscaneo();
             }, 1500);
         } else {
-            alert("Error al registrar: " + data.message);
+            showToast("Error al registrar: " + data.message, "error");
         }
     })
     .catch(error => {
         console.error("Error:", error);
-        alert("Error de comunicación: " + error.message);
+        showToast("Error de comunicación: " + error.message, "error");
     });
 }
 
@@ -573,14 +571,15 @@ function procesarGenerarTemporal(event) {
     .then(res => res.json())
     .then(data => {
         if (data.success) {
+            showToast('¡Pase temporal generado correctamente!', 'success');
             mostrarTicketTemporal(data.carnet);
         } else {
-            alert('Error: ' + data.message);
+            showToast('Error: ' + data.message, 'error');
         }
     })
     .catch(err => {
         console.error('Error al generar carnet temporal:', err);
-        alert('Ocurrió un error al generar el carnet temporal.');
+        showToast('Ocurrió un error al generar el carnet temporal.', 'error');
     });
 }
 

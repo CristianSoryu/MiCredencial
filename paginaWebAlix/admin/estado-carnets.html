@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="../css/styles.css"> 
     <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="../css/ui.css">
     <link rel="stylesheet" href="../css/admin.css">
     <style>
         .badge {
@@ -240,11 +241,11 @@
                 usuariosData = data.usuarios;
                 renderUsuarios(usuariosData);
             } else {
-                alert('Error al cargar usuarios: ' + data.message);
+                showToast('Error al cargar usuarios: ' + data.message, 'error');
             }
         } catch (error) {
             console.error('Error:', error);
-            alert('Ocurrió un error al cargar la lista de usuarios.');
+            showToast('Ocurrió un error al cargar la lista de usuarios.', 'error');
         }
     }
 
@@ -331,19 +332,21 @@
                     badge.textContent = 'Inactivo';
                     btn.className = 'btn-activar';
                     btn.innerHTML = '<i class="fas fa-check"></i> Activar';
+                    showToast('Carnet desactivado correctamente', 'success');
                 } else {
                     badge.className = 'badge badge-activo';
                     badge.textContent = 'Activo';
                     btn.className = 'btn-desactivar';
                     btn.innerHTML = '<i class="fas fa-ban"></i> Desactivar';
+                    showToast('Carnet activado correctamente', 'success');
                 }
             } else {
-                alert('Error: ' + data.message);
+                showToast('Error: ' + data.message, 'error');
                 btn.innerHTML = originalHtml;
             }
         } catch (error) {
             console.error('Error:', error);
-            alert('Error al cambiar el estado del carnet.');
+            showToast('Error al cambiar el estado del carnet.', 'error');
             btn.innerHTML = originalHtml;
         } finally {
             btn.disabled = false;
